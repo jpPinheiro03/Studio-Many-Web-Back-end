@@ -1,23 +1,36 @@
 package school.spetch.backend_Studio_many.dto;
 
+import jakarta.validation.constraints.*;
+
 import java.time.LocalDateTime;
 
 public class UsuarioRequestDto {
+    @NotBlank
     private String nome;
+
+    @NotBlank
+    @Size(min = 7, max = 15)
     private String telefone;
+
+    @NotBlank
+    @Email
     private String email;
+
+    @NotBlank
     private String senha;
+
     private LocalDateTime dataCadastro;
+
     private LocalDateTime dataAtualizacao;
 
     public UsuarioRequestDto(){}
 
-    public UsuarioRequestDto(String nome, String telefone, String email, String senha, LocalDateTime dataAtualizacao) {
+    public UsuarioRequestDto(String nome, String telefone, String email, String senha, LocalDateTime dataCadastro, LocalDateTime dataAtualizacao) {
         this.nome = nome;
         this.telefone = telefone;
         this.email = email;
         this.senha = senha;
-        this.dataCadastro = LocalDateTime.now();
+        this.dataCadastro = dataCadastro;
         this.dataAtualizacao = dataAtualizacao;
     }
 

@@ -4,7 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 
 import java.time.LocalDateTime;
 
@@ -14,20 +14,10 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @NotNull
     private String nome;
-
-    @NotNull
     private String telefone;
-
-    @NotNull
     private String email;
-
-    @NotNull
     private String senha;
-
-    @NotNull
     private LocalDateTime dataCadastro;
 
     private LocalDateTime dataAtualizacao;

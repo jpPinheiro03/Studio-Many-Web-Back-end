@@ -4,6 +4,8 @@ package school.spetch.backend_Studio_many.dto;
 import jakarta.validation.Valid;
 import school.spetch.backend_Studio_many.model.Usuario;
 
+import java.time.LocalDateTime;
+
 public class UsuarioMapper {
     public static UsuarioResponseDto toResponseDto(Usuario usuario){
         if(usuario == null){
@@ -29,10 +31,9 @@ public class UsuarioMapper {
         u.setNome(usuarioRequestDto.getNome());
         u.setEmail(usuarioRequestDto.getEmail());
         u.setTelefone(usuarioRequestDto.getTelefone());
-        u.setEmail(usuarioRequestDto.getEmail());
         u.setSenha(usuarioRequestDto.getSenha());
-        u.setDataCadastro(usuarioRequestDto.getDataCadastro());
-        u.setDataAtualizacao(usuarioRequestDto.getDataAtualizacao());
+        u.setDataCadastro(LocalDateTime.now());
+        u.setDataAtualizacao(null);
 
         return u;
     }
