@@ -1,8 +1,7 @@
 package school.spetch.backend_Studio_many.dto;
 
 
-import jakarta.validation.Valid;
-import school.spetch.backend_Studio_many.model.Usuario;
+import school.spetch.backend_Studio_many.entity.Usuario;
 
 import java.time.LocalDateTime;
 

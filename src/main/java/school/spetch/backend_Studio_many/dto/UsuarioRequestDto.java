@@ -1,26 +1,35 @@
 package school.spetch.backend_Studio_many.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.*;
 
 import java.time.LocalDateTime;
 
 public class UsuarioRequestDto {
-    @NotBlank
+    @NotBlank(message = "O nome não pode ser nulo ou vazio")
+    @Schema(example = "Isabelly")
     private String nome;
 
-    @NotBlank
-    @Size(min = 7, max = 15)
+    @NotBlank(message = "O telefone não pode ser nulo ou vazio")
+    @Size(min = 7, max = 15, message = "O telefone deve haver entre 7 e 15 caracteres")
+    @Schema(example = "11961969921")
     private String telefone;
 
-    @NotBlank
-    @Email
+    @NotBlank(message = "O email não pode ser nulo ou vazio")
+    @Email(message = "O email deve conter '@'")
+    @Schema(example = "isabelly@gmail.com")
     private String email;
 
-    @NotBlank
+    @NotBlank(message = "A senha não pode ser nulo ou vazio")
+    @Schema(example = "123123")
     private String senha;
 
+    @Schema(example = "2026-03-17T19:05:32")
     private LocalDateTime dataCadastro;
 
+    @Nullable
+    @Schema(nullable = true)
     private LocalDateTime dataAtualizacao;
 
     public UsuarioRequestDto(){}
