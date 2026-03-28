@@ -4,6 +4,7 @@ import com.studio.core.dominio.agendamento.entity.Agendamento;
 import com.studio.core.dominio.agendamento.repository.AgendamentoRepository;
 import com.studio.core.dominio.comissao.dto.ComissaoResponseDTO;
 import com.studio.core.dominio.comissao.entity.Comissao;
+import com.studio.core.dominio.comissao.mapper.ComissaoMapper;
 import com.studio.core.dominio.comissao.repository.ComissaoRepository;
 import com.studio.core.dominio.funcionario.repository.FuncionarioRepository;
 import com.studio.core.exception.ResourceNotFoundException;
@@ -30,30 +31,30 @@ public class ComissaoService {
     
     public List<ComissaoResponseDTO> findAll() {
         return repository.findAll().stream()
-            .map(ComissaoResponseDTO::fromEntity)
+            .map(ComissaoMapper::toResponse)
             .collect(Collectors.toList());
     }
     
     public ComissaoResponseDTO findById(Long id) {
-        return ComissaoResponseDTO.fromEntity(repository.findById(id)
+        return ComissaoMapper.toResponse(repository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException("Comissão não encontrada")));
     }
     
     public List<ComissaoResponseDTO> findByFuncionarioId(Long FuncionarioId) {
         return repository.findByFunc_Id(FuncionarioId).stream()
-            .map(ComissaoResponseDTO::fromEntity)
+            .map(ComissaoMapper::toResponse)
             .collect(Collectors.toList());
     }
     
     public List<ComissaoResponseDTO> findPendentes() {
         return repository.findByStatus(Comissao.StatusComissao.PENDENTE).stream()
-            .map(ComissaoResponseDTO::fromEntity)
+            .map(ComissaoMapper::toResponse)
             .collect(Collectors.toList());
     }
     
     public List<ComissaoResponseDTO> findPendentesPorFuncionario(Long FuncionarioId) {
         return repository.findByFunc_IdAndStatus(FuncionarioId, Comissao.StatusComissao.PENDENTE).stream()
-            .map(ComissaoResponseDTO::fromEntity)
+            .map(ComissaoMapper::toResponse)
             .collect(Collectors.toList());
     }
     
@@ -63,7 +64,7 @@ public class ComissaoService {
     
     public List<ComissaoResponseDTO> findByPeriodo(LocalDate inicio, LocalDate fim) {
         return repository.findByDataComissaoBetween(inicio, fim).stream()
-            .map(ComissaoResponseDTO::fromEntity)
+            .map(ComissaoMapper::toResponse)
             .collect(Collectors.toList());
     }
     
@@ -81,7 +82,7 @@ public class ComissaoService {
         comissao.setDataComissao(LocalDate.now());
         comissao.setStatus(Comissao.StatusComissao.PENDENTE);
         
-        return ComissaoResponseDTO.fromEntity(repository.save(comissao));
+        return ComissaoMapper.toResponse(repository.save(comissao));
     }
     
     public ComissaoResponseDTO pagar(Long id) {
@@ -89,7 +90,7 @@ public class ComissaoService {
             .orElseThrow(() -> new ResourceNotFoundException("Comissão não encontrada"));
         comissao.setStatus(Comissao.StatusComissao.PAGA);
         comissao.setDataPagamento(LocalDate.now());
-        return ComissaoResponseDTO.fromEntity(repository.save(comissao));
+        return ComissaoMapper.toResponse(repository.save(comissao));
     }
     
     public List<ComissaoResponseDTO> pagarTodasPorFuncionario(Long FuncionarioId) {
@@ -99,7 +100,7 @@ public class ComissaoService {
             c.setDataPagamento(LocalDate.now());
         }
         return repository.saveAll(comissoes).stream()
-            .map(ComissaoResponseDTO::fromEntity)
+            .map(ComissaoMapper::toResponse)
             .collect(Collectors.toList());
     }
 }

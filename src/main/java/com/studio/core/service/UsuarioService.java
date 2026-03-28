@@ -8,6 +8,7 @@ import com.studio.core.dominio.usuario.dto.LoginResponseDTO;
 import com.studio.core.dominio.usuario.dto.UsuarioRequestDTO;
 import com.studio.core.dominio.usuario.dto.UsuarioResponseDTO;
 import com.studio.core.dominio.usuario.entity.Usuario;
+import com.studio.core.dominio.usuario.mapper.UsuarioMapper;
 import com.studio.core.dominio.usuario.repository.UsuarioRepository;
 import com.studio.core.exception.BadRequestException;
 import com.studio.core.exception.ResourceNotFoundException;
@@ -36,14 +37,14 @@ public class UsuarioService {
     
     public List<UsuarioResponseDTO> findAll() {
         return repository.findAll().stream()
-                .map(UsuarioResponseDTO::fromEntity)
+                .map(UsuarioMapper::toResponse)
                 .toList();
     }
     
     public UsuarioResponseDTO findById(Long id) {
         Usuario usuario = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado com ID: " + id));
-        return UsuarioResponseDTO.fromEntity(usuario);
+        return UsuarioMapper.toResponse(usuario);
     }
     
     public UsuarioResponseDTO create(UsuarioRequestDTO dto) {
@@ -51,10 +52,8 @@ public class UsuarioService {
             throw new BadRequestException("Email já cadastrado");
         }
         
-        Usuario usuario = new Usuario();
-        usuario.setEmail(dto.getEmail());
+        Usuario usuario = UsuarioMapper.toEntity(dto);
         usuario.setSenha(passwordEncoder.encode(dto.getSenha()));
-        usuario.setRole(dto.getRole());
         
         if (dto.getFuncionarioId() != null) {
             Funcionario funcionario = funcionarioRepository.findById(dto.getFuncionarioId())
@@ -62,7 +61,7 @@ public class UsuarioService {
             usuario.setFuncionario(funcionario);
         }
         
-        return UsuarioResponseDTO.fromEntity(repository.save(usuario));
+        return UsuarioMapper.toResponse(repository.save(usuario));
     }
     
     public LoginResponseDTO login(LoginRequestDTO dto) {
@@ -84,7 +83,7 @@ public class UsuarioService {
     public UsuarioResponseDTO getCurrentUser(String email) {
         Usuario usuario = repository.findByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
-        return UsuarioResponseDTO.fromEntity(usuario);
+        return UsuarioMapper.toResponse(usuario);
     }
     
     public void delete(Long id) {

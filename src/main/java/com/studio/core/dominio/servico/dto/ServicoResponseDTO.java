@@ -23,15 +23,4 @@ public class ServicoResponseDTO {
     public void setDuracaoMinutos(Integer duracaoMinutos) { this.duracaoMinutos = duracaoMinutos; }
     public Boolean getAtivo() { return ativo; }
     public void setAtivo(Boolean ativo) { this.ativo = ativo; }
-
-    public static ServicoResponseDTO fromEntity(com.studio.core.dominio.servico.entity.Servico entity) {
-        ServicoResponseDTO dto = new ServicoResponseDTO();
-        dto.setId(entity.getId());
-        dto.setNome(entity.getNome());
-        dto.setDescricao(entity.getDescricao());
-        dto.setPreco(entity.getPreco());
-        dto.setDuracaoMinutos(entity.getDuracaoMinutos());
-        dto.setAtivo(entity.getAtivo());
-        return dto;
-    }
 }

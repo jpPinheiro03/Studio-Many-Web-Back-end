@@ -24,15 +24,4 @@ public class ParcelaResponseDTO {
     public void setDataPagamento(LocalDate dataPagamento) { this.dataPagamento = dataPagamento; }
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
-
-    public static ParcelaResponseDTO fromEntity(com.studio.core.dominio.parcela.entity.Parcela entity) {
-        ParcelaResponseDTO dto = new ParcelaResponseDTO();
-        dto.setId(entity.getId());
-        dto.setNumero(entity.getNumero());
-        dto.setValor(entity.getValor());
-        dto.setDataVencimento(entity.getDataVencimento());
-        dto.setDataPagamento(entity.getDataPagamento());
-        dto.setStatus(entity.getStatus() != null ? entity.getStatus().name() : null);
-        return dto;
-    }
 }

@@ -45,27 +45,4 @@ public class AgendamentoResponseDTO {
     public void setMotivoCancelamento(String motivoCancelamento) { this.motivoCancelamento = motivoCancelamento; }
     public String getObservacoes() { return observacoes; }
     public void setObservacoes(String observacoes) { this.observacoes = observacoes; }
-
-    public static AgendamentoResponseDTO fromEntity(com.studio.core.dominio.agendamento.entity.Agendamento entity) {
-        AgendamentoResponseDTO dto = new AgendamentoResponseDTO();
-        dto.setId(entity.getId());
-        if (entity.getCliente() != null) {
-            dto.setCliente(ClienteResponseDTO.fromEntity(entity.getCliente()));
-        }
-        if (entity.getServico() != null) {
-            dto.setServico(ServicoResponseDTO.fromEntity(entity.getServico()));
-        }
-        if (entity.getFuncionario() != null) {
-            dto.setFuncionario(FuncionarioResponseDTO.fromEntity(entity.getFuncionario()));
-        }
-        dto.setDataHoraInicio(entity.getDataHoraInicio());
-        dto.setDataHoraFim(entity.getDataHoraFim());
-        dto.setStatus(entity.getStatus() != null ? entity.getStatus().name() : null);
-        dto.setValorTotal(entity.getValorTotal());
-        dto.setValorSinal(entity.getValorSinal());
-        dto.setQuantidadeParcelas(entity.getQuantidadeParcelas());
-        dto.setMotivoCancelamento(entity.getMotivoCancelamento());
-        dto.setObservacoes(entity.getObservacoes());
-        return dto;
-    }
 }

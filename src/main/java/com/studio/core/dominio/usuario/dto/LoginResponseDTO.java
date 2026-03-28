@@ -1,6 +1,7 @@
 package com.studio.core.dominio.usuario.dto;
 
 import com.studio.core.dominio.usuario.entity.Usuario;
+import com.studio.core.dominio.usuario.mapper.UsuarioMapper;
 
 public class LoginResponseDTO {
     
@@ -10,7 +11,7 @@ public class LoginResponseDTO {
 
     public LoginResponseDTO(String token, Usuario usuario) {
         this.token = token;
-        this.usuario = UsuarioResponseDTO.fromEntity(usuario);
+        this.usuario = UsuarioMapper.toResponse(usuario);
     }
 
     public String getToken() { return token; }

@@ -29,21 +29,4 @@ public class ClientePacoteResponseDTO {
     public void setDataCompra(LocalDateTime dataCompra) { this.dataCompra = dataCompra; }
     public LocalDate getDataValidade() { return dataValidade; }
     public void setDataValidade(LocalDate dataValidade) { this.dataValidade = dataValidade; }
-
-    public static ClientePacoteResponseDTO fromEntity(com.studio.core.dominio.cliente_pacote.entity.ClientePacote entity) {
-        ClientePacoteResponseDTO dto = new ClientePacoteResponseDTO();
-        dto.setId(entity.getId());
-        if (entity.getCliente() != null) {
-            dto.setCliente(ClienteResponseDTO.fromEntity(entity.getCliente()));
-        }
-        if (entity.getPacote() != null) {
-            dto.setPacote(PacoteResponseDTO.fromEntity(entity.getPacote()));
-            Integer restantes = entity.getPacote().getQuantidadeSessoes() - entity.getSessoesUsadas();
-            dto.setSessoesRestantes(restantes);
-        }
-        dto.setStatus(entity.getStatus().name());
-        dto.setDataCompra(entity.getDataCompra());
-        dto.setDataValidade(entity.getDataValidade());
-        return dto;
-    }
 }

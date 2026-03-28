@@ -3,6 +3,7 @@ package com.studio.core.service;
 import com.studio.core.dominio.bloqueio.dto.BloqueioRequestDTO;
 import com.studio.core.dominio.bloqueio.dto.BloqueioResponseDTO;
 import com.studio.core.dominio.bloqueio.entity.Bloqueio;
+import com.studio.core.dominio.bloqueio.mapper.BloqueioMapper;
 import com.studio.core.dominio.bloqueio.repository.BloqueioRepository;
 import com.studio.core.dominio.funcionario.entity.Funcionario;
 import com.studio.core.dominio.funcionario.repository.FuncionarioRepository;
@@ -25,13 +26,13 @@ public class BloqueioService {
     
     public List<BloqueioResponseDTO> findAll() {
         return repository.findAll().stream()
-            .map(BloqueioResponseDTO::fromEntity)
+            .map(BloqueioMapper::toResponse)
             .collect(Collectors.toList());
     }
     
     public List<BloqueioResponseDTO> findByFuncionarioId(Long FuncionarioId) {
         return repository.findByFunc_Id(FuncionarioId).stream()
-            .map(BloqueioResponseDTO::fromEntity)
+            .map(BloqueioMapper::toResponse)
             .collect(Collectors.toList());
     }
     
@@ -39,13 +40,9 @@ public class BloqueioService {
         Funcionario func = FuncionarioRepository.findById(dto.getFuncionarioId())
             .orElseThrow(() -> new ResourceNotFoundException("Funcionário não encontrado"));
         
-        Bloqueio bloqueio = new Bloqueio();
-        bloqueio.setFunc(func);
-        bloqueio.setDataInicio(dto.getDataInicio());
-        bloqueio.setDataFim(dto.getDataFim());
-        bloqueio.setMotivo(dto.getMotivo());
+        Bloqueio bloqueio = BloqueioMapper.toEntity(dto, func);
         
-        return BloqueioResponseDTO.fromEntity(repository.save(bloqueio));
+        return BloqueioMapper.toResponse(repository.save(bloqueio));
     }
     
     public void delete(Long id) {

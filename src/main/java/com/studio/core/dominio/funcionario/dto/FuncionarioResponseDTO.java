@@ -29,17 +29,4 @@ public class FuncionarioResponseDTO {
     public void setAtivo(Boolean ativo) { this.ativo = ativo; }
     public LocalDateTime getDataCadastro() { return dataCadastro; }
     public void setDataCadastro(LocalDateTime dataCadastro) { this.dataCadastro = dataCadastro; }
-
-    public static FuncionarioResponseDTO fromEntity(com.studio.core.dominio.funcionario.entity.Funcionario entity) {
-        FuncionarioResponseDTO dto = new FuncionarioResponseDTO();
-        dto.setId(entity.getId());
-        dto.setNome(entity.getNome());
-        dto.setEmail(entity.getEmail());
-        dto.setTelefone(entity.getTelefone());
-        dto.setCpf(entity.getCpf());
-        dto.setEspecialidade(entity.getEspecialidade());
-        dto.setAtivo(entity.getAtivo());
-        dto.setDataCadastro(entity.getDataCadastro());
-        return dto;
-    }
 }

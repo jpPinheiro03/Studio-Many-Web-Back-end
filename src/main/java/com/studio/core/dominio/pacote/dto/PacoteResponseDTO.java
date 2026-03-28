@@ -31,19 +31,4 @@ public class PacoteResponseDTO {
     public void setAtivo(Boolean ativo) { this.ativo = ativo; }
     public LocalDateTime getDataCadastro() { return dataCadastro; }
     public void setDataCadastro(LocalDateTime dataCadastro) { this.dataCadastro = dataCadastro; }
-
-    public static PacoteResponseDTO fromEntity(com.studio.core.dominio.pacote.entity.Pacote entity) {
-        PacoteResponseDTO dto = new PacoteResponseDTO();
-        dto.setId(entity.getId());
-        dto.setNome(entity.getNome());
-        if (entity.getServico() != null) {
-            dto.setServico(ServicoResponseDTO.fromEntity(entity.getServico()));
-        }
-        dto.setQuantidadeSessoes(entity.getQuantidadeSessoes());
-        dto.setPreco(entity.getPreco());
-        dto.setValidadeDias(entity.getValidadeDias());
-        dto.setAtivo(entity.getAtivo());
-        dto.setDataCadastro(entity.getDataCadastro());
-        return dto;
-    }
 }

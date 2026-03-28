@@ -21,16 +21,4 @@ public class HorarioTrabalhoResponseDTO {
     public void setHoraInicio(LocalTime horaInicio) { this.horaInicio = horaInicio; }
     public LocalTime getHoraFim() { return horaFim; }
     public void setHoraFim(LocalTime horaFim) { this.horaFim = horaFim; }
-
-    public static HorarioTrabalhoResponseDTO fromEntity(com.studio.core.dominio.horario_trabalho.entity.HorarioTrabalho entity) {
-        HorarioTrabalhoResponseDTO dto = new HorarioTrabalhoResponseDTO();
-        dto.setId(entity.getId());
-        if (entity.getFunc() != null) {
-            dto.setFunc(FuncionarioResponseDTO.fromEntity(entity.getFunc()));
-        }
-        dto.setDiaSemana(entity.getDiaSemana());
-        dto.setHoraInicio(entity.getHoraInicio());
-        dto.setHoraFim(entity.getHoraFim());
-        return dto;
-    }
 }

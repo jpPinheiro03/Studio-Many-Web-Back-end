@@ -42,28 +42,5 @@ public class PedidoResponseDTO {
         public void setQuantidade(Integer quantidade) { this.quantidade = quantidade; }
         public BigDecimal getPreco() { return preco; }
         public void setPreco(BigDecimal preco) { this.preco = preco; }
-
-        public static PedidoItemResponseDTO fromEntity(com.studio.core.dominio.pedido.entity.PedidoItem entity) {
-            PedidoItemResponseDTO dto = new PedidoItemResponseDTO();
-            dto.setId(entity.getId());
-            if (entity.getProduto() != null) {
-                dto.setProduto(ProdutoResponseDTO.fromEntity(entity.getProduto()));
-            }
-            dto.setQuantidade(entity.getQuantidade());
-            dto.setPreco(entity.getPreco());
-            return dto;
-        }
-    }
-
-    public static PedidoResponseDTO fromEntity(com.studio.core.dominio.pedido.entity.Pedido entity) {
-        PedidoResponseDTO dto = new PedidoResponseDTO();
-        dto.setId(entity.getId());
-        if (entity.getCliente() != null) {
-            dto.setCliente(ClienteResponseDTO.fromEntity(entity.getCliente()));
-        }
-        dto.setValorTotal(entity.getValorTotal());
-        dto.setStatus(entity.getStatus() != null ? entity.getStatus().name() : null);
-        dto.setDataPedido(entity.getDataPedido());
-        return dto;
     }
 }

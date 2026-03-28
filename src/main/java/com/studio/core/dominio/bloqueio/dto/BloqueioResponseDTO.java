@@ -21,16 +21,4 @@ public class BloqueioResponseDTO {
     public void setDataFim(LocalDateTime dataFim) { this.dataFim = dataFim; }
     public String getMotivo() { return motivo; }
     public void setMotivo(String motivo) { this.motivo = motivo; }
-
-    public static BloqueioResponseDTO fromEntity(com.studio.core.dominio.bloqueio.entity.Bloqueio entity) {
-        BloqueioResponseDTO dto = new BloqueioResponseDTO();
-        dto.setId(entity.getId());
-        if (entity.getFunc() != null) {
-            dto.setFunc(FuncionarioResponseDTO.fromEntity(entity.getFunc()));
-        }
-        dto.setDataInicio(entity.getDataInicio());
-        dto.setDataFim(entity.getDataFim());
-        dto.setMotivo(entity.getMotivo());
-        return dto;
-    }
 }

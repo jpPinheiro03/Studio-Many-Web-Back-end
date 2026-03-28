@@ -31,17 +31,4 @@ public class MovimentoResponseDTO {
     public void setDescricao(String descricao) { this.descricao = descricao; }
     public LocalDateTime getDataCadastro() { return dataCadastro; }
     public void setDataCadastro(LocalDateTime dataCadastro) { this.dataCadastro = dataCadastro; }
-
-    public static MovimentoResponseDTO fromEntity(com.studio.core.dominio.financeiro.entity.Movimento entity) {
-        MovimentoResponseDTO dto = new MovimentoResponseDTO();
-        dto.setId(entity.getId());
-        dto.setTipo(entity.getTipo() != null ? entity.getTipo().name() : null);
-        dto.setReferenciaTipo(entity.getReferenciaTipo());
-        dto.setReferenciaId(entity.getReferenciaId());
-        dto.setValor(entity.getValor());
-        dto.setDataMovimento(entity.getDataMovimento());
-        dto.setDescricao(entity.getDescricao());
-        dto.setDataCadastro(entity.getDataCadastro());
-        return dto;
-    }
 }

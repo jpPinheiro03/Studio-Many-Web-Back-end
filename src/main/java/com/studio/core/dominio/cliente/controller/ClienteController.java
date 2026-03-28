@@ -3,6 +3,7 @@ package com.studio.core.dominio.cliente.controller;
 import com.studio.core.dominio.cliente.dto.ClienteRequestDTO;
 import com.studio.core.dominio.cliente.dto.ClienteResponseDTO;
 import com.studio.core.dominio.cliente.entity.Cliente;
+import com.studio.core.dominio.cliente.mapper.ClienteMapper;
 import com.studio.core.service.ClienteService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -26,7 +27,7 @@ public class ClienteController {
     @Operation(summary = "Listar clientes", description = "Retorna todos os clientes")
     public ResponseEntity<List<ClienteResponseDTO>> listar() {
         List<ClienteResponseDTO> dtos = service.findAll().stream()
-            .map(ClienteResponseDTO::fromEntity)
+            .map(ClienteMapper::toResponse)
             .toList();
         return ResponseEntity.ok(dtos);
     }
@@ -35,46 +36,30 @@ public class ClienteController {
     @Operation(summary = "Buscar cliente por ID")
     public ResponseEntity<ClienteResponseDTO> buscarPorId(@PathVariable Long id) {
         Cliente entity = service.findById(id);
-        return ResponseEntity.ok(ClienteResponseDTO.fromEntity(entity));
+        return ResponseEntity.ok(ClienteMapper.toResponse(entity));
     }
     
     @PostMapping
     @Operation(summary = "Criar cliente", description = "Cadastra um novo cliente")
     public ResponseEntity<ClienteResponseDTO> criar(@Valid @RequestBody ClienteRequestDTO dto) {
-        Cliente entity = new Cliente();
-        entity.setNome(dto.getNome());
-        entity.setEmail(dto.getEmail());
-        entity.setTelefone(dto.getTelefone());
-        entity.setCpf(dto.getCpf());
-        entity.setEndereco(dto.getEndereco());
-        entity.setObservacoes(dto.getObservacoes());
-        entity.setAtivo(dto.getAtivo());
-        
+        Cliente entity = ClienteMapper.toEntity(dto);
         Cliente created = service.create(entity);
-        return ResponseEntity.status(HttpStatus.CREATED).body(ClienteResponseDTO.fromEntity(created));
+        return ResponseEntity.status(HttpStatus.CREATED).body(ClienteMapper.toResponse(created));
     }
     
     @PutMapping("/{id}")
     @Operation(summary = "Atualizar cliente")
     public ResponseEntity<ClienteResponseDTO> atualizar(@PathVariable Long id, @Valid @RequestBody ClienteRequestDTO dto) {
-        Cliente entity = service.findById(id);
-        entity.setNome(dto.getNome());
-        entity.setEmail(dto.getEmail());
-        entity.setTelefone(dto.getTelefone());
-        entity.setCpf(dto.getCpf());
-        entity.setEndereco(dto.getEndereco());
-        entity.setObservacoes(dto.getObservacoes());
-        entity.setAtivo(dto.getAtivo());
-        
+        Cliente entity = ClienteMapper.toEntity(dto);
         Cliente updated = service.update(id, entity);
-        return ResponseEntity.ok(ClienteResponseDTO.fromEntity(updated));
+        return ResponseEntity.ok(ClienteMapper.toResponse(updated));
     }
     
     @GetMapping("/telefone/{telefone}")
     @Operation(summary = "Buscar cliente por telefone")
     public ResponseEntity<List<ClienteResponseDTO>> buscarPorTelefone(@PathVariable String telefone) {
         List<ClienteResponseDTO> dtos = service.findByTelefone(telefone).stream()
-            .map(ClienteResponseDTO::fromEntity)
+            .map(ClienteMapper::toResponse)
             .toList();
         return ResponseEntity.ok(dtos);
     }
@@ -83,7 +68,7 @@ public class ClienteController {
     @Operation(summary = "Buscar clientes por nome")
     public ResponseEntity<List<ClienteResponseDTO>> buscarPorNome(@RequestParam String q) {
         List<ClienteResponseDTO> dtos = service.findByNomeContaining(q).stream()
-            .map(ClienteResponseDTO::fromEntity)
+            .map(ClienteMapper::toResponse)
             .toList();
         return ResponseEntity.ok(dtos);
     }
@@ -92,7 +77,7 @@ public class ClienteController {
     @Operation(summary = "Listar clientes inativos")
     public ResponseEntity<List<ClienteResponseDTO>> inativos(@RequestParam(defaultValue = "90") int dias) {
         List<ClienteResponseDTO> dtos = service.findInativos(dias).stream()
-            .map(ClienteResponseDTO::fromEntity)
+            .map(ClienteMapper::toResponse)
             .toList();
         return ResponseEntity.ok(dtos);
     }

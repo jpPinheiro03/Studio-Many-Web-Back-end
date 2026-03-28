@@ -37,24 +37,4 @@ public class ListaEsperaResponseDTO {
     public void setObservacoes(String observacoes) { this.observacoes = observacoes; }
     public LocalDateTime getDataCadastro() { return dataCadastro; }
     public void setDataCadastro(LocalDateTime dataCadastro) { this.dataCadastro = dataCadastro; }
-
-    public static ListaEsperaResponseDTO fromEntity(com.studio.core.dominio.lista_espera.entity.ListaEspera entity) {
-        ListaEsperaResponseDTO dto = new ListaEsperaResponseDTO();
-        dto.setId(entity.getId());
-        if (entity.getCliente() != null) {
-            dto.setCliente(ClienteResponseDTO.fromEntity(entity.getCliente()));
-        }
-        if (entity.getServico() != null) {
-            dto.setServico(ServicoResponseDTO.fromEntity(entity.getServico()));
-        }
-        if (entity.getFunc() != null) {
-            dto.setFunc(FuncionarioResponseDTO.fromEntity(entity.getFunc()));
-        }
-        dto.setDataDesejada(entity.getDataDesejada());
-        dto.setHorarioDesejado(entity.getHorarioDesejado());
-        dto.setStatus(entity.getStatus() != null ? entity.getStatus().name() : null);
-        dto.setObservacoes(entity.getObservacoes());
-        dto.setDataCadastro(entity.getDataCadastro());
-        return dto;
-    }
 }

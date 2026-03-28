@@ -13,20 +13,6 @@ public class UsuarioResponseDTO {
     private LocalDateTime dataCadastro;
     private Boolean ativo;
 
-    public static UsuarioResponseDTO fromEntity(Usuario usuario) {
-        UsuarioResponseDTO dto = new UsuarioResponseDTO();
-        dto.setId(usuario.getId());
-        dto.setEmail(usuario.getEmail());
-        dto.setRole(usuario.getRole());
-        dto.setDataCadastro(usuario.getDataCadastro());
-        dto.setAtivo(usuario.getAtivo());
-        if (usuario.getFuncionario() != null) {
-            dto.setFuncionarioId(usuario.getFuncionario().getId());
-            dto.setNomeFuncionario(usuario.getFuncionario().getNome());
-        }
-        return dto;
-    }
-
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public String getEmail() { return email; }

@@ -5,6 +5,7 @@ import com.studio.core.dominio.funcionario.repository.FuncionarioRepository;
 import com.studio.core.dominio.funcionario_servico.dto.FuncionarioServicoRequestDTO;
 import com.studio.core.dominio.funcionario_servico.dto.FuncionarioServicoResponseDTO;
 import com.studio.core.dominio.funcionario_servico.entity.FuncionarioServico;
+import com.studio.core.dominio.funcionario_servico.mapper.FuncionarioServicoMapper;
 import com.studio.core.dominio.funcionario_servico.repository.FuncionarioServicoRepository;
 import com.studio.core.dominio.servico.entity.Servico;
 import com.studio.core.dominio.servico.repository.ServicoRepository;
@@ -30,13 +31,13 @@ public class FuncionarioServicoService {
     
     public List<FuncionarioServicoResponseDTO> findAll() {
         return repository.findAll().stream()
-            .map(FuncionarioServicoResponseDTO::fromEntity)
+            .map(FuncionarioServicoMapper::toResponse)
             .collect(Collectors.toList());
     }
     
     public List<FuncionarioServicoResponseDTO> findByFuncionarioId(Long FuncionarioId) {
         return repository.findByFunc_Id(FuncionarioId).stream()
-            .map(FuncionarioServicoResponseDTO::fromEntity)
+            .map(FuncionarioServicoMapper::toResponse)
             .collect(Collectors.toList());
     }
     
@@ -47,11 +48,11 @@ public class FuncionarioServicoService {
         Servico servico = servicoRepository.findById(dto.getServicoId())
             .orElseThrow(() -> new ResourceNotFoundException("Serviço não encontrado"));
         
-        FuncionarioServico fs = new FuncionarioServico();
+        FuncionarioServico fs = FuncionarioServicoMapper.toEntity(dto);
         fs.setFunc(func);
         fs.setServico(servico);
         
-        return FuncionarioServicoResponseDTO.fromEntity(repository.save(fs));
+        return FuncionarioServicoMapper.toResponse(repository.save(fs));
     }
     
     public void delete(Long id) {

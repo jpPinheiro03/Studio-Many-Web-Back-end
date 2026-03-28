@@ -19,17 +19,4 @@ public class FuncionarioServicoResponseDTO {
     public void setServico(ServicoResponseDTO servico) { this.servico = servico; }
     public BigDecimal getPercentualComissao() { return percentualComissao; }
     public void setPercentualComissao(BigDecimal percentualComissao) { this.percentualComissao = percentualComissao; }
-
-    public static FuncionarioServicoResponseDTO fromEntity(com.studio.core.dominio.funcionario_servico.entity.FuncionarioServico entity) {
-        FuncionarioServicoResponseDTO dto = new FuncionarioServicoResponseDTO();
-        dto.setId(entity.getId());
-        if (entity.getFunc() != null) {
-            dto.setFunc(FuncionarioResponseDTO.fromEntity(entity.getFunc()));
-        }
-        if (entity.getServico() != null) {
-            dto.setServico(ServicoResponseDTO.fromEntity(entity.getServico()));
-        }
-        dto.setPercentualComissao(entity.getPercentualComissao());
-        return dto;
-    }
 }

@@ -3,6 +3,7 @@ package com.studio.core.dominio.pedido.controller;
 import com.studio.core.dominio.pedido.dto.PedidoRequestDTO;
 import com.studio.core.dominio.pedido.dto.PedidoResponseDTO;
 import com.studio.core.dominio.pedido.entity.Pedido;
+import com.studio.core.dominio.pedido.mapper.PedidoMapper;
 import com.studio.core.service.PedidoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -25,7 +26,7 @@ public class PedidoController {
     @GetMapping
     public ResponseEntity<List<PedidoResponseDTO>> listar() {
         List<PedidoResponseDTO> dtos = service.findAll().stream()
-            .map(PedidoResponseDTO::fromEntity)
+            .map(PedidoMapper::toResponse)
             .toList();
         return ResponseEntity.ok(dtos);
     }
@@ -33,14 +34,14 @@ public class PedidoController {
     @GetMapping("/cliente/{id}")
     public ResponseEntity<List<PedidoResponseDTO>> porCliente(@PathVariable Long id) {
         List<PedidoResponseDTO> dtos = service.findByClienteId(id).stream()
-            .map(PedidoResponseDTO::fromEntity)
+            .map(PedidoMapper::toResponse)
             .toList();
         return ResponseEntity.ok(dtos);
     }
     
     @GetMapping("/{id}")
     public ResponseEntity<PedidoResponseDTO> buscarPorId(@PathVariable Long id) {
-        return ResponseEntity.ok(PedidoResponseDTO.fromEntity(service.findById(id)));
+        return ResponseEntity.ok(PedidoMapper.toResponse(service.findById(id)));
     }
     
     @PostMapping
@@ -51,14 +52,14 @@ public class PedidoController {
             "itens", dto.getItens()
         );
         Pedido created = service.create(params);
-        return ResponseEntity.status(HttpStatus.CREATED).body(PedidoResponseDTO.fromEntity(created));
+        return ResponseEntity.status(HttpStatus.CREATED).body(PedidoMapper.toResponse(created));
     }
     
     @PutMapping("/{id}")
     @Operation(summary = "Atualizar status do pedido")
     public ResponseEntity<PedidoResponseDTO> atualizar(@PathVariable Long id, @RequestBody Map<String, String> params) {
         Pedido.StatusPedido status = Pedido.StatusPedido.valueOf(params.get("status"));
-        return ResponseEntity.ok(PedidoResponseDTO.fromEntity(service.updateStatus(id, status)));
+        return ResponseEntity.ok(PedidoMapper.toResponse(service.updateStatus(id, status)));
     }
     
     @DeleteMapping("/{id}")

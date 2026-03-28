@@ -35,19 +35,4 @@ public class ClienteResponseDTO {
     public void setDataCadastro(LocalDateTime dataCadastro) { this.dataCadastro = dataCadastro; }
     public Boolean getAtivo() { return ativo; }
     public void setAtivo(Boolean ativo) { this.ativo = ativo; }
-
-    public static ClienteResponseDTO fromEntity(com.studio.core.dominio.cliente.entity.Cliente entity) {
-        ClienteResponseDTO dto = new ClienteResponseDTO();
-        dto.setId(entity.getId());
-        dto.setNome(entity.getNome());
-        dto.setEmail(entity.getEmail());
-        dto.setTelefone(entity.getTelefone());
-        dto.setCpf(entity.getCpf());
-        dto.setEndereco(entity.getEndereco());
-        dto.setObservacoes(entity.getObservacoes());
-        dto.setEstagioFunil(entity.getEstagioFunil());
-        dto.setDataCadastro(entity.getDataCadastro());
-        dto.setAtivo(entity.getAtivo());
-        return dto;
-    }
 }

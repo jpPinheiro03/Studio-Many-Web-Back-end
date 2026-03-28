@@ -32,18 +32,4 @@ public class ComissaoResponseDTO {
     public void setDataPagamento(LocalDate dataPagamento) { this.dataPagamento = dataPagamento; }
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
-
-    public static ComissaoResponseDTO fromEntity(com.studio.core.dominio.comissao.entity.Comissao entity) {
-        ComissaoResponseDTO dto = new ComissaoResponseDTO();
-        dto.setId(entity.getId());
-        if (entity.getFunc() != null) {
-            dto.setFunc(FuncionarioResponseDTO.fromEntity(entity.getFunc()));
-        }
-        dto.setValor(entity.getValor());
-        dto.setPercentual(entity.getPercentual());
-        dto.setDataComissao(entity.getDataComissao());
-        dto.setDataPagamento(entity.getDataPagamento());
-        dto.setStatus(entity.getStatus() != null ? entity.getStatus().name() : null);
-        return dto;
-    }
 }

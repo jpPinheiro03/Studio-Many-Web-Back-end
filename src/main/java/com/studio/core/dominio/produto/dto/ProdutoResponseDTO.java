@@ -27,16 +27,4 @@ public class ProdutoResponseDTO {
     public void setAtivo(Boolean ativo) { this.ativo = ativo; }
     public LocalDateTime getDataCadastro() { return dataCadastro; }
     public void setDataCadastro(LocalDateTime dataCadastro) { this.dataCadastro = dataCadastro; }
-
-    public static ProdutoResponseDTO fromEntity(com.studio.core.dominio.produto.entity.Produto entity) {
-        ProdutoResponseDTO dto = new ProdutoResponseDTO();
-        dto.setId(entity.getId());
-        dto.setNome(entity.getNome());
-        dto.setDescricao(entity.getDescricao());
-        dto.setPreco(entity.getPreco());
-        dto.setEstoque(entity.getEstoque());
-        dto.setAtivo(entity.getAtivo());
-        dto.setDataCadastro(entity.getDataCadastro());
-        return dto;
-    }
 }

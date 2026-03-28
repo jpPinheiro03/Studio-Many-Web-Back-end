@@ -4,6 +4,7 @@ import com.studio.core.dominio.agendamento.entity.Agendamento;
 import com.studio.core.dominio.agendamento.repository.AgendamentoRepository;
 import com.studio.core.dominio.parcela.dto.ParcelaResponseDTO;
 import com.studio.core.dominio.parcela.entity.Parcela;
+import com.studio.core.dominio.parcela.mapper.ParcelaMapper;
 import com.studio.core.dominio.parcela.repository.ParcelaRepository;
 import com.studio.core.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,37 +27,37 @@ public class ParcelaService {
     
     public List<ParcelaResponseDTO> findAll() {
         return repository.findAll().stream()
-            .map(ParcelaResponseDTO::fromEntity)
+            .map(ParcelaMapper::toResponse)
             .collect(Collectors.toList());
     }
     
     public ParcelaResponseDTO findById(Long id) {
-        return ParcelaResponseDTO.fromEntity(repository.findById(id)
+        return ParcelaMapper.toResponse(repository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException("Parcela não encontrada")));
     }
     
     public List<ParcelaResponseDTO> findByAgendamentoId(Long agendamentoId) {
         return repository.findByAgendamentoId(agendamentoId).stream()
-            .map(ParcelaResponseDTO::fromEntity)
+            .map(ParcelaMapper::toResponse)
             .collect(Collectors.toList());
     }
     
     public List<ParcelaResponseDTO> findPendentes() {
         return repository.findByStatus(Parcela.StatusParcela.PENDENTE).stream()
-            .map(ParcelaResponseDTO::fromEntity)
+            .map(ParcelaMapper::toResponse)
             .collect(Collectors.toList());
     }
     
     public List<ParcelaResponseDTO> findVencidas() {
         return repository.findByDataVencimentoBeforeAndStatus(LocalDate.now(), Parcela.StatusParcela.PENDENTE).stream()
-            .map(ParcelaResponseDTO::fromEntity)
+            .map(ParcelaMapper::toResponse)
             .collect(Collectors.toList());
     }
     
     public List<ParcelaResponseDTO> findAVencer(int dias) {
         LocalDate limite = LocalDate.now().plusDays(dias);
         return repository.findByDataVencimentoBetweenAndStatus(LocalDate.now(), limite, Parcela.StatusParcela.PENDENTE).stream()
-            .map(ParcelaResponseDTO::fromEntity)
+            .map(ParcelaMapper::toResponse)
             .collect(Collectors.toList());
     }
     
@@ -65,7 +66,7 @@ public class ParcelaService {
             .orElseThrow(() -> new ResourceNotFoundException("Parcela não encontrada"));
         parcela.setStatus(Parcela.StatusParcela.QUITADA);
         parcela.setDataPagamento(LocalDate.now());
-        return ParcelaResponseDTO.fromEntity(repository.save(parcela));
+        return ParcelaMapper.toResponse(repository.save(parcela));
     }
     
     public List<ParcelaResponseDTO> quitarTodas(Long agendamentoId) {
@@ -77,7 +78,7 @@ public class ParcelaService {
             }
         }
         return repository.saveAll(parcelas).stream()
-            .map(ParcelaResponseDTO::fromEntity)
+            .map(ParcelaMapper::toResponse)
             .collect(Collectors.toList());
     }
     
@@ -98,7 +99,7 @@ public class ParcelaService {
         }
         
         return repository.findByAgendamentoId(agendamentoId).stream()
-            .map(ParcelaResponseDTO::fromEntity)
+            .map(ParcelaMapper::toResponse)
             .collect(Collectors.toList());
     }
 }

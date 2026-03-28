@@ -5,6 +5,7 @@ import com.studio.core.dominio.funcionario.repository.FuncionarioRepository;
 import com.studio.core.dominio.horario_trabalho.dto.HorarioTrabalhoRequestDTO;
 import com.studio.core.dominio.horario_trabalho.dto.HorarioTrabalhoResponseDTO;
 import com.studio.core.dominio.horario_trabalho.entity.HorarioTrabalho;
+import com.studio.core.dominio.horario_trabalho.mapper.HorarioTrabalhoMapper;
 import com.studio.core.dominio.horario_trabalho.repository.HorarioTrabalhoRepository;
 import com.studio.core.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,13 +26,13 @@ public class HorarioTrabalhoService {
     
     public List<HorarioTrabalhoResponseDTO> findAll() {
         return repository.findAll().stream()
-            .map(HorarioTrabalhoResponseDTO::fromEntity)
+            .map(HorarioTrabalhoMapper::toResponse)
             .collect(Collectors.toList());
     }
     
     public List<HorarioTrabalhoResponseDTO> findByFuncionarioId(Long FuncionarioId) {
         return repository.findByFunc_Id(FuncionarioId).stream()
-            .map(HorarioTrabalhoResponseDTO::fromEntity)
+            .map(HorarioTrabalhoMapper::toResponse)
             .collect(Collectors.toList());
     }
     
@@ -39,13 +40,10 @@ public class HorarioTrabalhoService {
         Funcionario func = FuncionarioRepository.findById(dto.getFuncionarioId())
             .orElseThrow(() -> new ResourceNotFoundException("Funcionário não encontrado"));
         
-        HorarioTrabalho ht = new HorarioTrabalho();
+        HorarioTrabalho ht = HorarioTrabalhoMapper.toEntity(dto);
         ht.setFunc(func);
-        ht.setDiaSemana(dto.getDiaSemana());
-        ht.setHoraInicio(dto.getHoraInicio());
-        ht.setHoraFim(dto.getHoraFim());
         
-        return HorarioTrabalhoResponseDTO.fromEntity(repository.save(ht));
+        return HorarioTrabalhoMapper.toResponse(repository.save(ht));
     }
     
     public void delete(Long id) {
