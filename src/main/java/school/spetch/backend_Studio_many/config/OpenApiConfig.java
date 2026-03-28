@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
         info = @Info(
                 title = "Documentação API",
                 version = "1.0",
-                description = "GRUPO 5 <br> Meki <br> Aoki <br> Bill <br> Davi <br> Dereck"
+                description = "GRUPO 5 <br> Meki <br> Aoki <br> Bill <br> Davi <br> Dereck <br> João"
         )
 )
 public class OpenApiConfig {
