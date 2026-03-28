@@ -1,0 +1,42 @@
+package com.studio.core.dominio.produto.dto;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
+public class ProdutoResponseDTO {
+
+    private Long id;
+    private String nome;
+    private String descricao;
+    private BigDecimal preco;
+    private Integer estoque;
+    private Boolean ativo;
+    private LocalDateTime dataCadastro;
+
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public String getNome() { return nome; }
+    public void setNome(String nome) { this.nome = nome; }
+    public String getDescricao() { return descricao; }
+    public void setDescricao(String descricao) { this.descricao = descricao; }
+    public BigDecimal getPreco() { return preco; }
+    public void setPreco(BigDecimal preco) { this.preco = preco; }
+    public Integer getEstoque() { return estoque; }
+    public void setEstoque(Integer estoque) { this.estoque = estoque; }
+    public Boolean getAtivo() { return ativo; }
+    public void setAtivo(Boolean ativo) { this.ativo = ativo; }
+    public LocalDateTime getDataCadastro() { return dataCadastro; }
+    public void setDataCadastro(LocalDateTime dataCadastro) { this.dataCadastro = dataCadastro; }
+
+    public static ProdutoResponseDTO fromEntity(com.studio.core.dominio.produto.entity.Produto entity) {
+        ProdutoResponseDTO dto = new ProdutoResponseDTO();
+        dto.setId(entity.getId());
+        dto.setNome(entity.getNome());
+        dto.setDescricao(entity.getDescricao());
+        dto.setPreco(entity.getPreco());
+        dto.setEstoque(entity.getEstoque());
+        dto.setAtivo(entity.getAtivo());
+        dto.setDataCadastro(entity.getDataCadastro());
+        return dto;
+    }
+}
