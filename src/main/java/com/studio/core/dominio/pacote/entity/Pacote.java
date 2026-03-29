@@ -3,58 +3,42 @@ package com.studio.core.dominio.pacote.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.studio.core.dominio.servico.entity.Servico;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "pacotes")
+@Entity // Esta classe vira uma tabela no banco de dados
+@Table(name = "pacotes") // Nome da tabela no banco (snake_case)
+@Getter @Setter // Lombok: gera getters e setters automaticamente
 public class Pacote {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
-    @Column(nullable = false)
-    private String nome;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "servico_id", nullable = false)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private Servico servico;
-    
-    @Column(name = "quantidade_sessoes", nullable = false)
-    private Integer quantidadeSessoes;
-    
-    @Column(precision = 10, scale = 2, nullable = false)
-    private BigDecimal preco;
-    
-    @Column(name = "validade_dias")
-    private Integer validadeDias;
-    
-    private Boolean ativo = true;
-    
-    @Column(name = "data_cadastro")
-    private LocalDateTime dataCadastro = LocalDateTime.now();
-    
-    @Transient
-    private Long servicoId;
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public String getNome() { return nome; }
-    public void setNome(String nome) { this.nome = nome; }
-    public Servico getServico() { return servico; }
-    public void setServico(Servico servico) { this.servico = servico; }
-    public Long getServicoId() { return servico != null ? servico.getId() : servicoId; }
-    public void setServicoId(Long servicoId) { this.servicoId = servicoId; }
-    public Integer getQuantidadeSessoes() { return quantidadeSessoes; }
-    public void setQuantidadeSessoes(Integer quantidadeSessoes) { this.quantidadeSessoes = quantidadeSessoes; }
-    public BigDecimal getPreco() { return preco; }
-    public void setPreco(BigDecimal preco) { this.preco = preco; }
-    public Integer getValidadeDias() { return validadeDias; }
-    public void setValidadeDias(Integer validadeDias) { this.validadeDias = validadeDias; }
-    public Boolean getAtivo() { return ativo; }
-    public void setAtivo(Boolean ativo) { this.ativo = ativo; }
-    public LocalDateTime getDataCadastro() { return dataCadastro; }
-    public void setDataCadastro(LocalDateTime dataCadastro) { this.dataCadastro = dataCadastro; }
+    @Id // Chave primária da tabela
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-incremento pelo banco
+    private Long id;
+
+    @Column(nullable = false) // Coluna obrigatória (NOT NULL)
+    private String nome;
+
+    @ManyToOne(fetch = FetchType.LAZY) // Muitos pacotes apontam para 1 serviço (carregamento sob demanda)
+    @JoinColumn(name = "servico_id", nullable = false) // Nome da coluna FK obrigatória
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // Evita erro de serialização JSON no lazy loading
+    private Servico servico;
+
+    @Column(name = "quantidade_sessoes", nullable = false) // Coluna obrigatória com nome customizado
+    private Integer quantidadeSessoes;
+
+    @Column(precision = 10, scale = 2, nullable = false) // Número decimal obrigatório (DECIMAL(10,2))
+    private BigDecimal preco;
+
+    @Column(name = "validade_dias") // Nome da coluna no banco (snake_case)
+    private Integer validadeDias;
+
+    private Boolean ativo = true; // Coluna opcional com valor padrão
+
+    @Column(name = "data_cadastro") // Nome da coluna no banco (snake_case)
+    private LocalDateTime dataCadastro = LocalDateTime.now();
+
+    @Transient // Campo não persistido no banco (só existe em memória)
+    private Long servicoId;
 }

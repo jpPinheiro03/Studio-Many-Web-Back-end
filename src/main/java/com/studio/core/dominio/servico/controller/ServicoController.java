@@ -23,11 +23,14 @@ public class ServicoController {
     @Autowired
     private ServicoService service;
     
+    @Autowired
+    private ServicoMapper servicoMapper;
+    
     @GetMapping
     @Operation(summary = "Listar serviços")
     public ResponseEntity<List<ServicoResponseDTO>> listar() {
         List<ServicoResponseDTO> dtos = service.findAll().stream()
-            .map(ServicoMapper::toResponse)
+            .map(servicoMapper::toResponse)
             .toList();
         return ResponseEntity.ok(dtos);
     }
@@ -35,24 +38,24 @@ public class ServicoController {
     @GetMapping("/{id}")
     public ResponseEntity<ServicoResponseDTO> buscarPorId(@PathVariable Long id) {
         Servico entity = service.findById(id);
-        return ResponseEntity.ok(ServicoMapper.toResponse(entity));
+        return ResponseEntity.ok(servicoMapper.toResponse(entity));
     }
     
     @PostMapping
     @Operation(summary = "Criar serviço")
     public ResponseEntity<ServicoResponseDTO> criar(@Valid @RequestBody ServicoRequestDTO dto) {
-        Servico entity = ServicoMapper.toEntity(dto);
+        Servico entity = servicoMapper.toEntity(dto);
         
         Servico created = service.create(entity);
-        return ResponseEntity.status(HttpStatus.CREATED).body(ServicoMapper.toResponse(created));
+        return ResponseEntity.status(HttpStatus.CREATED).body(servicoMapper.toResponse(created));
     }
     
     @PutMapping("/{id}")
     public ResponseEntity<ServicoResponseDTO> atualizar(@PathVariable Long id, @Valid @RequestBody ServicoRequestDTO dto) {
-        Servico entity = ServicoMapper.toEntity(dto);
+        Servico entity = servicoMapper.toEntity(dto);
         
         Servico updated = service.update(id, entity);
-        return ResponseEntity.ok(ServicoMapper.toResponse(updated));
+        return ResponseEntity.ok(servicoMapper.toResponse(updated));
     }
     
     @DeleteMapping("/{id}")

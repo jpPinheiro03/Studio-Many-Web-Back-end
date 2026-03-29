@@ -11,6 +11,7 @@ import java.util.List;
 @Repository
 public interface BloqueioRepository extends JpaRepository<Bloqueio, Long> {
     List<Bloqueio> findByFunc_Id(Long funcId);
+    boolean existsByFunc_Id(Long funcId);
     
     @Query("SELECT b FROM Bloqueio b WHERE b.func.id = :funcId AND " +
            "((b.dataInicio <= :dataFim AND b.dataFim >= :dataInicio))")

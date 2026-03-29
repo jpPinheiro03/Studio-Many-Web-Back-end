@@ -9,4 +9,8 @@ import java.util.List;
 public interface ClientePacoteRepository extends JpaRepository<ClientePacote, Long> {
     List<ClientePacote> findByCliente_Id(Long clienteId);
     List<ClientePacote> findByCliente_IdAndStatus(Long clienteId, ClientePacote.StatusClientePacote status);
+    boolean existsByCliente_Id(Long clienteId);
+    boolean existsByPacote_Id(Long pacoteId);
+    boolean existsByCliente_IdAndPacote_Id(Long clienteId, Long pacoteId);
+    List<ClientePacote> findByStatus(ClientePacote.StatusClientePacote status);
 }

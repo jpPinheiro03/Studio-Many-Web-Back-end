@@ -9,7 +9,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-@Component
+@Component//Diz ao Spring: “crie, gerencie e injete essa classe automaticamente.”
 public class DataLoader implements CommandLineRunner {
 
     @Autowired
@@ -35,14 +35,14 @@ public class DataLoader implements CommandLineRunner {
             
             Usuario usuario = new Usuario();
             usuario.setEmail("admin@studio.com");
-            usuario.setSenha(passwordEncoder.encode("123456"));
+            usuario.setSenha(passwordEncoder.encode("Admin@2026!"));
             usuario.setRole(Usuario.Role.ADMIN);
             usuario.setFuncionario(admin);
             usuarioRepository.save(usuario);
             
             System.out.println("=== DADOS INICIAIS CRIADOS ===");
             System.out.println("Funcionário: Administrador (ID: " + admin.getId() + ")");
-            System.out.println("Usuário: admin@studio.com / 123456");
+            System.out.println("Usuário: admin@studio.com / Admin@2026!");
         }
     }
 }

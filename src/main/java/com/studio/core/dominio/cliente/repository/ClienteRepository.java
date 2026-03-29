@@ -13,6 +13,7 @@ import java.util.Optional;
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
     List<Cliente> findByTelefone(String telefone);
     Optional<Cliente> findByEmail(String email);
+    boolean existsByEmail(String email);
     List<Cliente> findByAtivoTrue();
     List<Cliente> findByAtivoFalse();
     

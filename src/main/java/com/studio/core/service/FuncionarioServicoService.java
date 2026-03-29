@@ -9,6 +9,7 @@ import com.studio.core.dominio.funcionario_servico.mapper.FuncionarioServicoMapp
 import com.studio.core.dominio.funcionario_servico.repository.FuncionarioServicoRepository;
 import com.studio.core.dominio.servico.entity.Servico;
 import com.studio.core.dominio.servico.repository.ServicoRepository;
+import com.studio.core.exception.BadRequestException;
 import com.studio.core.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,35 +25,42 @@ public class FuncionarioServicoService {
     private FuncionarioServicoRepository repository;
     
     @Autowired
-    private FuncionarioRepository FuncionarioRepository;
+    private FuncionarioRepository funcionarioRepository;
     
     @Autowired
     private ServicoRepository servicoRepository;
+
+    @Autowired
+    private FuncionarioServicoMapper funcionarioServicoMapper;
     
     public List<FuncionarioServicoResponseDTO> findAll() {
         return repository.findAll().stream()
-            .map(FuncionarioServicoMapper::toResponse)
+            .map(funcionarioServicoMapper::toResponse)
             .collect(Collectors.toList());
     }
     
-    public List<FuncionarioServicoResponseDTO> findByFuncionarioId(Long FuncionarioId) {
-        return repository.findByFunc_Id(FuncionarioId).stream()
-            .map(FuncionarioServicoMapper::toResponse)
+    public List<FuncionarioServicoResponseDTO> findByFuncionarioId(Long funcionarioId) {
+        return repository.findByFunc_Id(funcionarioId).stream()
+            .map(funcionarioServicoMapper::toResponse)
             .collect(Collectors.toList());
     }
     
     public FuncionarioServicoResponseDTO create(FuncionarioServicoRequestDTO dto) {
-        Funcionario func = FuncionarioRepository.findById(dto.getFuncionarioId())
+        Funcionario func = funcionarioRepository.findById(dto.getFuncionarioId())
             .orElseThrow(() -> new ResourceNotFoundException("Funcionário não encontrado"));
         
         Servico servico = servicoRepository.findById(dto.getServicoId())
             .orElseThrow(() -> new ResourceNotFoundException("Serviço não encontrado"));
         
-        FuncionarioServico fs = FuncionarioServicoMapper.toEntity(dto);
+        if (repository.existsByFunc_IdAndServico_Id(dto.getFuncionarioId(), dto.getServicoId())) {
+            throw new BadRequestException("Associação entre funcionário e serviço já existe");
+        }
+        
+        FuncionarioServico fs = funcionarioServicoMapper.toEntity(dto);
         fs.setFunc(func);
         fs.setServico(servico);
         
-        return FuncionarioServicoMapper.toResponse(repository.save(fs));
+        return funcionarioServicoMapper.toResponse(repository.save(fs));
     }
     
     public void delete(Long id) {

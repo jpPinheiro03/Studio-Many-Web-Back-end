@@ -6,43 +6,62 @@ import com.studio.core.dominio.agendamento.entity.Agendamento;
 import com.studio.core.dominio.agendamento.entity.StatusAgendamento;
 import com.studio.core.dominio.agendamento.mapper.AgendamentoMapper;
 import com.studio.core.service.AgendamentoService;
+import com.studio.core.service.provider.FileStorageProvider;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
-@RestController
-@RequestMapping("/api/agendamentos")
-@Tag(name = "Agendamentos", description = "Endpoints para gestão de agendamentos")
+@RestController // Esta classe aceita requisições HTTP e retorna JSON
+@RequestMapping("/api/agendamentos") // URL base para todos os endpoints desta classe
+@Tag(name = "Agendamentos", description = "Endpoints para gestão de agendamentos") // Swagger: agrupa endpoints por categoria
 public class AgendamentoController {
-    
-    @Autowired
+
+    @Autowired // Injeta dependência automaticamente (injeção de dependência)
     private AgendamentoService service;
-    
-    @GetMapping
-    @Operation(summary = "Listar agendamentos")
-    public ResponseEntity<List<AgendamentoResponseDTO>> listar() {
-        List<AgendamentoResponseDTO> dtos = service.findAll().stream()
-            .map(AgendamentoMapper::toResponse)
+
+    @Autowired // Injeta dependência automaticamente (injeção de dependência)
+    private FileStorageProvider fileStorageProvider;
+
+    @Autowired // Injeta dependência automaticamente (injeção de dependência)
+    private AgendamentoMapper agendamentoMapper;
+
+    @GetMapping // Endpoint que aceita requisições GET
+    @Operation(summary = "Listar agendamentos (com paginação opcional)") // Swagger: descreve o endpoint na documentação
+    public ResponseEntity<List<AgendamentoResponseDTO>> listar(
+            @RequestParam(required = false) Integer page, // Recebe o valor do parâmetro da URL (?param=valor)
+            @RequestParam(required = false, defaultValue = "20") Integer size) { // Recebe o valor do parâmetro com valor padrão
+        List<Agendamento> agendamentos;
+        if (page != null) {
+            Page<Agendamento> pageResult = service.findPaginated(page, size);
+            agendamentos = pageResult.getContent();
+        } else {
+            agendamentos = service.findAll();
+        }
+        List<AgendamentoResponseDTO> dtos = agendamentos.stream()
+            .map(agendamentoMapper::toResponse)
             .toList();
         return ResponseEntity.ok(dtos);
     }
     
-    @GetMapping("/{id}")
-    public ResponseEntity<AgendamentoResponseDTO> buscarPorId(@PathVariable Long id) {
-        return ResponseEntity.ok(AgendamentoMapper.toResponse(service.findById(id)));
+    @GetMapping("/{id}") // Endpoint que aceita requisições GET com parâmetro na URL
+    public ResponseEntity<AgendamentoResponseDTO> buscarPorId(@PathVariable Long id) { // Recebe o valor da URL (ex: /agendamentos/{id})
+        return ResponseEntity.ok(agendamentoMapper.toResponse(service.findById(id)));
     }
     
-    @PostMapping
-    @Operation(summary = "Criar agendamento")
-    public ResponseEntity<AgendamentoResponseDTO> criar(@Valid @RequestBody AgendamentoRequestDTO dto) {
+    @PostMapping // Endpoint que aceita requisições POST (criar)
+    @Operation(summary = "Criar agendamento") // Swagger: descreve o endpoint na documentação
+    public ResponseEntity<AgendamentoResponseDTO> criar(@Valid @RequestBody AgendamentoRequestDTO dto) { // Valida os campos e recebe os dados do corpo da requisição HTTP (JSON)
         Agendamento entity = new Agendamento();
         entity.setDataHoraInicio(dto.getDataHoraInicio());
         entity.setDataHoraFim(dto.getDataHoraFim());
@@ -52,25 +71,72 @@ public class AgendamentoController {
         entity.setObservacoes(dto.getObservacoes());
         
         Agendamento created = service.create(dto.getClienteId(), dto.getServicoId(), dto.getFuncionarioId(), entity);
-        return ResponseEntity.status(HttpStatus.CREATED).body(AgendamentoMapper.toResponse(created));
+        return ResponseEntity.status(HttpStatus.CREATED).body(agendamentoMapper.toResponse(created));
     }
     
-    @PutMapping("/{id}/status")
-    @Operation(summary = "Atualizar status")
+    @PutMapping("/{id}/status") // Endpoint que aceita requisições PUT (atualizar) com parâmetro na URL
+    @Operation(summary = "Atualizar status") // Swagger: descreve o endpoint na documentação
     public ResponseEntity<AgendamentoResponseDTO> atualizarStatus(
-            @PathVariable Long id, 
-            @RequestParam StatusAgendamento status) {
-        return ResponseEntity.ok(AgendamentoMapper.toResponse(service.updateStatus(id, status)));
+            @PathVariable Long id, // Recebe o valor da URL (ex: /agendamentos/{id}/status)
+            @RequestParam StatusAgendamento status) { // Recebe o valor do parâmetro da URL (?param=valor)
+        return ResponseEntity.ok(agendamentoMapper.toResponse(service.updateStatus(id, status)));
     }
     
-    @PostMapping("/{id}/confirmar")
-    @Operation(summary = "Confirmar agendamento")
-    public ResponseEntity<AgendamentoResponseDTO> confirmar(@PathVariable Long id) {
-        return ResponseEntity.ok(AgendamentoMapper.toResponse(service.updateStatus(id, StatusAgendamento.CONFIRMADO)));
+    @PutMapping("/{id}/enviar-comprovante") // Endpoint que aceita requisições PUT (atualizar) com parâmetro na URL
+    @Operation(summary = "Cliente envia comprovante de sinal (PENDENTE → AGUARDANDO_CONFIRMACAO)") // Swagger: descreve o endpoint na documentação
+    public ResponseEntity<AgendamentoResponseDTO> enviarComprovante(
+            @PathVariable Long id, // Recebe o valor da URL (ex: /agendamentos/{id}/enviar-comprovante)
+            @RequestBody(required = false) Map<String, String> body) { // Recebe os dados do corpo da requisição HTTP (opcional)
+        String comprovante = body != null ? body.get("comprovanteSinal") : null;
+        return ResponseEntity.ok(agendamentoMapper.toResponse(service.enviarComprovanteSinal(id, comprovante)));
+    }
+
+    @PostMapping("/{id}/upload-comprovante") // Endpoint que aceita requisições POST (criar) com parâmetro na URL
+    @Operation(summary = "Upload de comprovante de sinal como arquivo (PENDENTE → AGUARDANDO_CONFIRMACAO)") // Swagger: descreve o endpoint na documentação
+    public ResponseEntity<AgendamentoResponseDTO> uploadComprovante(
+            @PathVariable Long id, // Recebe o valor da URL (ex: /agendamentos/{id}/upload-comprovante)
+            @RequestParam("arquivo") MultipartFile arquivo) throws Exception { // Recebe o arquivo do parâmetro da URL
+        String caminho = fileStorageProvider.store(arquivo, "comprovantes");
+        return ResponseEntity.ok(agendamentoMapper.toResponse(service.enviarComprovanteSinal(id, caminho)));
+    }
+
+    @PutMapping("/{id}/confirmar-sinal") // Endpoint que aceita requisições PUT (atualizar) com parâmetro na URL
+    @Operation(summary = "Funcionário confirma recebimento do sinal (AGUARDANDO_CONFIRMACAO → CONFIRMADO)") // Swagger: descreve o endpoint na documentação
+    public ResponseEntity<AgendamentoResponseDTO> confirmarSinal(@PathVariable Long id) { // Recebe o valor da URL (ex: /agendamentos/{id}/confirmar-sinal)
+        return ResponseEntity.ok(agendamentoMapper.toResponse(service.confirmarSinal(id)));
+    }
+
+    @PutMapping("/{id}/registrar-chegada") // Endpoint que aceita requisições PUT (atualizar) com parâmetro na URL
+    @Operation(summary = "Registrar chegada do cliente (CONFIRMADO → EM_ATENDIMENTO)") // Swagger: descreve o endpoint na documentação
+    public ResponseEntity<Map<String, Object>> registrarChegada(@PathVariable Long id) { // Recebe o valor da URL (ex: /agendamentos/{id}/registrar-chegada)
+        Agendamento agendamento = service.registrarChegada(id);
+        return ResponseEntity.ok(Map.of(
+            "agendamento", agendamentoMapper.toResponse(agendamento),
+            "notificacao", Map.of(
+                "mensagem", "Cliente " + agendamento.getCliente().getNome() + " chegou ao estabelecimento",
+                "clienteId", agendamento.getCliente().getId(),
+                "funcionarioId", agendamento.getFuncionario().getId()
+            )
+        ));
+    }
+
+    @PutMapping("/{id}/finalizar") // Endpoint que aceita requisições PUT (atualizar) com parâmetro na URL
+    @Operation(summary = "Finalizar atendimento e pagamento (EM_ATENDIMENTO → CONCLUIDO)") // Swagger: descreve o endpoint na documentação
+    public ResponseEntity<AgendamentoResponseDTO> finalizar(@PathVariable Long id) { // Recebe o valor da URL (ex: /agendamentos/{id}/finalizar)
+        return ResponseEntity.ok(agendamentoMapper.toResponse(service.finalizarAtendimento(id)));
+    }
+
+    @PutMapping("/{id}/cancelar") // Endpoint que aceita requisições PUT (atualizar) com parâmetro na URL
+    @Operation(summary = "Cancelar agendamento") // Swagger: descreve o endpoint na documentação
+    public ResponseEntity<AgendamentoResponseDTO> cancelar(
+            @PathVariable Long id, // Recebe o valor da URL (ex: /agendamentos/{id}/cancelar)
+            @RequestBody(required = false) Map<String, String> body) { // Recebe os dados do corpo da requisição HTTP (opcional)
+        String motivo = body != null ? body.get("motivo") : null;
+        return ResponseEntity.ok(agendamentoMapper.toResponse(service.cancelar(id, motivo, null)));
     }
     
-    @PutMapping("/{id}")
-    public ResponseEntity<AgendamentoResponseDTO> atualizar(@PathVariable Long id, @RequestBody AgendamentoRequestDTO dto) {
+    @PutMapping("/{id}") // Endpoint que aceita requisições PUT (atualizar) com parâmetro na URL
+    public ResponseEntity<AgendamentoResponseDTO> atualizar(@PathVariable Long id, @RequestBody AgendamentoRequestDTO dto) { // Recebe o valor da URL e os dados do corpo da requisição HTTP (JSON)
         Agendamento entity = service.findById(id);
         entity.setDataHoraInicio(dto.getDataHoraInicio());
         entity.setDataHoraFim(dto.getDataHoraFim());
@@ -78,95 +144,83 @@ public class AgendamentoController {
         entity.setValorSinal(dto.getValorSinal());
         entity.setQuantidadeParcelas(dto.getQuantidadeParcelas());
         entity.setObservacoes(dto.getObservacoes());
-        return ResponseEntity.ok(AgendamentoMapper.toResponse(service.update(id, entity)));
+        return ResponseEntity.ok(agendamentoMapper.toResponse(service.update(id, entity)));
     }
     
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> excluir(@PathVariable Long id) {
+    @DeleteMapping("/{id}") // Endpoint que aceita requisições DELETE (excluir) com parâmetro na URL
+    public ResponseEntity<Void> excluir(@PathVariable Long id) { // Recebe o valor da URL (ex: /agendamentos/{id})
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
     
-    @GetMapping("/hoje")
-    @Operation(summary = "Agendamentos de hoje")
+    @GetMapping("/hoje") // Endpoint que aceita requisições GET
+    @Operation(summary = "Agendamentos de hoje") // Swagger: descreve o endpoint na documentação
     public ResponseEntity<List<AgendamentoResponseDTO>> hoje() {
         List<AgendamentoResponseDTO> dtos = service.findByData(LocalDate.now()).stream()
-            .map(AgendamentoMapper::toResponse)
+            .map(agendamentoMapper::toResponse)
             .toList();
         return ResponseEntity.ok(dtos);
     }
     
-    @GetMapping("/periodo")
+    @GetMapping("/periodo") // Endpoint que aceita requisições GET
     public ResponseEntity<List<AgendamentoResponseDTO>> periodo(
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate inicio,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fim) {
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate inicio, // Recebe o valor do parâmetro da URL com formato de data ISO
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fim) { // Recebe o valor do parâmetro da URL com formato de data ISO
         List<AgendamentoResponseDTO> dtos = service.findByPeriodo(inicio, fim).stream()
-            .map(AgendamentoMapper::toResponse)
+            .map(agendamentoMapper::toResponse)
             .toList();
         return ResponseEntity.ok(dtos);
     }
     
-    @GetMapping("/status")
-    @Operation(summary = "Agendamentos por status")
-    public ResponseEntity<List<AgendamentoResponseDTO>> porStatus(@RequestParam StatusAgendamento status) {
+    @GetMapping("/status") // Endpoint que aceita requisições GET
+    @Operation(summary = "Agendamentos por status") // Swagger: descreve o endpoint na documentação
+    public ResponseEntity<List<AgendamentoResponseDTO>> porStatus(@RequestParam StatusAgendamento status) { // Recebe o valor do parâmetro da URL (?param=valor)
         List<AgendamentoResponseDTO> dtos = service.findByStatus(status).stream()
-            .map(AgendamentoMapper::toResponse)
+            .map(agendamentoMapper::toResponse)
             .toList();
         return ResponseEntity.ok(dtos);
     }
     
-    @GetMapping("/funcionario/{id}")
-    @Operation(summary = "Agendamentos por funcionário")
-    public ResponseEntity<List<AgendamentoResponseDTO>> porFuncionario(@PathVariable Long id) {
+    @GetMapping("/funcionario/{id}") // Endpoint que aceita requisições GET com parâmetro na URL
+    @Operation(summary = "Agendamentos por funcionário") // Swagger: descreve o endpoint na documentação
+    public ResponseEntity<List<AgendamentoResponseDTO>> porFuncionario(@PathVariable Long id) { // Recebe o valor da URL (ex: /agendamentos/funcionario/{id})
         List<AgendamentoResponseDTO> dtos = service.findByFuncionarioId(id).stream()
-            .map(AgendamentoMapper::toResponse)
+            .map(agendamentoMapper::toResponse)
             .toList();
         return ResponseEntity.ok(dtos);
     }
     
-    @GetMapping("/cliente/{id}")
-    @Operation(summary = "Agendamentos por cliente")
-    public ResponseEntity<List<AgendamentoResponseDTO>> porCliente(@PathVariable Long id) {
+    @GetMapping("/cliente/{id}") // Endpoint que aceita requisições GET com parâmetro na URL
+    @Operation(summary = "Agendamentos por cliente") // Swagger: descreve o endpoint na documentação
+    public ResponseEntity<List<AgendamentoResponseDTO>> porCliente(@PathVariable Long id) { // Recebe o valor da URL (ex: /agendamentos/cliente/{id})
         List<AgendamentoResponseDTO> dtos = service.findByClienteId(id).stream()
-            .map(AgendamentoMapper::toResponse)
+            .map(agendamentoMapper::toResponse)
             .toList();
         return ResponseEntity.ok(dtos);
     }
     
-    @GetMapping("/proximos")
-    @Operation(summary = "Próximos agendamentos")
-    public ResponseEntity<List<AgendamentoResponseDTO>> proximos(@RequestParam(defaultValue = "7") int dias) {
+    @GetMapping("/proximos") // Endpoint que aceita requisições GET
+    @Operation(summary = "Próximos agendamentos") // Swagger: descreve o endpoint na documentação
+    public ResponseEntity<List<AgendamentoResponseDTO>> proximos(@RequestParam(defaultValue = "7") int dias) { // Recebe o valor do parâmetro da URL com valor padrão
         LocalDate hoje = LocalDate.now();
         List<AgendamentoResponseDTO> dtos = service.findByPeriodo(hoje, hoje.plusDays(dias)).stream()
-            .map(AgendamentoMapper::toResponse)
+            .map(agendamentoMapper::toResponse)
             .toList();
         return ResponseEntity.ok(dtos);
     }
     
-    @GetMapping("/hoje/resumo")
-    @Operation(summary = "Resumo do dia")
+    @GetMapping("/hoje/resumo") // Endpoint que aceita requisições GET
+    @Operation(summary = "Resumo do dia") // Swagger: descreve o endpoint na documentação
     public ResponseEntity<List<AgendamentoResponseDTO>> resumoDia() {
         List<AgendamentoResponseDTO> dtos = service.findByData(LocalDate.now()).stream()
-            .map(AgendamentoMapper::toResponse)
+            .map(agendamentoMapper::toResponse)
             .toList();
         return ResponseEntity.ok(dtos);
     }
     
-    @PutMapping("/{id}/cancelar")
-    @Operation(summary = "Cancelar agendamento")
-    public ResponseEntity<AgendamentoResponseDTO> cancelar(@PathVariable Long id) {
-        return ResponseEntity.ok(AgendamentoMapper.toResponse(service.updateStatus(id, StatusAgendamento.CANCELADO)));
-    }
-    
-    @PutMapping("/{id}/nao-compareceu")
-    @Operation(summary = "Não compareceu")
-    public ResponseEntity<AgendamentoResponseDTO> naoCompareceu(@PathVariable Long id) {
-        return ResponseEntity.ok(AgendamentoMapper.toResponse(service.updateStatus(id, StatusAgendamento.NAO_COMPARECEU)));
-    }
-    
-    @PutMapping("/{id}/encerrar")
-    @Operation(summary = "Encerrar agendamento")
-    public ResponseEntity<AgendamentoResponseDTO> encerrar(@PathVariable Long id) {
-        return ResponseEntity.ok(AgendamentoMapper.toResponse(service.updateStatus(id, StatusAgendamento.CONCLUIDO)));
+    @PutMapping("/{id}/nao-compareceu") // Endpoint que aceita requisições PUT (atualizar) com parâmetro na URL
+    @Operation(summary = "Não compareceu (CONFIRMADO/EM_ATENDIMENTO → NAO_COMPARECEU)") // Swagger: descreve o endpoint na documentação
+    public ResponseEntity<AgendamentoResponseDTO> naoCompareceu(@PathVariable Long id) { // Recebe o valor da URL (ex: /agendamentos/{id}/nao-compareceu)
+        return ResponseEntity.ok(agendamentoMapper.toResponse(service.naoCompareceu(id)));
     }
 }

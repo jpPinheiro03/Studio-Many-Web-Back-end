@@ -9,4 +9,5 @@ import java.util.List;
 public interface HorarioTrabalhoRepository extends JpaRepository<HorarioTrabalho, Long> {
     List<HorarioTrabalho> findByFunc_Id(Long funcId);
     List<HorarioTrabalho> findByFunc_IdAndDiaSemana(Long funcId, Integer diaSemana);
+    boolean existsByFunc_Id(Long funcId);
 }

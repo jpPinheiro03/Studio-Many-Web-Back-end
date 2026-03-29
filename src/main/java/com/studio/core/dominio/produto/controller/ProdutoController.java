@@ -22,10 +22,13 @@ public class ProdutoController {
     @Autowired
     private ProdutoService service;
     
+    @Autowired
+    private ProdutoMapper produtoMapper;
+    
     @GetMapping
     public ResponseEntity<List<ProdutoResponseDTO>> listar() {
         List<ProdutoResponseDTO> dtos = service.findAll().stream()
-            .map(ProdutoMapper::toResponse)
+            .map(produtoMapper::toResponse)
             .toList();
         return ResponseEntity.ok(dtos);
     }
@@ -33,7 +36,7 @@ public class ProdutoController {
     @GetMapping("/ativos")
     public ResponseEntity<List<ProdutoResponseDTO>> ativos() {
         List<ProdutoResponseDTO> dtos = service.findAtivos().stream()
-            .map(ProdutoMapper::toResponse)
+            .map(produtoMapper::toResponse)
             .toList();
         return ResponseEntity.ok(dtos);
     }
@@ -41,31 +44,31 @@ public class ProdutoController {
     @GetMapping("/estoque-baixo")
     public ResponseEntity<List<ProdutoResponseDTO>> estoqueBaixo(@RequestParam(defaultValue = "10") int limite) {
         List<ProdutoResponseDTO> dtos = service.findEstoqueBaixo(limite).stream()
-            .map(ProdutoMapper::toResponse)
+            .map(produtoMapper::toResponse)
             .toList();
         return ResponseEntity.ok(dtos);
     }
     
     @GetMapping("/{id}")
     public ResponseEntity<ProdutoResponseDTO> buscarPorId(@PathVariable Long id) {
-        return ResponseEntity.ok(ProdutoMapper.toResponse(service.findById(id)));
+        return ResponseEntity.ok(produtoMapper.toResponse(service.findById(id)));
     }
     
     @PostMapping
     @Operation(summary = "Criar produto")
     public ResponseEntity<ProdutoResponseDTO> criar(@Valid @RequestBody ProdutoRequestDTO dto) {
-        Produto entity = ProdutoMapper.toEntity(dto);
+        Produto entity = produtoMapper.toEntity(dto);
         
         Produto created = service.create(entity);
-        return ResponseEntity.status(HttpStatus.CREATED).body(ProdutoMapper.toResponse(created));
+        return ResponseEntity.status(HttpStatus.CREATED).body(produtoMapper.toResponse(created));
     }
     
     @PutMapping("/{id}")
     public ResponseEntity<ProdutoResponseDTO> atualizar(@PathVariable Long id, @Valid @RequestBody ProdutoRequestDTO dto) {
-        Produto entity = ProdutoMapper.toEntity(dto);
+        Produto entity = produtoMapper.toEntity(dto);
         
         Produto updated = service.update(id, entity);
-        return ResponseEntity.ok(ProdutoMapper.toResponse(updated));
+        return ResponseEntity.ok(produtoMapper.toResponse(updated));
     }
     
     @DeleteMapping("/{id}")

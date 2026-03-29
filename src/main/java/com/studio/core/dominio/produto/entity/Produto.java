@@ -1,44 +1,32 @@
 package com.studio.core.dominio.produto.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "produtos")
+@Entity // Esta classe vira uma tabela no banco de dados
+@Table(name = "produtos") // Nome da tabela no banco (snake_case)
+@Getter @Setter // Lombok: gera getters e setters automaticamente
 public class Produto {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
-    @Column(nullable = false)
-    private String nome;
-    
-    private String descricao;
-    
-    @Column(precision = 10, scale = 2)
-    private BigDecimal preco;
-    
-    private Integer estoque = 0;
-    
-    private Boolean ativo = true;
-    
-    @Column(name = "data_cadastro")
-    private LocalDateTime dataCadastro = LocalDateTime.now();
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public String getNome() { return nome; }
-    public void setNome(String nome) { this.nome = nome; }
-    public String getDescricao() { return descricao; }
-    public void setDescricao(String descricao) { this.descricao = descricao; }
-    public BigDecimal getPreco() { return preco; }
-    public void setPreco(BigDecimal preco) { this.preco = preco; }
-    public Integer getEstoque() { return estoque; }
-    public void setEstoque(Integer estoque) { this.estoque = estoque; }
-    public Boolean getAtivo() { return ativo; }
-    public void setAtivo(Boolean ativo) { this.ativo = ativo; }
-    public LocalDateTime getDataCadastro() { return dataCadastro; }
-    public void setDataCadastro(LocalDateTime dataCadastro) { this.dataCadastro = dataCadastro; }
+    @Id // Chave primária da tabela
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-incremento pelo banco
+    private Long id;
+
+    @Column(nullable = false) // Coluna obrigatória (NOT NULL)
+    private String nome;
+
+    private String descricao; // Coluna opcional (pode ser nula)
+
+    @Column(precision = 10, scale = 2) // Número decimal (DECIMAL(10,2))
+    private BigDecimal preco;
+
+    private Integer estoque = 0; // Coluna opcional com valor padrão
+
+    private Boolean ativo = true; // Coluna opcional com valor padrão
+
+    @Column(name = "data_cadastro") // Nome da coluna no banco (snake_case)
+    private LocalDateTime dataCadastro = LocalDateTime.now();
 }

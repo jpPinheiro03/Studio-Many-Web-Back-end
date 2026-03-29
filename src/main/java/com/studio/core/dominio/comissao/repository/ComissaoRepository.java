@@ -15,7 +15,9 @@ public interface ComissaoRepository extends JpaRepository<Comissao, Long> {
     List<Comissao> findByFunc_IdAndStatus(Long funcId, Comissao.StatusComissao status);
     List<Comissao> findByStatus(Comissao.StatusComissao status);
     List<Comissao> findByDataComissaoBetween(LocalDate inicio, LocalDate fim);
+    List<Comissao> findByAgendamento_Id(Long agendamentoId);
+    boolean existsByFunc_Id(Long funcId);
     
     @Query("SELECT COALESCE(SUM(c.valor), 0) FROM Comissao c WHERE c.func.id = :funcionarioId AND c.status = 'PENDENTE'")
-    BigDecimal totalPendentePorFuncionario(@Param("funcionarioId") Long FuncionarioId);
+    BigDecimal totalPendentePorFuncionario(@Param("funcionarioId") Long funcionarioId);
 }

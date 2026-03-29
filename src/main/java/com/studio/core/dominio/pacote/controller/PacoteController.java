@@ -22,34 +22,37 @@ public class PacoteController {
     @Autowired
     private PacoteService service;
     
+    @Autowired
+    private PacoteMapper pacoteMapper;
+    
     @GetMapping
     public ResponseEntity<List<PacoteResponseDTO>> listar() {
         List<PacoteResponseDTO> dtos = service.findAll().stream()
-            .map(PacoteMapper::toResponse)
+            .map(pacoteMapper::toResponse)
             .toList();
         return ResponseEntity.ok(dtos);
     }
     
     @GetMapping("/{id}")
     public ResponseEntity<PacoteResponseDTO> buscarPorId(@PathVariable Long id) {
-        return ResponseEntity.ok(PacoteMapper.toResponse(service.findById(id)));
+        return ResponseEntity.ok(pacoteMapper.toResponse(service.findById(id)));
     }
     
     @PostMapping
     @Operation(summary = "Criar pacote")
     public ResponseEntity<PacoteResponseDTO> criar(@Valid @RequestBody PacoteRequestDTO dto) {
-        Pacote entity = PacoteMapper.toEntity(dto);
+        Pacote entity = pacoteMapper.toEntity(dto);
         
         Pacote created = service.create(dto.getServicoId(), entity);
-        return ResponseEntity.status(HttpStatus.CREATED).body(PacoteMapper.toResponse(created));
+        return ResponseEntity.status(HttpStatus.CREATED).body(pacoteMapper.toResponse(created));
     }
     
     @PutMapping("/{id}")
     public ResponseEntity<PacoteResponseDTO> atualizar(@PathVariable Long id, @Valid @RequestBody PacoteRequestDTO dto) {
-        Pacote entity = PacoteMapper.toEntity(dto);
+        Pacote entity = pacoteMapper.toEntity(dto);
         
         Pacote updated = service.update(id, entity);
-        return ResponseEntity.ok(PacoteMapper.toResponse(updated));
+        return ResponseEntity.ok(pacoteMapper.toResponse(updated));
     }
     
     @DeleteMapping("/{id}")

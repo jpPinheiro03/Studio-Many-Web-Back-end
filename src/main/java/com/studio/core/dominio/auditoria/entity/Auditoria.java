@@ -1,51 +1,44 @@
 package com.studio.core.dominio.auditoria.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.studio.core.dominio.usuario.entity.Usuario;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "auditoria")
+@Entity // Esta classe vira uma tabela no banco de dados
+@Table(name = "auditoria") // Nome da tabela no banco (snake_case)
+@Getter @Setter // Lombok: gera getters e setters automaticamente
 public class Auditoria {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @Id // Chave primária da tabela
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-incremento pelo banco
     private Long id;
-    
-    @Column(name = "entidade", nullable = false)
+
+    @Column(name = "entidade", nullable = false) // Coluna obrigatória com nome customizado
     private String entidade;
-    
-    @Column(name = "entidade_id", nullable = false)
+
+    @Column(name = "entidade_id", nullable = false) // Coluna obrigatória com nome customizado
     private Long entidadeId;
-    
-    @Column(nullable = false)
+
+    @Column(nullable = false) // Coluna obrigatória (NOT NULL)
     private String acao;
-    
-    @Column(columnDefinition = "TEXT")
+
+    @Column(columnDefinition = "TEXT") // Texto longo (sem limite de caracteres)
     private String dadosAnteriores;
-    
-    @Column(columnDefinition = "TEXT")
+
+    @Column(columnDefinition = "TEXT") // Texto longo (sem limite de caracteres)
     private String dadosNovos;
-    
-    @Column(name = "usuario")
-    private String usuario;
-    
-    @Column(name = "data_acao", nullable = false)
+
+    @ManyToOne(fetch = FetchType.LAZY) // Muitos registros de auditoria apontam para 1 usuário (carregamento sob demanda)
+    @JoinColumn(name = "usuario_id") // Nome da coluna FK
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // Evita erro de serialização JSON no lazy loading
+    private Usuario usuario;
+
+    @Column(name = "data_acao", nullable = false) // Coluna obrigatória com nome customizado
     private LocalDateTime dataAcao = LocalDateTime.now();
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public String getEntidade() { return entidade; }
-    public void setEntidade(String entidade) { this.entidade = entidade; }
-    public Long getEntidadeId() { return entidadeId; }
-    public void setEntidadeId(Long entidadeId) { this.entidadeId = entidadeId; }
-    public String getAcao() { return acao; }
-    public void setAcao(String acao) { this.acao = acao; }
-    public String getDadosAnteriores() { return dadosAnteriores; }
-    public void setDadosAnteriores(String dadosAnteriores) { this.dadosAnteriores = dadosAnteriores; }
-    public String getDadosNovos() { return dadosNovos; }
-    public void setDadosNovos(String dadosNovos) { this.dadosNovos = dadosNovos; }
-    public String getUsuario() { return usuario; }
-    public void setUsuario(String usuario) { this.usuario = usuario; }
-    public LocalDateTime getDataAcao() { return dataAcao; }
-    public void setDataAcao(LocalDateTime dataAcao) { this.dataAcao = dataAcao; }
+    @Transient // Campo não persistido no banco (só existe em memória)
+    private Long usuarioId;
 }

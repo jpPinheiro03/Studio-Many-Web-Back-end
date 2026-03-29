@@ -12,4 +12,6 @@ public interface FuncionarioServicoRepository extends JpaRepository<FuncionarioS
     List<FuncionarioServico> findByServico_Id(Long servicoId);
     Optional<FuncionarioServico> findByFunc_IdAndServico_Id(Long funcId, Long servicoId);
     boolean existsByFunc_IdAndServico_Id(Long funcId, Long servicoId);
+    boolean existsByServico_Id(Long servicoId);
+    boolean existsByFunc_Id(Long funcId);
 }

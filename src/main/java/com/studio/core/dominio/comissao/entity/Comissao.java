@@ -4,60 +4,46 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.studio.core.dominio.agendamento.entity.Agendamento;
 import com.studio.core.dominio.funcionario.entity.Funcionario;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "comissoes")
+@Entity // Esta classe vira uma tabela no banco de dados
+@Table(name = "comissoes") // Nome da tabela no banco (snake_case)
+@Getter @Setter // Lombok: gera getters e setters automaticamente
 public class Comissao {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "funcionario_id", nullable = false)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private Funcionario func;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "agendamento_id", nullable = false)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private Agendamento agendamento;
-    
-    @Column(precision = 10, scale = 2, nullable = false)
-    private BigDecimal valor;
-    
-    @Column(name = "percentual", precision = 5, scale = 2)
-    private BigDecimal percentual;
-    
-    @Column(name = "data_comissao")
-    private LocalDate dataComissao;
-    
-    @Column(name = "data_pagamento")
-    private LocalDate dataPagamento;
-    
-    @Enumerated(EnumType.STRING)
-    @Column(length = 20)
-    private StatusComissao status = StatusComissao.PENDENTE;
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public Funcionario getFunc() { return func; }
-    public void setFunc(Funcionario func) { this.func = func; }
-    public Agendamento getAgendamento() { return agendamento; }
-    public void setAgendamento(Agendamento agendamento) { this.agendamento = agendamento; }
-    public BigDecimal getValor() { return valor; }
-    public void setValor(BigDecimal valor) { this.valor = valor; }
-    public BigDecimal getPercentual() { return percentual; }
-    public void setPercentual(BigDecimal percentual) { this.percentual = percentual; }
-    public LocalDate getDataComissao() { return dataComissao; }
-    public void setDataComissao(LocalDate dataComissao) { this.dataComissao = dataComissao; }
-    public LocalDate getDataPagamento() { return dataPagamento; }
-    public void setDataPagamento(LocalDate dataPagamento) { this.dataPagamento = dataPagamento; }
-    public StatusComissao getStatus() { return status; }
-    public void setStatus(StatusComissao status) { this.status = status; }
+    @Id // Chave primária da tabela
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-incremento pelo banco
+    private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY) // Muitas comissões apontam para 1 funcionário (carregamento sob demanda)
+    @JoinColumn(name = "funcionario_id", nullable = false) // Nome da coluna FK obrigatória
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // Evita erro de serialização JSON no lazy loading
+    private Funcionario func;
+
+    @ManyToOne(fetch = FetchType.LAZY) // Muitas comissões apontam para 1 agendamento (carregamento sob demanda)
+    @JoinColumn(name = "agendamento_id", nullable = false) // Nome da coluna FK obrigatória
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // Evita erro de serialização JSON no lazy loading
+    private Agendamento agendamento;
+
+    @Column(precision = 10, scale = 2, nullable = false) // Número decimal obrigatório (DECIMAL(10,2))
+    private BigDecimal valor;
+
+    @Column(name = "percentual", precision = 5, scale = 2) // Número decimal (DECIMAL(5,2))
+    private BigDecimal percentual;
+
+    @Column(name = "data_comissao") // Nome da coluna no banco (snake_case)
+    private LocalDate dataComissao;
+
+    @Column(name = "data_pagamento") // Nome da coluna no banco (snake_case)
+    private LocalDate dataPagamento;
+
+    @Enumerated(EnumType.STRING) // Armazena o enum como texto no banco
+    @Column(length = 20) // Tamanho máximo da coluna (VARCHAR(20))
+    private StatusComissao status = StatusComissao.PENDENTE;
 
     public enum StatusComissao {
         PENDENTE,

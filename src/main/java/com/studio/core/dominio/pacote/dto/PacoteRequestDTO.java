@@ -3,8 +3,10 @@ package com.studio.core.dominio.pacote.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import lombok.Data;
 import java.math.BigDecimal;
 
+@Data
 public class PacoteRequestDTO {
 
     @NotBlank(message = "Nome é obrigatório")
@@ -25,17 +27,4 @@ public class PacoteRequestDTO {
     private Integer validadeDias;
 
     private Boolean ativo = true;
-
-    public String getNome() { return nome; }
-    public void setNome(String nome) { this.nome = nome; }
-    public Long getServicoId() { return servicoId; }
-    public void setServicoId(Long servicoId) { this.servicoId = servicoId; }
-    public Integer getQuantidadeSessoes() { return quantidadeSessoes; }
-    public void setQuantidadeSessoes(Integer quantidadeSessoes) { this.quantidadeSessoes = quantidadeSessoes; }
-    public BigDecimal getPreco() { return preco; }
-    public void setPreco(BigDecimal preco) { this.preco = preco; }
-    public Integer getValidadeDias() { return validadeDias; }
-    public void setValidadeDias(Integer validadeDias) { this.validadeDias = validadeDias; }
-    public Boolean getAtivo() { return ativo; }
-    public void setAtivo(Boolean ativo) { this.ativo = ativo; }
 }

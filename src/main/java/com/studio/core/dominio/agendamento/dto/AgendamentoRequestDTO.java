@@ -1,47 +1,31 @@
 package com.studio.core.dominio.agendamento.dto;
 
 import jakarta.validation.constraints.NotNull;
+import lombok.Data;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+@Data // Lombok: gera getters, setters, toString, equals, hashCode
 public class AgendamentoRequestDTO {
 
-    @NotNull(message = "Cliente ID é obrigatório")
+    @NotNull(message = "Cliente ID é obrigatório") // Não pode ser nulo
     private Long clienteId;
 
-    @NotNull(message = "Serviço ID é obrigatório")
+    @NotNull(message = "Serviço ID é obrigatório") // Não pode ser nulo
     private Long servicoId;
 
-    @NotNull(message = "Funcionário ID é obrigatório")
+    @NotNull(message = "Funcionário ID é obrigatório") // Não pode ser nulo
     private Long funcionarioId;
 
-    @NotNull(message = "Data/hora de início é obrigatória")
+    @NotNull(message = "Data/hora de início é obrigatória") // Não pode ser nulo
     private LocalDateTime dataHoraInicio;
 
-    @NotNull(message = "Data/hora de fim é obrigatória")
+    @NotNull(message = "Data/hora de fim é obrigatória") // Não pode ser nulo
     private LocalDateTime dataHoraFim;
 
     private BigDecimal valorTotal;
     private BigDecimal valorSinal;
     private Integer quantidadeParcelas = 1;
+    private String comprovanteSinal;
     private String observacoes;
-
-    public Long getClienteId() { return clienteId; }
-    public void setClienteId(Long clienteId) { this.clienteId = clienteId; }
-    public Long getServicoId() { return servicoId; }
-    public void setServicoId(Long servicoId) { this.servicoId = servicoId; }
-    public Long getFuncionarioId() { return funcionarioId; }
-    public void setFuncionarioId(Long funcionarioId) { this.funcionarioId = funcionarioId; }
-    public LocalDateTime getDataHoraInicio() { return dataHoraInicio; }
-    public void setDataHoraInicio(LocalDateTime dataHoraInicio) { this.dataHoraInicio = dataHoraInicio; }
-    public LocalDateTime getDataHoraFim() { return dataHoraFim; }
-    public void setDataHoraFim(LocalDateTime dataHoraFim) { this.dataHoraFim = dataHoraFim; }
-    public BigDecimal getValorTotal() { return valorTotal; }
-    public void setValorTotal(BigDecimal valorTotal) { this.valorTotal = valorTotal; }
-    public BigDecimal getValorSinal() { return valorSinal; }
-    public void setValorSinal(BigDecimal valorSinal) { this.valorSinal = valorSinal; }
-    public Integer getQuantidadeParcelas() { return quantidadeParcelas; }
-    public void setQuantidadeParcelas(Integer quantidadeParcelas) { this.quantidadeParcelas = quantidadeParcelas; }
-    public String getObservacoes() { return observacoes; }
-    public void setObservacoes(String observacoes) { this.observacoes = observacoes; }
 }

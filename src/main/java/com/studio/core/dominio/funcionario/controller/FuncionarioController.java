@@ -23,11 +23,14 @@ public class FuncionarioController {
     @Autowired
     private FuncionarioService service;
     
+    @Autowired
+    private FuncionarioMapper funcionarioMapper;
+    
     @GetMapping
     @Operation(summary = "Listar funcionários")
     public ResponseEntity<List<FuncionarioResponseDTO>> listar() {
         List<FuncionarioResponseDTO> dtos = service.findAll().stream()
-            .map(FuncionarioMapper::toResponse)
+            .map(funcionarioMapper::toResponse)
             .toList();
         return ResponseEntity.ok(dtos);
     }
@@ -35,24 +38,24 @@ public class FuncionarioController {
     @GetMapping("/{id}")
     public ResponseEntity<FuncionarioResponseDTO> buscarPorId(@PathVariable Long id) {
         Funcionario entity = service.findById(id);
-        return ResponseEntity.ok(FuncionarioMapper.toResponse(entity));
+        return ResponseEntity.ok(funcionarioMapper.toResponse(entity));
     }
     
     @PostMapping
     @Operation(summary = "Criar funcionário")
     public ResponseEntity<FuncionarioResponseDTO> criar(@Valid @RequestBody FuncionarioRequestDTO dto) {
-        Funcionario entity = FuncionarioMapper.toEntity(dto);
+        Funcionario entity = funcionarioMapper.toEntity(dto);
         
         Funcionario created = service.create(entity);
-        return ResponseEntity.status(HttpStatus.CREATED).body(FuncionarioMapper.toResponse(created));
+        return ResponseEntity.status(HttpStatus.CREATED).body(funcionarioMapper.toResponse(created));
     }
     
     @PutMapping("/{id}")
     public ResponseEntity<FuncionarioResponseDTO> atualizar(@PathVariable Long id, @Valid @RequestBody FuncionarioRequestDTO dto) {
-        Funcionario entity = FuncionarioMapper.toEntity(dto);
+        Funcionario entity = funcionarioMapper.toEntity(dto);
         
         Funcionario updated = service.update(id, entity);
-        return ResponseEntity.ok(FuncionarioMapper.toResponse(updated));
+        return ResponseEntity.ok(funcionarioMapper.toResponse(updated));
     }
     
     @DeleteMapping("/{id}")
