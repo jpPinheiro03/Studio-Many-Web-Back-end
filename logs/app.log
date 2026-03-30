@@ -2962,3 +2962,450 @@ This generated password is for development use only. Your security configuration
 2026-03-29 22:18:47.958 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
 2026-03-29 22:18:47.966 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 2026-03-29 22:18:47.989 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-03-29 22:45:36.719 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.3.Final
+2026-03-29 22:45:36.786 [main] INFO  c.s.core.AgendamentoCoreApplication - Starting AgendamentoCoreApplication using Java 21.0.10 with PID 22052 (C:\Users\Bill Hebert\Desktop\Studio-Many-Web-Back-end\target\classes started by Bill Hebert in C:\Users\Bill Hebert\Desktop\Studio-Many-Web-Back-end)
+2026-03-29 22:45:36.787 [main] DEBUG c.s.core.AgendamentoCoreApplication - Running with Spring Boot v3.5.13, Spring v6.2.17
+2026-03-29 22:45:36.788 [main] INFO  c.s.core.AgendamentoCoreApplication - The following 1 profile is active: "dev"
+2026-03-29 22:45:38.230 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-29 22:45:38.368 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 129 ms. Found 18 JPA repository interfaces.
+2026-03-29 22:45:38.870 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
+2026-03-29 22:45:38.881 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
+2026-03-29 22:45:38.883 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-03-29 22:45:38.883 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.53]
+2026-03-29 22:45:38.949 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-03-29 22:45:38.949 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2099 ms
+2026-03-29 22:45:39.240 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-03-29 22:45:39.416 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@ce19c86
+2026-03-29 22:45:39.417 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-03-29 22:45:39.462 [main] INFO  org.flywaydb.core.FlywayExecutor - Database: jdbc:mysql://localhost:3307/core_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true (MySQL 8.4)
+2026-03-29 22:45:39.484 [main] WARN  o.f.c.i.database.base.Database - Flyway upgrade recommended: MySQL 8.4 is newer than this version of Flyway and support has not been tested. The latest supported version of MySQL is 8.1.
+2026-03-29 22:45:39.524 [main] ERROR o.s.b.w.e.tomcat.TomcatStarter - Error starting Tomcat context. Exception: org.springframework.beans.factory.UnsatisfiedDependencyException. Message: Error creating bean with name 'jwtAuthenticationFilter': Unsatisfied dependency expressed through field 'usuarioRepository': Error creating bean with name 'usuarioRepository' defined in com.studio.core.dominio.usuario.repository.UsuarioRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Cannot resolve reference to bean 'jpaSharedEM_entityManagerFactory' while setting bean property 'entityManager'
+2026-03-29 22:45:39.548 [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2026-03-29 22:45:39.550 [main] WARN  o.a.c.loader.WebappClassLoaderBase - The web application [ROOT] appears to have started a thread named [HikariPool-1:housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:269)
+ java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1797)
+ java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1070)
+ java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+ java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+ java.base/java.lang.Thread.run(Thread.java:1583)
+2026-03-29 22:45:39.550 [main] WARN  o.a.c.loader.WebappClassLoaderBase - The web application [ROOT] appears to have started a thread named [HikariPool-1:connection-adder] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base/java.lang.Thread.sleep0(Native Method)
+ java.base/java.lang.Thread.sleep(Thread.java:509)
+ com.zaxxer.hikari.util.UtilityElf.quietlySleep(UtilityElf.java:71)
+ com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:757)
+ com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:731)
+ java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+ java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+ java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+ java.base/java.lang.Thread.run(Thread.java:1583)
+2026-03-29 22:45:39.552 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
+2026-03-29 22:45:39.553 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-03-29 22:45:39.577 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-03-29 22:45:39.591 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-03-29 22:45:39.603 [main] ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.context.ApplicationContextException: Unable to start web server
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:170)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:622)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at com.studio.core.AgendamentoCoreApplication.main(AgendamentoCoreApplication.java:175)
+Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:147)
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.<init>(TomcatWebServer.java:107)
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getTomcatWebServer(TomcatServletWebServerFactory.java:517)
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getWebServer(TomcatServletWebServerFactory.java:219)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.createWebServer(ServletWebServerApplicationContext.java:193)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:167)
+	... 8 common frames omitted
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'jwtAuthenticationFilter': Unsatisfied dependency expressed through field 'usuarioRepository': Error creating bean with name 'usuarioRepository' defined in com.studio.core.dominio.usuario.repository.UsuarioRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Cannot resolve reference to bean 'jpaSharedEM_entityManagerFactory' while setting bean property 'entityManager'
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:787)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:767)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:146)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:509)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1459)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:606)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207)
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.getOrderedBeansOfType(ServletContextInitializerBeans.java:230)
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:184)
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:179)
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAdaptableBeans(ServletContextInitializerBeans.java:164)
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.<init>(ServletContextInitializerBeans.java:96)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.getServletContextInitializerBeans(ServletWebServerApplicationContext.java:271)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.selfInitialize(ServletWebServerApplicationContext.java:245)
+	at org.springframework.boot.web.embedded.tomcat.TomcatStarter.onStartup(TomcatStarter.java:52)
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:4452)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1201)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1191)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:81)
+	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:145)
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:747)
+	at org.apache.catalina.core.StandardHost.startInternal(StandardHost.java:783)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1201)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1191)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:81)
+	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:145)
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:747)
+	at org.apache.catalina.core.StandardEngine.startInternal(StandardEngine.java:201)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164)
+	at org.apache.catalina.core.StandardService.startInternal(StandardService.java:410)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164)
+	at org.apache.catalina.core.StandardServer.startInternal(StandardServer.java:868)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164)
+	at org.apache.catalina.startup.Tomcat.start(Tomcat.java:436)
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:128)
+	... 13 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'usuarioRepository' defined in com.studio.core.dominio.usuario.repository.UsuarioRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Cannot resolve reference to bean 'jpaSharedEM_entityManagerFactory' while setting bean property 'entityManager'
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:377)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:135)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyPropertyValues(AbstractAutowireCapableBeanFactory.java:1725)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1474)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:606)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1708)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1653)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:784)
+	... 55 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jpaSharedEM_entityManagerFactory': Cannot resolve reference to bean 'entityManagerFactory' while setting constructor argument
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:377)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:135)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveConstructorArguments(ConstructorResolver.java:691)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:513)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1375)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1205)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:569)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:365)
+	... 67 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'flywayInitializer' defined in class path resource [org/springframework/boot/autoconfigure/flyway/FlywayAutoConfiguration$FlywayConfiguration.class]: Found more than one migration with version 001
+Offenders:
+-> C:\Users\Bill Hebert\Desktop\Studio-Many-Web-Back-end\target\classes\db\migration\V001__regras_negocio.sql (SQL)
+-> C:\Users\Bill Hebert\Desktop\Studio-Many-Web-Back-end\target\classes\db\migration\V001__criar_tabelas.sql (SQL)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1826)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:607)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:315)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:365)
+	... 79 common frames omitted
+Caused by: org.flywaydb.core.api.FlywayException: Found more than one migration with version 001
+Offenders:
+-> C:\Users\Bill Hebert\Desktop\Studio-Many-Web-Back-end\target\classes\db\migration\V001__regras_negocio.sql (SQL)
+-> C:\Users\Bill Hebert\Desktop\Studio-Many-Web-Back-end\target\classes\db\migration\V001__criar_tabelas.sql (SQL)
+	at org.flywaydb.core.internal.resolver.CompositeMigrationResolver.checkForIncompatibilities(CompositeMigrationResolver.java:92)
+	at org.flywaydb.core.internal.resolver.CompositeMigrationResolver.doFindAvailableMigrations(CompositeMigrationResolver.java:125)
+	at org.flywaydb.core.internal.resolver.CompositeMigrationResolver.resolveMigrations(CompositeMigrationResolver.java:112)
+	at org.flywaydb.core.internal.resolver.CompositeMigrationResolver.resolveMigrations(CompositeMigrationResolver.java:118)
+	at org.flywaydb.core.internal.info.MigrationInfoServiceImpl.refresh(MigrationInfoServiceImpl.java:86)
+	at org.flywaydb.core.internal.command.DbValidate.lambda$validate$0(DbValidate.java:112)
+	at org.flywaydb.core.internal.jdbc.TransactionalExecutionTemplate.execute(TransactionalExecutionTemplate.java:59)
+	at org.flywaydb.core.internal.command.DbValidate.validate(DbValidate.java:105)
+	at org.flywaydb.core.Flyway.doValidate(Flyway.java:529)
+	at org.flywaydb.core.Flyway.lambda$migrate$1(Flyway.java:199)
+	at org.flywaydb.core.FlywayExecutor.execute(FlywayExecutor.java:210)
+	at org.flywaydb.core.Flyway.migrate(Flyway.java:188)
+	at org.springframework.boot.autoconfigure.flyway.FlywayMigrationInitializer.afterPropertiesSet(FlywayMigrationInitializer.java:66)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1873)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1822)
+	... 88 common frames omitted
+2026-03-29 22:49:36.892 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.3.Final
+2026-03-29 22:49:36.939 [main] INFO  c.s.core.AgendamentoCoreApplication - Starting AgendamentoCoreApplication using Java 21.0.10 with PID 21064 (C:\Users\Bill Hebert\Desktop\Studio-Many-Web-Back-end\target\classes started by Bill Hebert in C:\Users\Bill Hebert\Desktop\Studio-Many-Web-Back-end)
+2026-03-29 22:49:36.939 [main] DEBUG c.s.core.AgendamentoCoreApplication - Running with Spring Boot v3.5.13, Spring v6.2.17
+2026-03-29 22:49:36.939 [main] INFO  c.s.core.AgendamentoCoreApplication - The following 1 profile is active: "dev"
+2026-03-29 22:49:38.217 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-29 22:49:38.345 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 121 ms. Found 18 JPA repository interfaces.
+2026-03-29 22:49:38.862 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
+2026-03-29 22:49:38.875 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
+2026-03-29 22:49:38.877 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-03-29 22:49:38.877 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.53]
+2026-03-29 22:49:38.951 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-03-29 22:49:38.952 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1967 ms
+2026-03-29 22:49:39.229 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-03-29 22:49:39.380 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@56b66a26
+2026-03-29 22:49:39.381 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-03-29 22:49:39.423 [main] INFO  org.flywaydb.core.FlywayExecutor - Database: jdbc:mysql://localhost:3307/core_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true (MySQL 8.4)
+2026-03-29 22:49:39.444 [main] WARN  o.f.c.i.database.base.Database - Flyway upgrade recommended: MySQL 8.4 is newer than this version of Flyway and support has not been tested. The latest supported version of MySQL is 8.1.
+2026-03-29 22:49:39.496 [main] INFO  o.f.core.internal.command.DbValidate - Successfully validated 2 migrations (execution time 00:00.040s)
+2026-03-29 22:49:39.520 [main] INFO  o.f.core.internal.command.DbMigrate - Current version of schema `core_db`: 002
+2026-03-29 22:49:39.524 [main] INFO  o.f.core.internal.command.DbMigrate - Schema `core_db` is up to date. No migration necessary.
+2026-03-29 22:49:39.615 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-03-29 22:49:39.656 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.45.Final
+2026-03-29 22:49:39.692 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-03-29 22:49:39.935 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-29 22:49:39.985 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-29 22:49:39.995 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.4.8
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-29 22:49:41.038 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-29 22:49:41.248 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-29 22:49:41.505 [main] DEBUG c.s.c.c.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-03-29 22:49:41.583 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-29 22:49:42.814 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-29 22:49:43.139 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 4 endpoints beneath base path '/actuator'
+2026-03-29 22:49:43.169 [main] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: ed63f01d-b94d-4422-8faa-970d84416203
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-03-29 22:49:43.174 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-03-29 22:49:43.281 [main] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JwtAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2026-03-29 22:49:43.671 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8081"]
+2026-03-29 22:49:43.692 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8081 (http) with context path '/'
+2026-03-29 22:49:43.706 [main] INFO  c.s.core.AgendamentoCoreApplication - Started AgendamentoCoreApplication in 7.336 seconds (process running for 7.771)
+2026-03-29 22:49:43.880 [main] DEBUG org.hibernate.SQL - select count(*) from funcionarios f1_0
+2026-03-29 22:49:50.633 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-29 22:49:50.639 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-03-29 22:49:50.648 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-29 22:49:50.650 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-03-29 22:49:50.657 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-03-29 22:49:56.762 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.3.Final
+2026-03-29 22:49:56.805 [main] INFO  c.s.core.AgendamentoCoreApplication - Starting AgendamentoCoreApplication using Java 21.0.10 with PID 3492 (C:\Users\Bill Hebert\Desktop\Studio-Many-Web-Back-end\target\classes started by Bill Hebert in C:\Users\Bill Hebert\Desktop\Studio-Many-Web-Back-end)
+2026-03-29 22:49:56.805 [main] DEBUG c.s.core.AgendamentoCoreApplication - Running with Spring Boot v3.5.13, Spring v6.2.17
+2026-03-29 22:49:56.805 [main] INFO  c.s.core.AgendamentoCoreApplication - The following 1 profile is active: "dev"
+2026-03-29 22:49:57.910 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-29 22:49:58.042 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 125 ms. Found 18 JPA repository interfaces.
+2026-03-29 22:49:58.562 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
+2026-03-29 22:49:58.572 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
+2026-03-29 22:49:58.574 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-03-29 22:49:58.575 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.53]
+2026-03-29 22:49:58.648 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-03-29 22:49:58.648 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1798 ms
+2026-03-29 22:49:58.962 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-03-29 22:49:59.122 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@295d54d6
+2026-03-29 22:49:59.124 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-03-29 22:49:59.166 [main] INFO  org.flywaydb.core.FlywayExecutor - Database: jdbc:mysql://localhost:3307/core_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true (MySQL 8.4)
+2026-03-29 22:49:59.196 [main] WARN  o.f.c.i.database.base.Database - Flyway upgrade recommended: MySQL 8.4 is newer than this version of Flyway and support has not been tested. The latest supported version of MySQL is 8.1.
+2026-03-29 22:49:59.242 [main] INFO  o.f.core.internal.command.DbValidate - Successfully validated 2 migrations (execution time 00:00.036s)
+2026-03-29 22:49:59.265 [main] INFO  o.f.core.internal.command.DbMigrate - Current version of schema `core_db`: 002
+2026-03-29 22:49:59.269 [main] INFO  o.f.core.internal.command.DbMigrate - Schema `core_db` is up to date. No migration necessary.
+2026-03-29 22:49:59.359 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-03-29 22:49:59.410 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.45.Final
+2026-03-29 22:49:59.445 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-03-29 22:49:59.699 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-29 22:49:59.746 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-29 22:49:59.756 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.4.8
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-29 22:50:00.812 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-29 22:50:01.025 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-29 22:50:01.299 [main] DEBUG c.s.c.c.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-03-29 22:50:01.376 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-29 22:50:15.414 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.3.Final
+2026-03-29 22:50:15.456 [main] INFO  c.s.core.AgendamentoCoreApplication - Starting AgendamentoCoreApplication using Java 21.0.10 with PID 13292 (C:\Users\Bill Hebert\Desktop\Studio-Many-Web-Back-end\target\classes started by Bill Hebert in C:\Users\Bill Hebert\Desktop\Studio-Many-Web-Back-end)
+2026-03-29 22:50:15.456 [main] DEBUG c.s.core.AgendamentoCoreApplication - Running with Spring Boot v3.5.13, Spring v6.2.17
+2026-03-29 22:50:15.457 [main] INFO  c.s.core.AgendamentoCoreApplication - The following 1 profile is active: "dev"
+2026-03-29 22:50:16.593 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-29 22:50:16.721 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 121 ms. Found 18 JPA repository interfaces.
+2026-03-29 22:50:17.193 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
+2026-03-29 22:50:17.212 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
+2026-03-29 22:50:17.215 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-03-29 22:50:17.215 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.53]
+2026-03-29 22:50:17.284 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-03-29 22:50:17.284 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1784 ms
+2026-03-29 22:50:17.557 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-03-29 22:50:17.698 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@37b238da
+2026-03-29 22:50:17.700 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-03-29 22:50:17.741 [main] INFO  org.flywaydb.core.FlywayExecutor - Database: jdbc:mysql://localhost:3307/core_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true (MySQL 8.4)
+2026-03-29 22:50:17.760 [main] WARN  o.f.c.i.database.base.Database - Flyway upgrade recommended: MySQL 8.4 is newer than this version of Flyway and support has not been tested. The latest supported version of MySQL is 8.1.
+2026-03-29 22:50:17.810 [main] INFO  o.f.core.internal.command.DbValidate - Successfully validated 2 migrations (execution time 00:00.038s)
+2026-03-29 22:50:17.835 [main] INFO  o.f.core.internal.command.DbMigrate - Current version of schema `core_db`: 002
+2026-03-29 22:50:17.838 [main] INFO  o.f.core.internal.command.DbMigrate - Schema `core_db` is up to date. No migration necessary.
+2026-03-29 22:50:17.929 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-03-29 22:50:17.972 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.45.Final
+2026-03-29 22:50:18.005 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-03-29 22:50:18.249 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-29 22:50:18.298 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-29 22:50:18.308 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.4.8
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-29 22:50:19.340 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-29 22:50:19.536 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-29 22:50:19.796 [main] DEBUG c.s.c.c.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-03-29 22:50:19.872 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-29 22:50:21.162 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-29 22:50:21.473 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 4 endpoints beneath base path '/actuator'
+2026-03-29 22:50:21.502 [main] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 6c00acd0-920b-4d65-981e-2625da479764
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-03-29 22:50:21.508 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-03-29 22:50:21.611 [main] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JwtAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2026-03-29 22:50:21.971 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8081"]
+2026-03-29 22:50:21.997 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8081 (http) with context path '/'
+2026-03-29 22:50:22.010 [main] INFO  c.s.core.AgendamentoCoreApplication - Started AgendamentoCoreApplication in 7.067 seconds (process running for 7.438)
+2026-03-29 22:50:22.124 [main] DEBUG org.hibernate.SQL - select count(*) from funcionarios f1_0
+2026-03-29 22:53:32.124 [http-nio-8081-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-29 22:53:32.125 [http-nio-8081-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-03-29 22:53:32.126 [http-nio-8081-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2026-03-29 22:53:32.154 [http-nio-8081-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api-docs
+2026-03-29 22:53:32.168 [http-nio-8081-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-03-29 22:53:32.175 [http-nio-8081-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api-docs
+2026-03-29 22:53:33.117 [http-nio-8081-exec-1] INFO  o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 909 ms
+2026-03-29 22:54:59.227 [http-nio-8081-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/auth/login
+2026-03-29 22:54:59.231 [http-nio-8081-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-03-29 22:54:59.231 [http-nio-8081-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/auth/login
+2026-03-29 22:54:59.318 [http-nio-8081-exec-3] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.ativo,u1_0.data_cadastro,u1_0.email,u1_0.funcionario_id,u1_0.role,u1_0.senha from usuarios u1_0 where u1_0.email=?
+2026-03-29 22:55:07.946 [http-nio-8081-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/auth/login
+2026-03-29 22:55:07.947 [http-nio-8081-exec-4] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-03-29 22:55:07.947 [http-nio-8081-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/auth/login
+2026-03-29 22:55:07.953 [http-nio-8081-exec-4] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.ativo,u1_0.data_cadastro,u1_0.email,u1_0.funcionario_id,u1_0.role,u1_0.senha from usuarios u1_0 where u1_0.email=?
+2026-03-29 22:55:08.172 [http-nio-8081-exec-4] DEBUG org.hibernate.SQL - select f1_0.id,f1_0.ativo,f1_0.cpf,f1_0.data_cadastro,f1_0.email,f1_0.especialidade,f1_0.nome,f1_0.telefone from funcionarios f1_0 where f1_0.id=?
+2026-03-29 22:55:15.416 [http-nio-8081-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/clientes
+2026-03-29 22:55:15.537 [http-nio-8081-exec-6] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.ativo,u1_0.data_cadastro,u1_0.email,u1_0.funcionario_id,u1_0.role,u1_0.senha from usuarios u1_0 where u1_0.email=?
+2026-03-29 22:55:15.548 [http-nio-8081-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/clientes
+2026-03-29 22:55:15.553 [http-nio-8081-exec-6] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.ativo,c1_0.cpf,c1_0.data_cadastro,c1_0.email,c1_0.endereco,c1_0.estagio_funil,c1_0.nome,c1_0.observacoes,c1_0.telefone from clientes c1_0
+2026-03-29 22:55:23.264 [http-nio-8081-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/funcionarios
+2026-03-29 22:55:23.268 [http-nio-8081-exec-7] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.ativo,u1_0.data_cadastro,u1_0.email,u1_0.funcionario_id,u1_0.role,u1_0.senha from usuarios u1_0 where u1_0.email=?
+2026-03-29 22:55:23.274 [http-nio-8081-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/funcionarios
+2026-03-29 22:55:23.279 [http-nio-8081-exec-7] DEBUG org.hibernate.SQL - select f1_0.id,f1_0.ativo,f1_0.cpf,f1_0.data_cadastro,f1_0.email,f1_0.especialidade,f1_0.nome,f1_0.telefone from funcionarios f1_0
+2026-03-29 22:55:29.608 [http-nio-8081-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/servicos
+2026-03-29 22:55:29.611 [http-nio-8081-exec-9] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.ativo,u1_0.data_cadastro,u1_0.email,u1_0.funcionario_id,u1_0.role,u1_0.senha from usuarios u1_0 where u1_0.email=?
+2026-03-29 22:55:29.617 [http-nio-8081-exec-9] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/servicos
+2026-03-29 22:55:29.620 [http-nio-8081-exec-9] DEBUG org.hibernate.SQL - select s1_0.id,s1_0.ativo,s1_0.confirmacao_automatica,s1_0.descricao,s1_0.duracao_minutos,s1_0.nome,s1_0.preco from servicos s1_0
+2026-03-29 22:55:35.010 [http-nio-8081-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/agendamentos
+2026-03-29 22:55:35.013 [http-nio-8081-exec-1] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.ativo,u1_0.data_cadastro,u1_0.email,u1_0.funcionario_id,u1_0.role,u1_0.senha from usuarios u1_0 where u1_0.email=?
+2026-03-29 22:55:35.019 [http-nio-8081-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/agendamentos
+2026-03-29 22:55:35.048 [http-nio-8081-exec-1] DEBUG org.hibernate.SQL - select a1_0.id,a1_0.agendamento_original_id,a1_0.cliente_id,c1_0.id,c1_0.ativo,c1_0.cpf,c1_0.data_cadastro,c1_0.email,c1_0.endereco,c1_0.estagio_funil,c1_0.nome,c1_0.observacoes,c1_0.telefone,a1_0.comprovante_sinal,a1_0.data_chegada,a1_0.data_confirmacao_sinal,a1_0.data_criacao,a1_0.data_finalizacao,a1_0.data_hora_fim,a1_0.data_hora_inicio,a1_0.frequencia_recorrencia,a1_0.funcionario_id,f1_0.id,f1_0.ativo,f1_0.cpf,f1_0.data_cadastro,f1_0.email,f1_0.especialidade,f1_0.nome,f1_0.telefone,a1_0.motivo_cancelamento,a1_0.observacoes,a1_0.quantidade_parcelas,a1_0.quantidade_reagendamentos,a1_0.recorrente,a1_0.servico_id,s1_0.id,s1_0.ativo,s1_0.confirmacao_automatica,s1_0.descricao,s1_0.duracao_minutos,s1_0.nome,s1_0.preco,a1_0.status,a1_0.taxa_cancelamento,a1_0.valor_sinal,a1_0.valor_total from agendamentos a1_0 join clientes c1_0 on c1_0.id=a1_0.cliente_id join servicos s1_0 on s1_0.id=a1_0.servico_id join funcionarios f1_0 on f1_0.id=a1_0.funcionario_id
+2026-03-29 22:55:41.934 [http-nio-8081-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/dashboard/resumo-dia
+2026-03-29 22:55:41.937 [http-nio-8081-exec-4] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.ativo,u1_0.data_cadastro,u1_0.email,u1_0.funcionario_id,u1_0.role,u1_0.senha from usuarios u1_0 where u1_0.email=?
+2026-03-29 22:55:41.944 [http-nio-8081-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/dashboard/resumo-dia
+2026-03-29 22:55:41.953 [http-nio-8081-exec-4] DEBUG org.hibernate.SQL - select a1_0.id,a1_0.agendamento_original_id,a1_0.cliente_id,c1_0.id,c1_0.ativo,c1_0.cpf,c1_0.data_cadastro,c1_0.email,c1_0.endereco,c1_0.estagio_funil,c1_0.nome,c1_0.observacoes,c1_0.telefone,a1_0.comprovante_sinal,a1_0.data_chegada,a1_0.data_confirmacao_sinal,a1_0.data_criacao,a1_0.data_finalizacao,a1_0.data_hora_fim,a1_0.data_hora_inicio,a1_0.frequencia_recorrencia,a1_0.funcionario_id,f1_0.id,f1_0.ativo,f1_0.cpf,f1_0.data_cadastro,f1_0.email,f1_0.especialidade,f1_0.nome,f1_0.telefone,a1_0.motivo_cancelamento,a1_0.observacoes,a1_0.quantidade_parcelas,a1_0.quantidade_reagendamentos,a1_0.recorrente,a1_0.servico_id,s1_0.id,s1_0.ativo,s1_0.confirmacao_automatica,s1_0.descricao,s1_0.duracao_minutos,s1_0.nome,s1_0.preco,a1_0.status,a1_0.taxa_cancelamento,a1_0.valor_sinal,a1_0.valor_total from agendamentos a1_0 join clientes c1_0 on c1_0.id=a1_0.cliente_id join servicos s1_0 on s1_0.id=a1_0.servico_id join funcionarios f1_0 on f1_0.id=a1_0.funcionario_id where a1_0.data_hora_inicio>=? and a1_0.data_hora_inicio<?
+2026-03-29 22:55:50.494 [http-nio-8081-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/financeiro
+2026-03-29 22:55:50.498 [http-nio-8081-exec-6] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.ativo,u1_0.data_cadastro,u1_0.email,u1_0.funcionario_id,u1_0.role,u1_0.senha from usuarios u1_0 where u1_0.email=?
+2026-03-29 22:55:50.504 [http-nio-8081-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/financeiro
+2026-03-29 22:55:50.509 [http-nio-8081-exec-6] DEBUG org.hibernate.SQL - select m1_0.id,m1_0.agendamento_id,m1_0.data_cadastro,m1_0.data_movimento,m1_0.descricao,m1_0.tipo,m1_0.usuario_id,m1_0.valor from movimentos m1_0
+2026-03-29 22:55:50.565 [http-nio-8081-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/pedidos
+2026-03-29 22:55:50.569 [http-nio-8081-exec-7] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.ativo,u1_0.data_cadastro,u1_0.email,u1_0.funcionario_id,u1_0.role,u1_0.senha from usuarios u1_0 where u1_0.email=?
+2026-03-29 22:55:50.576 [http-nio-8081-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/pedidos
+2026-03-29 22:55:50.581 [http-nio-8081-exec-7] DEBUG org.hibernate.SQL - select p1_0.id,p1_0.cliente_id,p1_0.data_pedido,p1_0.status,p1_0.valor_total from pedidos p1_0
+2026-03-29 22:55:50.625 [http-nio-8081-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/produtos
+2026-03-29 22:55:50.630 [http-nio-8081-exec-9] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.ativo,u1_0.data_cadastro,u1_0.email,u1_0.funcionario_id,u1_0.role,u1_0.senha from usuarios u1_0 where u1_0.email=?
+2026-03-29 22:55:50.635 [http-nio-8081-exec-9] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/produtos
+2026-03-29 22:55:50.640 [http-nio-8081-exec-9] DEBUG org.hibernate.SQL - select p1_0.id,p1_0.ativo,p1_0.data_cadastro,p1_0.descricao,p1_0.estoque,p1_0.nome,p1_0.preco from produtos p1_0
+2026-03-29 22:55:58.992 [http-nio-8081-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/parcelas
+2026-03-29 22:55:58.995 [http-nio-8081-exec-1] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.ativo,u1_0.data_cadastro,u1_0.email,u1_0.funcionario_id,u1_0.role,u1_0.senha from usuarios u1_0 where u1_0.email=?
+2026-03-29 22:55:59.000 [http-nio-8081-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/parcelas
+2026-03-29 22:55:59.005 [http-nio-8081-exec-1] DEBUG org.hibernate.SQL - select p1_0.id,p1_0.agendamento_id,p1_0.data_pagamento,p1_0.data_vencimento,p1_0.numero,p1_0.status,p1_0.valor from parcelas p1_0
+2026-03-29 22:55:59.054 [http-nio-8081-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/comissoes
+2026-03-29 22:55:59.058 [http-nio-8081-exec-4] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.ativo,u1_0.data_cadastro,u1_0.email,u1_0.funcionario_id,u1_0.role,u1_0.senha from usuarios u1_0 where u1_0.email=?
+2026-03-29 22:55:59.063 [http-nio-8081-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/comissoes
+2026-03-29 22:55:59.066 [http-nio-8081-exec-4] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.agendamento_id,c1_0.data_comissao,c1_0.data_pagamento,c1_0.funcionario_id,c1_0.percentual,c1_0.status,c1_0.valor from comissoes c1_0
+2026-03-29 22:55:59.103 [http-nio-8081-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/pacotes
+2026-03-29 22:55:59.109 [http-nio-8081-exec-6] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.ativo,u1_0.data_cadastro,u1_0.email,u1_0.funcionario_id,u1_0.role,u1_0.senha from usuarios u1_0 where u1_0.email=?
+2026-03-29 22:55:59.114 [http-nio-8081-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/pacotes
+2026-03-29 22:55:59.117 [http-nio-8081-exec-6] DEBUG org.hibernate.SQL - select p1_0.id,p1_0.ativo,p1_0.data_cadastro,p1_0.nome,p1_0.preco,p1_0.quantidade_sessoes,p1_0.servico_id,p1_0.validade_dias from pacotes p1_0
+2026-03-29 22:56:07.120 [http-nio-8081-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/lista-espera
+2026-03-29 22:56:07.125 [http-nio-8081-exec-7] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.ativo,u1_0.data_cadastro,u1_0.email,u1_0.funcionario_id,u1_0.role,u1_0.senha from usuarios u1_0 where u1_0.email=?
+2026-03-29 22:56:07.132 [http-nio-8081-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/lista-espera
+2026-03-29 22:56:07.137 [http-nio-8081-exec-7] DEBUG org.hibernate.SQL - select le1_0.id,le1_0.cliente_id,le1_0.data_cadastro,le1_0.data_desejada,le1_0.funcionario_id,le1_0.horario_desejado,le1_0.observacoes,le1_0.servico_id,le1_0.status from lista_espera le1_0
+2026-03-29 22:56:07.194 [http-nio-8081-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/bloqueios
+2026-03-29 22:56:07.198 [http-nio-8081-exec-9] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.ativo,u1_0.data_cadastro,u1_0.email,u1_0.funcionario_id,u1_0.role,u1_0.senha from usuarios u1_0 where u1_0.email=?
+2026-03-29 22:56:07.202 [http-nio-8081-exec-9] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/bloqueios
+2026-03-29 22:56:07.206 [http-nio-8081-exec-9] DEBUG org.hibernate.SQL - select b1_0.id,b1_0.data_fim,b1_0.data_inicio,b1_0.funcionario_id,b1_0.motivo from bloqueios b1_0
+2026-03-29 22:56:07.275 [http-nio-8081-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/horario-trabalho
+2026-03-29 22:56:07.280 [http-nio-8081-exec-1] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.ativo,u1_0.data_cadastro,u1_0.email,u1_0.funcionario_id,u1_0.role,u1_0.senha from usuarios u1_0 where u1_0.email=?
+2026-03-29 22:56:07.285 [http-nio-8081-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/horario-trabalho
+2026-03-29 22:56:07.289 [http-nio-8081-exec-1] DEBUG org.hibernate.SQL - select ht1_0.id,ht1_0.dia_semana,ht1_0.funcionario_id,ht1_0.hora_fim,ht1_0.hora_inicio from horario_trabalho ht1_0
+2026-03-29 22:56:16.728 [http-nio-8081-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/relatorios/agendamentos?inicio=2026-01-01&fim=2026-12-31
+2026-03-29 22:56:16.731 [http-nio-8081-exec-3] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.ativo,u1_0.data_cadastro,u1_0.email,u1_0.funcionario_id,u1_0.role,u1_0.senha from usuarios u1_0 where u1_0.email=?
+2026-03-29 22:56:16.736 [http-nio-8081-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/relatorios/agendamentos?inicio=2026-01-01&fim=2026-12-31
+2026-03-29 22:56:16.747 [http-nio-8081-exec-3] DEBUG org.hibernate.SQL - select a1_0.id,a1_0.agendamento_original_id,a1_0.cliente_id,c1_0.id,c1_0.ativo,c1_0.cpf,c1_0.data_cadastro,c1_0.email,c1_0.endereco,c1_0.estagio_funil,c1_0.nome,c1_0.observacoes,c1_0.telefone,a1_0.comprovante_sinal,a1_0.data_chegada,a1_0.data_confirmacao_sinal,a1_0.data_criacao,a1_0.data_finalizacao,a1_0.data_hora_fim,a1_0.data_hora_inicio,a1_0.frequencia_recorrencia,a1_0.funcionario_id,f1_0.id,f1_0.ativo,f1_0.cpf,f1_0.data_cadastro,f1_0.email,f1_0.especialidade,f1_0.nome,f1_0.telefone,a1_0.motivo_cancelamento,a1_0.observacoes,a1_0.quantidade_parcelas,a1_0.quantidade_reagendamentos,a1_0.recorrente,a1_0.servico_id,s1_0.id,s1_0.ativo,s1_0.confirmacao_automatica,s1_0.descricao,s1_0.duracao_minutos,s1_0.nome,s1_0.preco,a1_0.status,a1_0.taxa_cancelamento,a1_0.valor_sinal,a1_0.valor_total from agendamentos a1_0 join clientes c1_0 on c1_0.id=a1_0.cliente_id join servicos s1_0 on s1_0.id=a1_0.servico_id join funcionarios f1_0 on f1_0.id=a1_0.funcionario_id where a1_0.data_hora_inicio>=? and a1_0.data_hora_inicio<?
+2026-03-29 22:56:16.795 [http-nio-8081-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/auditoria/Agendamento/1
+2026-03-29 22:56:16.798 [http-nio-8081-exec-2] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.ativo,u1_0.data_cadastro,u1_0.email,u1_0.funcionario_id,u1_0.role,u1_0.senha from usuarios u1_0 where u1_0.email=?
+2026-03-29 22:56:16.802 [http-nio-8081-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/auditoria/Agendamento/1
+2026-03-29 22:56:16.826 [http-nio-8081-exec-2] DEBUG org.hibernate.SQL - select a1_0.id,a1_0.operacao,a1_0.dados_anteriores,a1_0.dados_novos,a1_0.created_at,a1_0.entidade,a1_0.entidade_id,a1_0.usuario_id from auditoria a1_0 where a1_0.entidade=? and a1_0.entidade_id=? order by a1_0.created_at desc
+2026-03-29 22:56:16.879 [http-nio-8081-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/cliente-pacotes
+2026-03-29 22:56:16.883 [http-nio-8081-exec-5] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.ativo,u1_0.data_cadastro,u1_0.email,u1_0.funcionario_id,u1_0.role,u1_0.senha from usuarios u1_0 where u1_0.email=?
+2026-03-29 22:56:16.889 [http-nio-8081-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/cliente-pacotes
+2026-03-29 22:56:16.895 [http-nio-8081-exec-5] DEBUG org.hibernate.SQL - select cp1_0.id,cp1_0.cliente_id,cp1_0.data_compra,cp1_0.data_validade,cp1_0.pacote_id,cp1_0.sessoes_usadas,cp1_0.status from cliente_pacotes cp1_0
+2026-03-29 22:56:25.570 [http-nio-8081-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/auth/me
+2026-03-29 22:56:25.575 [http-nio-8081-exec-7] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.ativo,u1_0.data_cadastro,u1_0.email,u1_0.funcionario_id,u1_0.role,u1_0.senha from usuarios u1_0 where u1_0.email=?
+2026-03-29 22:56:25.580 [http-nio-8081-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/auth/me
+2026-03-29 22:56:25.585 [http-nio-8081-exec-7] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.ativo,u1_0.data_cadastro,u1_0.email,u1_0.funcionario_id,u1_0.role,u1_0.senha from usuarios u1_0 where u1_0.email=?
+2026-03-29 22:56:25.628 [http-nio-8081-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/auth/usuarios
+2026-03-29 22:56:25.631 [http-nio-8081-exec-9] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.ativo,u1_0.data_cadastro,u1_0.email,u1_0.funcionario_id,u1_0.role,u1_0.senha from usuarios u1_0 where u1_0.email=?
+2026-03-29 22:56:25.635 [http-nio-8081-exec-9] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/auth/usuarios
+2026-03-29 22:56:25.640 [http-nio-8081-exec-9] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.ativo,u1_0.data_cadastro,u1_0.email,u1_0.funcionario_id,u1_0.role,u1_0.senha from usuarios u1_0
+2026-03-29 22:56:25.646 [http-nio-8081-exec-9] DEBUG org.hibernate.SQL - select f1_0.id,f1_0.ativo,f1_0.cpf,f1_0.data_cadastro,f1_0.email,f1_0.especialidade,f1_0.nome,f1_0.telefone from funcionarios f1_0 where f1_0.id=?
+2026-03-29 22:56:34.117 [http-nio-8081-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/agendamentos/hoje
+2026-03-29 22:56:34.124 [http-nio-8081-exec-10] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.ativo,u1_0.data_cadastro,u1_0.email,u1_0.funcionario_id,u1_0.role,u1_0.senha from usuarios u1_0 where u1_0.email=?
+2026-03-29 22:56:34.131 [http-nio-8081-exec-10] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/agendamentos/hoje
+2026-03-29 22:56:34.150 [http-nio-8081-exec-10] DEBUG org.hibernate.SQL - select a1_0.id,a1_0.agendamento_original_id,a1_0.cliente_id,c1_0.id,c1_0.ativo,c1_0.cpf,c1_0.data_cadastro,c1_0.email,c1_0.endereco,c1_0.estagio_funil,c1_0.nome,c1_0.observacoes,c1_0.telefone,a1_0.comprovante_sinal,a1_0.data_chegada,a1_0.data_confirmacao_sinal,a1_0.data_criacao,a1_0.data_finalizacao,a1_0.data_hora_fim,a1_0.data_hora_inicio,a1_0.frequencia_recorrencia,a1_0.funcionario_id,f1_0.id,f1_0.ativo,f1_0.cpf,f1_0.data_cadastro,f1_0.email,f1_0.especialidade,f1_0.nome,f1_0.telefone,a1_0.motivo_cancelamento,a1_0.observacoes,a1_0.quantidade_parcelas,a1_0.quantidade_reagendamentos,a1_0.recorrente,a1_0.servico_id,s1_0.id,s1_0.ativo,s1_0.confirmacao_automatica,s1_0.descricao,s1_0.duracao_minutos,s1_0.nome,s1_0.preco,a1_0.status,a1_0.taxa_cancelamento,a1_0.valor_sinal,a1_0.valor_total from agendamentos a1_0 join clientes c1_0 on c1_0.id=a1_0.cliente_id join servicos s1_0 on s1_0.id=a1_0.servico_id join funcionarios f1_0 on f1_0.id=a1_0.funcionario_id where a1_0.data_hora_inicio>=? and a1_0.data_hora_inicio<? and a1_0.status not in ('CANCELADO','NAO_COMPARECEU')
+2026-03-29 22:56:34.197 [http-nio-8081-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/agendamentos/status?status=PENDENTE
+2026-03-29 22:56:34.201 [http-nio-8081-exec-3] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.ativo,u1_0.data_cadastro,u1_0.email,u1_0.funcionario_id,u1_0.role,u1_0.senha from usuarios u1_0 where u1_0.email=?
+2026-03-29 22:56:34.207 [http-nio-8081-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/agendamentos/status?status=PENDENTE
+2026-03-29 22:56:34.217 [http-nio-8081-exec-3] DEBUG org.hibernate.SQL - select a1_0.id,a1_0.agendamento_original_id,a1_0.cliente_id,a1_0.comprovante_sinal,a1_0.data_chegada,a1_0.data_confirmacao_sinal,a1_0.data_criacao,a1_0.data_finalizacao,a1_0.data_hora_fim,a1_0.data_hora_inicio,a1_0.frequencia_recorrencia,a1_0.funcionario_id,a1_0.motivo_cancelamento,a1_0.observacoes,a1_0.quantidade_parcelas,a1_0.quantidade_reagendamentos,a1_0.recorrente,a1_0.servico_id,a1_0.status,a1_0.taxa_cancelamento,a1_0.valor_sinal,a1_0.valor_total from agendamentos a1_0 where a1_0.status=?
+2026-03-29 22:56:34.278 [http-nio-8081-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/dashboard/metricas?dias=30
+2026-03-29 22:56:34.283 [http-nio-8081-exec-2] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.ativo,u1_0.data_cadastro,u1_0.email,u1_0.funcionario_id,u1_0.role,u1_0.senha from usuarios u1_0 where u1_0.email=?
+2026-03-29 22:56:34.289 [http-nio-8081-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/dashboard/metricas?dias=30
+2026-03-29 22:56:34.296 [http-nio-8081-exec-2] DEBUG org.hibernate.SQL - select count(*) from clientes c1_0
+2026-03-29 22:56:34.299 [http-nio-8081-exec-2] DEBUG org.hibernate.SQL - select count(*) from funcionarios f1_0
+2026-03-29 22:56:34.303 [http-nio-8081-exec-2] DEBUG org.hibernate.SQL - select count(*) from servicos s1_0
+2026-03-29 22:56:34.308 [http-nio-8081-exec-2] DEBUG org.hibernate.SQL - select count(*) from agendamentos a1_0
+2026-03-29 22:56:41.417 [http-nio-8081-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/clientes
+2026-03-29 22:56:41.419 [http-nio-8081-exec-5] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.ativo,u1_0.data_cadastro,u1_0.email,u1_0.funcionario_id,u1_0.role,u1_0.senha from usuarios u1_0 where u1_0.email=?
+2026-03-29 22:56:41.426 [http-nio-8081-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/clientes
+2026-03-29 22:56:55.647 [http-nio-8081-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/clientes
+2026-03-29 22:56:55.649 [http-nio-8081-exec-7] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.ativo,u1_0.data_cadastro,u1_0.email,u1_0.funcionario_id,u1_0.role,u1_0.senha from usuarios u1_0 where u1_0.email=?
+2026-03-29 22:56:55.654 [http-nio-8081-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/clientes
+2026-03-29 22:56:59.548 [http-nio-8081-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing GET /swagger-ui.html
+2026-03-29 22:56:59.550 [http-nio-8081-exec-8] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-03-29 22:56:59.555 [http-nio-8081-exec-8] DEBUG o.s.s.w.a.Http403ForbiddenEntryPoint - Pre-authenticated entry point called. Rejecting access
+2026-03-29 22:56:59.570 [http-nio-8081-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing GET /error
+2026-03-29 22:56:59.571 [http-nio-8081-exec-8] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-03-29 22:56:59.571 [http-nio-8081-exec-8] DEBUG o.s.s.w.a.Http403ForbiddenEntryPoint - Pre-authenticated entry point called. Rejecting access
+2026-03-29 22:57:07.766 [http-nio-8081-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/funcionario-servicos
+2026-03-29 22:57:07.768 [http-nio-8081-exec-10] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.ativo,u1_0.data_cadastro,u1_0.email,u1_0.funcionario_id,u1_0.role,u1_0.senha from usuarios u1_0 where u1_0.email=?
+2026-03-29 22:57:07.774 [http-nio-8081-exec-10] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/funcionario-servicos
+2026-03-29 22:57:07.778 [http-nio-8081-exec-10] DEBUG org.hibernate.SQL - select fs1_0.id,fs1_0.funcionario_id,fs1_0.percentual_comissao,fs1_0.servico_id from funcionario_servicos fs1_0
+2026-03-29 22:57:07.815 [http-nio-8081-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/relatorios/servicos
+2026-03-29 22:57:07.816 [http-nio-8081-exec-3] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.ativo,u1_0.data_cadastro,u1_0.email,u1_0.funcionario_id,u1_0.role,u1_0.senha from usuarios u1_0 where u1_0.email=?
+2026-03-29 22:57:07.822 [http-nio-8081-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/relatorios/servicos
+2026-03-29 22:57:07.826 [http-nio-8081-exec-3] DEBUG org.hibernate.SQL - select count(*) from servicos s1_0
+2026-03-29 22:57:07.829 [http-nio-8081-exec-3] DEBUG org.hibernate.SQL - select s1_0.id,s1_0.ativo,s1_0.confirmacao_automatica,s1_0.descricao,s1_0.duracao_minutos,s1_0.nome,s1_0.preco from servicos s1_0
