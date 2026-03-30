@@ -14,7 +14,7 @@ public class ListaEsperaResponseDTO {
     private Long id;
     private ClienteResponseDTO cliente;
     private ServicoResponseDTO servico;
-    private FuncionarioResponseDTO func;
+    private FuncionarioResponseDTO funcionario;
     private LocalDate dataDesejada;
     private LocalTime horarioDesejado;
     private String status;

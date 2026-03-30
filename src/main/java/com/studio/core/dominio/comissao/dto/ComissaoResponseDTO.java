@@ -10,7 +10,7 @@ import java.time.LocalDate;
 public class ComissaoResponseDTO {
 
     private Long id;
-    private FuncionarioResponseDTO func;
+    private FuncionarioResponseDTO funcionario;
     private AgendamentoResponseDTO agendamento;
     private BigDecimal valor;
     private BigDecimal percentual;

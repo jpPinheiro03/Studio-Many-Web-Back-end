@@ -87,7 +87,7 @@ class ComissaoServiceTest {
         Comissao comissao = new Comissao();
         comissao.setId(1L);
         comissao.setValor(new BigDecimal("30"));
-        comissao.setFunc(funcionario);
+        comissao.setFuncionario(funcionario);
         comissao.setAgendamento(agendamento);
         comissao.setStatus(Comissao.StatusComissao.PENDENTE);
 

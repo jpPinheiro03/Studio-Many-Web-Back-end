@@ -62,7 +62,7 @@ public class ListaEsperaService {
             servicoId = listaEspera.getServicoId();
         }
         if (funcId == null) {
-            funcId = listaEspera.getFuncId();
+            funcId = listaEspera.getFuncionarioId();
         }
 
         if (clienteId == null && listaEspera.getCliente() != null) {
@@ -89,7 +89,7 @@ public class ListaEsperaService {
             .orElseThrow(() -> new ResourceNotFoundException("Serviço não encontrado")));
 
         if (funcId != null) {
-            listaEspera.setFunc(funcionarioRepository.findById(funcId)
+            listaEspera.setFuncionario(funcionarioRepository.findById(funcId)
                 .orElseThrow(() -> new ResourceNotFoundException("Funcionário não encontrado")));
         }
 

@@ -40,7 +40,7 @@ public class FuncionarioServicoService {
     }
     
     public List<FuncionarioServicoResponseDTO> findByFuncionarioId(Long funcionarioId) {
-        return repository.findByFunc_Id(funcionarioId).stream()
+        return repository.findByFuncionario_Id(funcionarioId).stream()
             .map(funcionarioServicoMapper::toResponse)
             .collect(Collectors.toList());
     }
@@ -52,12 +52,12 @@ public class FuncionarioServicoService {
         Servico servico = servicoRepository.findById(dto.getServicoId())
             .orElseThrow(() -> new ResourceNotFoundException("Serviço não encontrado"));
         
-        if (repository.existsByFunc_IdAndServico_Id(dto.getFuncionarioId(), dto.getServicoId())) {
+        if (repository.existsByFuncionario_IdAndServico_Id(dto.getFuncionarioId(), dto.getServicoId())) {
             throw new BadRequestException("Associação entre funcionário e serviço já existe");
         }
         
         FuncionarioServico fs = funcionarioServicoMapper.toEntity(dto);
-        fs.setFunc(func);
+        fs.setFuncionario(func);
         fs.setServico(servico);
         
         return funcionarioServicoMapper.toResponse(repository.save(fs));

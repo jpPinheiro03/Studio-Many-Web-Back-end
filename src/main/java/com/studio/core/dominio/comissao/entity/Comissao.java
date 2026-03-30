@@ -22,7 +22,7 @@ public class Comissao {
     @ManyToOne(fetch = FetchType.LAZY) // Muitas comissões apontam para 1 funcionário (carregamento sob demanda)
     @JoinColumn(name = "funcionario_id", nullable = false) // Nome da coluna FK obrigatória
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // Evita erro de serialização JSON no lazy loading
-    private Funcionario func;
+    private Funcionario funcionario;
 
     @ManyToOne(fetch = FetchType.LAZY) // Muitas comissões apontam para 1 agendamento (carregamento sob demanda)
     @JoinColumn(name = "agendamento_id", nullable = false) // Nome da coluna FK obrigatória

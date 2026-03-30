@@ -8,7 +8,7 @@ import java.time.LocalTime;
 public class HorarioTrabalhoResponseDTO {
 
     private Long id;
-    private FuncionarioResponseDTO func;
+    private FuncionarioResponseDTO funcionario;
     private Integer diaSemana;
     private LocalTime horaInicio;
     private LocalTime horaFim;

@@ -46,7 +46,7 @@ public class ComissaoService {
     }
 
     public List<ComissaoResponseDTO> findByFuncionarioId(Long funcionarioId) {
-        return repository.findByFunc_Id(funcionarioId).stream()
+        return repository.findByFuncionario_Id(funcionarioId).stream()
             .map(comissaoMapper::toResponse)
             .collect(Collectors.toList());
     }
@@ -58,7 +58,7 @@ public class ComissaoService {
     }
 
     public List<ComissaoResponseDTO> findPendentesPorFuncionario(Long funcionarioId) {
-        return repository.findByFunc_IdAndStatus(funcionarioId, Comissao.StatusComissao.PENDENTE).stream()
+        return repository.findByFuncionario_IdAndStatus(funcionarioId, Comissao.StatusComissao.PENDENTE).stream()
             .map(comissaoMapper::toResponse)
             .collect(Collectors.toList());
     }
@@ -87,7 +87,7 @@ public class ComissaoService {
         }
 
         Comissao comissao = new Comissao();
-        comissao.setFunc(agendamento.getFuncionario());
+        comissao.setFuncionario(agendamento.getFuncionario());
         comissao.setAgendamento(agendamento);
 
         BigDecimal valorComissao = agendamento.getValorTotal().multiply(percentual).divide(BigDecimal.valueOf(100));
@@ -107,7 +107,7 @@ public class ComissaoService {
         Comissao saved = repository.save(comissao);
 
         eventPublisher.publishEvent(new ComissaoPagaEvent(this, saved.getId(),
-            saved.getFunc().getId(), saved.getFunc().getNome(),
+            saved.getFuncionario().getId(), saved.getFuncionario().getNome(),
             saved.getAgendamento() != null ? saved.getAgendamento().getId() : null,
             saved.getValor(), saved.getPercentual(), saved.getDataPagamento()));
 
@@ -115,13 +115,13 @@ public class ComissaoService {
     }
 
     public List<ComissaoResponseDTO> pagarTodasPorFuncionario(Long funcionarioId) {
-        List<Comissao> comissoes = repository.findByFunc_IdAndStatus(funcionarioId, Comissao.StatusComissao.PENDENTE);
+        List<Comissao> comissoes = repository.findByFuncionario_IdAndStatus(funcionarioId, Comissao.StatusComissao.PENDENTE);
         for (Comissao c : comissoes) {
             c.setStatus(Comissao.StatusComissao.PAGA);
             c.setDataPagamento(LocalDate.now());
             repository.save(c);
         }
-        return repository.findByFunc_IdAndStatus(funcionarioId, Comissao.StatusComissao.PAGA).stream()
+        return repository.findByFuncionario_IdAndStatus(funcionarioId, Comissao.StatusComissao.PAGA).stream()
             .map(comissaoMapper::toResponse)
             .collect(Collectors.toList());
     }

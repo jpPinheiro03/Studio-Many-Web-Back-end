@@ -22,7 +22,7 @@ public class Auditoria {
     @Column(name = "entidade_id", nullable = false) // Coluna obrigatória com nome customizado
     private Long entidadeId;
 
-    @Column(nullable = false) // Coluna obrigatória (NOT NULL)
+    @Column(name = "operacao", nullable = false) // Coluna obrigatória (NOT NULL)
     private String acao;
 
     @Column(columnDefinition = "TEXT") // Texto longo (sem limite de caracteres)
@@ -36,7 +36,7 @@ public class Auditoria {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // Evita erro de serialização JSON no lazy loading
     private Usuario usuario;
 
-    @Column(name = "data_acao", nullable = false) // Coluna obrigatória com nome customizado
+    @Column(name = "created_at", nullable = false) // Coluna obrigatória com nome customizado
     private LocalDateTime dataAcao = LocalDateTime.now();
 
     @Transient // Campo não persistido no banco (só existe em memória)

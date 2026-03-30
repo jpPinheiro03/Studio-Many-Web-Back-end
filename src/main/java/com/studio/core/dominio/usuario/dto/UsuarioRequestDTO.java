@@ -22,4 +22,8 @@ public class UsuarioRequestDTO {
     private Usuario.Role role;
     
     private Long funcionarioId;
+
+    public Long getFuncionarioId() {
+        return funcionarioId;
+    }
 }

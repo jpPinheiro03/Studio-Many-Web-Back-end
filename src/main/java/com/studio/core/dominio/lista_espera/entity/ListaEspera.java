@@ -33,7 +33,7 @@ public class ListaEspera {
     @ManyToOne(fetch = FetchType.LAZY) // Muitos registros apontam para 1 funcionário (carregamento sob demanda)
     @JoinColumn(name = "funcionario_id") // Nome da coluna FK (opcional)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // Evita erro de serialização JSON no lazy loading
-    private Funcionario func;
+    private Funcionario funcionario;
 
     @Column(name = "data_desejada") // Nome da coluna no banco (snake_case)
     private LocalDate dataDesejada;
@@ -56,7 +56,7 @@ public class ListaEspera {
     private Long servicoId;
 
     @Transient // Campo não persistido no banco (só existe em memória)
-    private Long funcId;
+    private Long funcionarioId;
 
     public enum StatusListaEspera {
         AGUARDANDO,

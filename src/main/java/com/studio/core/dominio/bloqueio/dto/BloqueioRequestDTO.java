@@ -17,4 +17,8 @@ public class BloqueioRequestDTO {
     private LocalDateTime dataFim;
 
     private String motivo;
+
+    public Long getFuncionarioId() {
+        return funcionarioId;
+    }
 }

@@ -102,7 +102,7 @@ class AgendamentoServiceTest {
         when(servicoRepository.findById(1L)).thenReturn(Optional.of(servico));
         when(funcionarioRepository.findById(1L)).thenReturn(Optional.of(funcionario));
         when(agendamentoRepository.findConflitoHorario(any(), any(), any())).thenReturn(Collections.emptyList());
-        when(bloqueioRepository.findByFunc_IdAndDataBetween(any(), any(), any())).thenReturn(Collections.emptyList());
+        when(bloqueioRepository.findByFuncionario_IdAndDataBetween(any(), any(), any())).thenReturn(Collections.emptyList());
         when(agendamentoRepository.save(any())).thenReturn(agendamento);
 
         Agendamento result = service.create(1L, 1L, 1L, agendamento);
@@ -118,7 +118,7 @@ class AgendamentoServiceTest {
         when(servicoRepository.findById(1L)).thenReturn(Optional.of(servico));
         when(funcionarioRepository.findById(1L)).thenReturn(Optional.of(funcionario));
         when(agendamentoRepository.findConflitoHorario(any(), any(), any())).thenReturn(Collections.emptyList());
-        when(bloqueioRepository.findByFunc_IdAndDataBetween(any(), any(), any())).thenReturn(Collections.emptyList());
+        when(bloqueioRepository.findByFuncionario_IdAndDataBetween(any(), any(), any())).thenReturn(Collections.emptyList());
 
         assertThrows(BadRequestException.class, () -> service.create(1L, 1L, 1L, agendamento));
     }

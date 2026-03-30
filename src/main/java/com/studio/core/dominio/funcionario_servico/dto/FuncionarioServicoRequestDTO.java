@@ -9,11 +9,19 @@ import java.math.BigDecimal;
 public class FuncionarioServicoRequestDTO {
 
     @NotNull(message = "Funcionário ID é obrigatório")
-    private Long funcId;
+    private Long funcionarioId;
 
     @NotNull(message = "Serviço ID é obrigatório")
     private Long servicoId;
 
     @Positive(message = "Percentual deve ser positivo")
     private BigDecimal percentualComissao;
+
+    public Long getFuncionarioId() {
+        return funcionarioId;
+    }
+
+    public Long getServicoId() {
+        return servicoId;
+    }
 }

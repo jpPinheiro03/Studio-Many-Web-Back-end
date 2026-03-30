@@ -35,7 +35,7 @@ public class HorarioTrabalhoService {
     }
     
     public List<HorarioTrabalhoResponseDTO> findByFuncionarioId(Long funcionarioId) {
-        return repository.findByFunc_Id(funcionarioId).stream()
+        return repository.findByFuncionario_Id(funcionarioId).stream()
             .map(horarioTrabalhoMapper::toResponse)
             .collect(Collectors.toList());
     }
@@ -55,7 +55,7 @@ public class HorarioTrabalhoService {
         }
         
         HorarioTrabalho ht = horarioTrabalhoMapper.toEntity(dto);
-        ht.setFunc(func);
+        ht.setFuncionario(func);
         
         return horarioTrabalhoMapper.toResponse(repository.save(ht));
     }

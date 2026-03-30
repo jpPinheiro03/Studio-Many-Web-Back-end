@@ -21,7 +21,7 @@ public class HorarioTrabalho {
     @ManyToOne(fetch = FetchType.LAZY) // Muitos horários apontam para 1 funcionário (carregamento sob demanda)
     @JoinColumn(name = "funcionario_id", nullable = false) // Nome da coluna FK obrigatória
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // Evita erro de serialização JSON no lazy loading
-    private Funcionario func;
+    private Funcionario funcionario;
 
     @Column(name = "dia_semana", nullable = false) // Coluna obrigatória com nome customizado
     private Integer diaSemana;
@@ -33,5 +33,5 @@ public class HorarioTrabalho {
     private LocalTime horaFim;
 
     @Transient // Campo não persistido no banco (só existe em memória)
-    private Long funcId;
+    private Long funcionarioId;
 }

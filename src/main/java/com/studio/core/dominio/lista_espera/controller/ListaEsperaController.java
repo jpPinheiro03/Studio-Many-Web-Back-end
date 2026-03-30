@@ -62,7 +62,7 @@ public class ListaEsperaController {
     public ResponseEntity<ListaEsperaResponseDTO> criar(@Valid @RequestBody ListaEsperaRequestDTO dto) {
         ListaEspera entity = listaEsperaMapper.toEntity(dto);
         
-        ListaEspera created = service.create(dto.getClienteId(), dto.getServicoId(), dto.getFuncId(), entity);
+        ListaEspera created = service.create(dto.getClienteId(), dto.getServicoId(), dto.getFuncionarioId(), entity);
         return ResponseEntity.status(HttpStatus.CREATED).body(listaEsperaMapper.toResponse(created));
     }
     

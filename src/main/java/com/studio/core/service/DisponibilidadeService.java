@@ -47,13 +47,13 @@ public class DisponibilidadeService {
         Servico servico = servicoRepository.findById(servicoId)
             .orElseThrow(() -> new ResourceNotFoundException("Serviço não encontrado"));
 
-        List<HorarioTrabalho> horarios = horarioTrabalhoRepository.findByFunc_IdAndDiaSemana(funcionarioId, data.getDayOfWeek().getValue());
+        List<HorarioTrabalho> horarios = horarioTrabalhoRepository.findByFuncionario_IdAndDiaSemana(funcionarioId, data.getDayOfWeek().getValue());
         if (horarios.isEmpty()) {
             return Collections.emptyList();
         }
 
         List<Agendamento> agendamentos = agendamentoRepository.findByFuncionario_Id(funcionarioId);
-        List<Bloqueio> bloqueios = bloqueioRepository.findByFunc_IdAndDataBetween(
+        List<Bloqueio> bloqueios = bloqueioRepository.findByFuncionario_IdAndDataBetween(
             funcionarioId, data.atStartOfDay(), data.plusDays(1).atStartOfDay());
 
         List<LocalTime> disponiveis = new ArrayList<>();
@@ -101,13 +101,13 @@ public class DisponibilidadeService {
                       && a.getStatus() != StatusAgendamento.NAO_COMPARECEU)
             .anyMatch(a -> dataHora.isBefore(a.getDataHoraFim()) && dataFim.isAfter(a.getDataHoraInicio()));
 
-        List<HorarioTrabalho> horarios = horarioTrabalhoRepository.findByFunc_IdAndDiaSemana(
+        List<HorarioTrabalho> horarios = horarioTrabalhoRepository.findByFuncionario_IdAndDiaSemana(
             funcionarioId, dataHora.getDayOfWeek().getValue());
         boolean noHorario = horarios.stream()
             .anyMatch(ht -> !dataHora.toLocalTime().isBefore(ht.getHoraInicio())
                         && !dataFim.toLocalTime().isAfter(ht.getHoraFim()));
 
-        List<Bloqueio> bloqueios = bloqueioRepository.findByFunc_IdAndDataBetween(funcionarioId, dataHora, dataFim);
+        List<Bloqueio> bloqueios = bloqueioRepository.findByFuncionario_IdAndDataBetween(funcionarioId, dataHora, dataFim);
         boolean bloqueado = !bloqueios.isEmpty();
 
         return !ocupado && noHorario && !bloqueado;
@@ -115,7 +115,7 @@ public class DisponibilidadeService {
 
     @Transactional(readOnly = true)
     public List<LocalTime> horariosVagos(Long funcionarioId, LocalDate data) {
-        List<HorarioTrabalho> horarios = horarioTrabalhoRepository.findByFunc_IdAndDiaSemana(funcionarioId, data.getDayOfWeek().getValue());
+        List<HorarioTrabalho> horarios = horarioTrabalhoRepository.findByFuncionario_IdAndDiaSemana(funcionarioId, data.getDayOfWeek().getValue());
         if (horarios.isEmpty()) {
             return Collections.emptyList();
         }

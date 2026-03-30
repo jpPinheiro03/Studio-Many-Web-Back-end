@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 public class BloqueioResponseDTO {
 
     private Long id;
-    private FuncionarioResponseDTO func;
+    private FuncionarioResponseDTO funcionario;
     private LocalDateTime dataInicio;
     private LocalDateTime dataFim;
     private String motivo;

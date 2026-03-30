@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 public class FuncionarioServicoResponseDTO {
 
     private Long id;
-    private FuncionarioResponseDTO func;
+    private FuncionarioResponseDTO funcionario;
     private ServicoResponseDTO servico;
     private BigDecimal percentualComissao;
 }

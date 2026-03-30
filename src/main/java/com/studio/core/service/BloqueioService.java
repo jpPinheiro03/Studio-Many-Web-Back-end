@@ -35,7 +35,7 @@ public class BloqueioService {
     }
     
     public List<BloqueioResponseDTO> findByFuncionarioId(Long funcionarioId) {
-        return repository.findByFunc_Id(funcionarioId).stream()
+        return repository.findByFuncionario_Id(funcionarioId).stream()
             .map(bloqueioMapper::toResponse)
             .collect(Collectors.toList());
     }
@@ -52,7 +52,7 @@ public class BloqueioService {
         }
         
         Bloqueio bloqueio = bloqueioMapper.toEntity(dto);
-        bloqueio.setFunc(func);
+        bloqueio.setFuncionario(func);
         
         return bloqueioMapper.toResponse(repository.save(bloqueio));
     }

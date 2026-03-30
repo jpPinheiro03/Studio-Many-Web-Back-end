@@ -19,7 +19,7 @@ public class Bloqueio {
     @ManyToOne(fetch = FetchType.LAZY) // Muitos bloqueios apontam para 1 funcionário (carregamento sob demanda)
     @JoinColumn(name = "funcionario_id", nullable = false) // Nome da coluna FK obrigatória
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // Evita erro de serialização JSON no lazy loading
-    private Funcionario func;
+    private Funcionario funcionario;
 
     @Column(name = "data_inicio", nullable = false) // Coluna obrigatória com nome customizado
     private LocalDateTime dataInicio;
@@ -30,5 +30,5 @@ public class Bloqueio {
     private String motivo; // Coluna opcional (pode ser nula)
 
     @Transient // Campo não persistido no banco (só existe em memória)
-    private Long funcId;
+    private Long funcionarioId;
 }

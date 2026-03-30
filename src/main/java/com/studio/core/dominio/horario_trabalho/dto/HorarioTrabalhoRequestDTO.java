@@ -8,7 +8,7 @@ import java.time.LocalTime;
 public class HorarioTrabalhoRequestDTO {
 
     @NotNull(message = "Funcionário ID é obrigatório")
-    private Long funcId;
+    private Long funcionarioId;
 
     @NotNull(message = "Dia da semana é obrigatório")
     private Integer diaSemana;
@@ -18,4 +18,8 @@ public class HorarioTrabalhoRequestDTO {
 
     @NotNull(message = "Hora de fim é obrigatória")
     private LocalTime horaFim;
+
+    public Long getFuncionarioId() {
+        return funcionarioId;
+    }
 }

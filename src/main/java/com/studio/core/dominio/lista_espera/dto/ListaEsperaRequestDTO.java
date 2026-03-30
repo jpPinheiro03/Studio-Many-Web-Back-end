@@ -14,7 +14,7 @@ public class ListaEsperaRequestDTO {
     @NotNull(message = "Serviço ID é obrigatório")
     private Long servicoId;
 
-    private Long funcId;
+    private Long funcionarioId;
     private LocalDate dataDesejada;
     private LocalTime horarioDesejado;
     private String observacoes;

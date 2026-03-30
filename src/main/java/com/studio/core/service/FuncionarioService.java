@@ -87,16 +87,16 @@ public class FuncionarioService {
         if (agendamentoRepository.existsByFuncionario_Id(id)) {
             throw new BadRequestException("Não é possível excluir funcionário com agendamentos vinculados");
         }
-        if (comissaoRepository.existsByFunc_Id(id)) {
+        if (comissaoRepository.existsByFuncionario_Id(id)) {
             throw new BadRequestException("Não é possível excluir funcionário com comissões vinculadas");
         }
-        if (horarioTrabalhoRepository.existsByFunc_Id(id)) {
+        if (horarioTrabalhoRepository.existsByFuncionario_Id(id)) {
             throw new BadRequestException("Não é possível excluir funcionário com horário de trabalho cadastrado");
         }
-        if (bloqueioRepository.existsByFunc_Id(id)) {
+        if (bloqueioRepository.existsByFuncionario_Id(id)) {
             throw new BadRequestException("Não é possível excluir funcionário com bloqueios cadastrados");
         }
-        if (funcionarioServicoRepository.existsByFunc_Id(id)) {
+        if (funcionarioServicoRepository.existsByFuncionario_Id(id)) {
             throw new BadRequestException("Não é possível excluir funcionário com serviços vinculados");
         }
         repository.deleteById(id);
