@@ -1,10 +1,15 @@
 package com.studio.core.dominio.agendamento.controller;
 
+import com.studio.core.dominio.agendamento.dto.AgendamentoRecorrenteRequestDTO;
 import com.studio.core.dominio.agendamento.dto.AgendamentoRequestDTO;
 import com.studio.core.dominio.agendamento.dto.AgendamentoResponseDTO;
+import com.studio.core.dominio.agendamento.dto.CancelamentoPremiumRequestDTO;
+import com.studio.core.dominio.agendamento.dto.HistoricoNoShowDTO;
+import com.studio.core.dominio.agendamento.dto.ReagendamentoRequestDTO;
 import com.studio.core.dominio.agendamento.entity.Agendamento;
 import com.studio.core.dominio.agendamento.entity.StatusAgendamento;
 import com.studio.core.dominio.agendamento.mapper.AgendamentoMapper;
+import com.studio.core.service.AgendamentoPremiumService;
 import com.studio.core.service.AgendamentoService;
 import com.studio.core.service.provider.FileStorageProvider;
 import io.swagger.v3.oas.annotations.Operation;
@@ -18,7 +23,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +37,9 @@ public class AgendamentoController {
 
     @Autowired // Injeta dependência automaticamente (injeção de dependência)
     private AgendamentoService service;
+
+    @Autowired
+    private AgendamentoPremiumService premiumService;
 
     @Autowired // Injeta dependência automaticamente (injeção de dependência)
     private FileStorageProvider fileStorageProvider;
@@ -222,5 +233,68 @@ public class AgendamentoController {
     @Operation(summary = "Não compareceu (CONFIRMADO/EM_ATENDIMENTO → NAO_COMPARECEU)") // Swagger: descreve o endpoint na documentação
     public ResponseEntity<AgendamentoResponseDTO> naoCompareceu(@PathVariable Long id) { // Recebe o valor da URL (ex: /agendamentos/{id}/nao-compareceu)
         return ResponseEntity.ok(agendamentoMapper.toResponse(service.naoCompareceu(id)));
+    }
+
+    @PutMapping("/{id}/reagendar")
+    @Operation(summary = "Reagendar agendamento (cria novo, marca antigo como reagendado)")
+    public ResponseEntity<AgendamentoResponseDTO> reagendar(
+            @PathVariable Long id, @RequestBody ReagendamentoRequestDTO dto) {
+        return ResponseEntity.ok(agendamentoMapper.toResponse(premiumService.reagendar(id, dto)));
+    }
+
+    @GetMapping("/{id}/taxa-cancelamento")
+    @Operation(summary = "Calcular taxa de cancelamento baseada no horário")
+    public ResponseEntity<Map<String, Object>> calcularTaxa(@PathVariable Long id) {
+        BigDecimal taxa = premiumService.calcularTaxaCancelamento(id);
+        Agendamento a = service.findById(id);
+        long horas = java.time.Duration.between(java.time.LocalDateTime.now(), a.getDataHoraInicio()).toHours();
+        return ResponseEntity.ok(Map.of(
+            "agendamentoId", id,
+            "taxa", taxa,
+            "horasAntes", horas,
+            "politica", Map.of(
+                "> 48h", "sem taxa",
+                "24-48h", "20%",
+                "12-24h", "50%",
+                "< 12h", "100%"
+            )
+        ));
+    }
+
+    @PutMapping("/{id}/cancelar-premium")
+    @Operation(summary = "Cancelar com aplicação de taxa de cancelamento")
+    public ResponseEntity<AgendamentoResponseDTO> cancelarPremium(
+            @PathVariable Long id, @RequestBody CancelamentoPremiumRequestDTO dto) {
+        return ResponseEntity.ok(agendamentoMapper.toResponse(premiumService.cancelarComTaxa(id, dto)));
+    }
+
+    @GetMapping("/no-shows/{clienteId}")
+    @Operation(summary = "Histórico de no-shows do cliente")
+    public ResponseEntity<HistoricoNoShowDTO> historicoNoShows(@PathVariable Long clienteId) {
+        return ResponseEntity.ok(premiumService.historicoNoShows(clienteId));
+    }
+
+    @GetMapping("/no-shows/{clienteId}/bloqueado")
+    @Operation(summary = "Verificar se cliente está bloqueado por no-shows")
+    public ResponseEntity<Map<String, Boolean>> clienteBloqueado(@PathVariable Long clienteId) {
+        return ResponseEntity.ok(Map.of("bloqueado", premiumService.clienteBloqueadoPorNoShows(clienteId)));
+    }
+
+    @GetMapping("/sugestoes")
+    @Operation(summary = "Sugerir horários alternativos próximos")
+    public ResponseEntity<List<LocalTime>> sugestoes(
+            @RequestParam Long servicoId,
+            @RequestParam Long funcionarioId,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataDesejada,
+            @RequestParam(defaultValue = "7") int diasRange) {
+        return ResponseEntity.ok(premiumService.sugerirHorariosProximos(servicoId, funcionarioId, dataDesejada, diasRange));
+    }
+
+    @PostMapping("/recorrente")
+    @Operation(summary = "Criar agendamentos recorrentes")
+    public ResponseEntity<List<AgendamentoResponseDTO>> criarRecorrente(@RequestBody AgendamentoRecorrenteRequestDTO dto) {
+        List<AgendamentoResponseDTO> dtos = premiumService.criarRecorrente(dto).stream()
+            .map(agendamentoMapper::toResponse).toList();
+        return ResponseEntity.status(HttpStatus.CREATED).body(dtos);
     }
 }
