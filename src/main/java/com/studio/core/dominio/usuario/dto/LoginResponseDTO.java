@@ -1,7 +1,9 @@
 package com.studio.core.dominio.usuario.dto;
 
 import com.studio.core.dominio.usuario.entity.Usuario;
+import lombok.Data;
 
+@Data
 public class LoginResponseDTO {
     
     private String token;
@@ -10,13 +12,15 @@ public class LoginResponseDTO {
 
     public LoginResponseDTO(String token, Usuario usuario) {
         this.token = token;
-        this.usuario = UsuarioResponseDTO.fromEntity(usuario);
+        this.usuario = new UsuarioResponseDTO();
+        this.usuario.setId(usuario.getId());
+        this.usuario.setEmail(usuario.getEmail());
+        this.usuario.setRole(usuario.getRole());
+        this.usuario.setDataCadastro(usuario.getDataCadastro());
+        this.usuario.setAtivo(usuario.getAtivo());
+        if (usuario.getFuncionario() != null) {
+            this.usuario.setFuncionarioId(usuario.getFuncionario().getId());
+            this.usuario.setNomeFuncionario(usuario.getFuncionario().getNome());
+        }
     }
-
-    public String getToken() { return token; }
-    public void setToken(String token) { this.token = token; }
-    public String getTipo() { return tipo; }
-    public void setTipo(String tipo) { this.tipo = tipo; }
-    public UsuarioResponseDTO getUsuario() { return usuario; }
-    public void setUsuario(UsuarioResponseDTO usuario) { this.usuario = usuario; }
 }

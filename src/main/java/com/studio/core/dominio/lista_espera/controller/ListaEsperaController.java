@@ -3,6 +3,7 @@ package com.studio.core.dominio.lista_espera.controller;
 import com.studio.core.dominio.lista_espera.dto.ListaEsperaRequestDTO;
 import com.studio.core.dominio.lista_espera.dto.ListaEsperaResponseDTO;
 import com.studio.core.dominio.lista_espera.entity.ListaEspera;
+import com.studio.core.dominio.lista_espera.mapper.ListaEsperaMapper;
 import com.studio.core.service.ListaEsperaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -21,11 +22,14 @@ public class ListaEsperaController {
     @Autowired
     private ListaEsperaService service;
     
+    @Autowired
+    private ListaEsperaMapper listaEsperaMapper;
+    
     @GetMapping
     @Operation(summary = "Listar todos")
     public ResponseEntity<List<ListaEsperaResponseDTO>> listar() {
         List<ListaEsperaResponseDTO> dtos = service.findAll().stream()
-            .map(ListaEsperaResponseDTO::fromEntity)
+            .map(listaEsperaMapper::toResponse)
             .toList();
         return ResponseEntity.ok(dtos);
     }
@@ -34,7 +38,7 @@ public class ListaEsperaController {
     @Operation(summary = "Listar por status")
     public ResponseEntity<List<ListaEsperaResponseDTO>> porStatus(@PathVariable ListaEspera.StatusListaEspera status) {
         List<ListaEsperaResponseDTO> dtos = service.findByStatus(status).stream()
-            .map(ListaEsperaResponseDTO::fromEntity)
+            .map(listaEsperaMapper::toResponse)
             .toList();
         return ResponseEntity.ok(dtos);
     }
@@ -43,38 +47,35 @@ public class ListaEsperaController {
     @Operation(summary = "Listar aguardando")
     public ResponseEntity<List<ListaEsperaResponseDTO>> aguardando() {
         List<ListaEsperaResponseDTO> dtos = service.findAguardando().stream()
-            .map(ListaEsperaResponseDTO::fromEntity)
+            .map(listaEsperaMapper::toResponse)
             .toList();
         return ResponseEntity.ok(dtos);
     }
     
     @GetMapping("/{id}")
     public ResponseEntity<ListaEsperaResponseDTO> buscarPorId(@PathVariable Long id) {
-        return ResponseEntity.ok(ListaEsperaResponseDTO.fromEntity(service.findById(id)));
+        return ResponseEntity.ok(listaEsperaMapper.toResponse(service.findById(id)));
     }
     
     @PostMapping
     @Operation(summary = "Adicionar a lista de espera")
     public ResponseEntity<ListaEsperaResponseDTO> criar(@Valid @RequestBody ListaEsperaRequestDTO dto) {
-        ListaEspera entity = new ListaEspera();
-        entity.setDataDesejada(dto.getDataDesejada());
-        entity.setHorarioDesejado(dto.getHorarioDesejado());
-        entity.setObservacoes(dto.getObservacoes());
+        ListaEspera entity = listaEsperaMapper.toEntity(dto);
         
         ListaEspera created = service.create(dto.getClienteId(), dto.getServicoId(), dto.getFuncionarioId(), entity);
-        return ResponseEntity.status(HttpStatus.CREATED).body(ListaEsperaResponseDTO.fromEntity(created));
+        return ResponseEntity.status(HttpStatus.CREATED).body(listaEsperaMapper.toResponse(created));
     }
     
     @PutMapping("/{id}/atendido")
     @Operation(summary = "Marcar como atendido")
     public ResponseEntity<ListaEsperaResponseDTO> marcarAtendido(@PathVariable Long id) {
-        return ResponseEntity.ok(ListaEsperaResponseDTO.fromEntity(service.marcarAtendido(id)));
+        return ResponseEntity.ok(listaEsperaMapper.toResponse(service.marcarAtendido(id)));
     }
     
     @PutMapping("/{id}/cancelar")
     @Operation(summary = "Cancelar")
     public ResponseEntity<ListaEsperaResponseDTO> cancelar(@PathVariable Long id) {
-        return ResponseEntity.ok(ListaEsperaResponseDTO.fromEntity(service.cancelar(id)));
+        return ResponseEntity.ok(listaEsperaMapper.toResponse(service.cancelar(id)));
     }
     
     @DeleteMapping("/{id}")

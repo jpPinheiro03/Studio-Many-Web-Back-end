@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PacoteRepository extends JpaRepository<Pacote, Long> {
+    boolean existsByServico_Id(Long servicoId);
 }

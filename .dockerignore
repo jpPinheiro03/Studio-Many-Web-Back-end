@@ -1,0 +1,12 @@
+target/
+.idea/
+*.iml
+.git/
+.gitignore
+README*.md
+endpoints.http
+StudioAgendamento.postman_collection.json
+nul
+uploads/
+logs/
+*.log

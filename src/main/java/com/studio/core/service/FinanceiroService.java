@@ -2,6 +2,7 @@ package com.studio.core.service;
 
 import com.studio.core.dominio.financeiro.entity.Movimento;
 import com.studio.core.dominio.financeiro.repository.MovimentoRepository;
+import com.studio.core.exception.BadRequestException;
 import com.studio.core.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,6 +48,15 @@ public class FinanceiroService {
     }
     
     public Movimento create(Movimento movimento) {
+        if (movimento.getTipo() == null) {
+            throw new BadRequestException("Tipo do movimento é obrigatório (RECEITA ou DESPESA)");
+        }
+        if (movimento.getValor() == null || movimento.getValor().compareTo(BigDecimal.ZERO) <= 0) {
+            throw new BadRequestException("Valor do movimento deve ser maior que zero");
+        }
+        if (movimento.getDataMovimento() == null) {
+            movimento.setDataMovimento(LocalDate.now());
+        }
         return repository.save(movimento);
     }
     

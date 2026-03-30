@@ -26,4 +26,5 @@ public interface MovimentoRepository extends JpaRepository<Movimento, Long> {
     
     List<Movimento> findByTipoAndDataMovimentoBetween(Movimento.TipoMovimento tipo, LocalDate inicio, LocalDate fim);
     List<Movimento> findByTipo(Movimento.TipoMovimento tipo);
+    List<Movimento> findByAgendamento_Id(Long agendamentoId);
 }

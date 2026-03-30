@@ -11,11 +11,13 @@ import java.util.List;
 
 @Repository
 public interface ComissaoRepository extends JpaRepository<Comissao, Long> {
-    List<Comissao> findByFunc_Id(Long funcId);
-    List<Comissao> findByFunc_IdAndStatus(Long funcId, Comissao.StatusComissao status);
+    List<Comissao> findByFuncionario_Id(Long funcId);
+    List<Comissao> findByFuncionario_IdAndStatus(Long funcId, Comissao.StatusComissao status);
     List<Comissao> findByStatus(Comissao.StatusComissao status);
     List<Comissao> findByDataComissaoBetween(LocalDate inicio, LocalDate fim);
+    List<Comissao> findByAgendamento_Id(Long agendamentoId);
+    boolean existsByFuncionario_Id(Long funcId);
     
-    @Query("SELECT COALESCE(SUM(c.valor), 0) FROM Comissao c WHERE c.func.id = :funcionarioId AND c.status = 'PENDENTE'")
-    BigDecimal totalPendentePorFuncionario(@Param("funcionarioId") Long FuncionarioId);
+    @Query("SELECT COALESCE(SUM(c.valor), 0) FROM Comissao c WHERE c.funcionario.id = :funcionarioId AND c.status = 'PENDENTE'")
+    BigDecimal totalPendentePorFuncionario(@Param("funcionarioId") Long funcionarioId);
 }

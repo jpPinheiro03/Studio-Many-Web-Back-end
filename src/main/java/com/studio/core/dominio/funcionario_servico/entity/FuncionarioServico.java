@@ -4,45 +4,35 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.studio.core.dominio.funcionario.entity.Funcionario;
 import com.studio.core.dominio.servico.entity.Servico;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import java.math.BigDecimal;
 
-@Entity
-@Table(name = "funcionario_servicos")
+@Entity // Esta classe vira uma tabela no banco de dados
+@Table(name = "funcionario_servicos") // Nome da tabela no banco (snake_case)
+@Getter @Setter // Lombok: gera getters e setters automaticamente
 public class FuncionarioServico {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "funcionario_id", nullable = false)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private Funcionario func;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "servico_id", nullable = false)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private Servico servico;
-    
-    @Column(name = "percentual_comissao", precision = 5, scale = 2)
-    private BigDecimal percentualComissao;
-    
-    @Transient
-    private Long funcId;
-    
-    @Transient
-    private Long servicoId;
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public Funcionario getFunc() { return func; }
-    public void setFunc(Funcionario func) { this.func = func; }
-    public Long getFuncionarioId() { return func != null ? func.getId() : funcId; }
-    public void setFuncionarioId(Long funcId) { this.funcId = funcId; }
-    public Servico getServico() { return servico; }
-    public void setServico(Servico servico) { this.servico = servico; }
-    public Long getServicoId() { return servico != null ? servico.getId() : servicoId; }
-    public void setServicoId(Long servicoId) { this.servicoId = servicoId; }
-    public BigDecimal getPercentualComissao() { return percentualComissao; }
-    public void setPercentualComissao(BigDecimal percentualComissao) { this.percentualComissao = percentualComissao; }
+    @Id // Chave primária da tabela
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-incremento pelo banco
+    private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY) // Muitos registros apontam para 1 funcionário (carregamento sob demanda)
+    @JoinColumn(name = "funcionario_id", nullable = false) // Nome da coluna FK obrigatória
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // Evita erro de serialização JSON no lazy loading
+    private Funcionario funcionario;
+
+    @ManyToOne(fetch = FetchType.LAZY) // Muitos registros apontam para 1 serviço (carregamento sob demanda)
+    @JoinColumn(name = "servico_id", nullable = false) // Nome da coluna FK obrigatória
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // Evita erro de serialização JSON no lazy loading
+    private Servico servico;
+
+    @Column(name = "percentual_comissao", precision = 5, scale = 2) // Número decimal (DECIMAL(5,2)) com nome customizado
+    private BigDecimal percentualComissao;
+
+    @Transient // Campo não persistido no banco (só existe em memória)
+    private Long funcionarioId;
+
+    @Transient // Campo não persistido no banco (só existe em memória)
+    private Long servicoId;
 }
