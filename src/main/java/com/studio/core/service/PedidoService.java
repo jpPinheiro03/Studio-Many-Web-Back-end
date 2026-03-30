@@ -78,9 +78,12 @@ public class PedidoService {
         pedido.setValorTotal(total);
         Pedido saved = repository.save(pedido);
 
+        Long clienteId = saved.getCliente().getId();
+        String clienteNome = saved.getCliente().getNome();
+        
         eventPublisher.publishEvent(new PedidoStatusAlteradoEvent(this, saved.getId(),
             null, Pedido.StatusPedido.PENDENTE,
-            saved.getCliente().getId(), saved.getCliente().getNome(), saved.getValorTotal()));
+            clienteId, clienteNome, saved.getValorTotal()));
 
         return saved;
     }
@@ -88,14 +91,13 @@ public class PedidoService {
     public Pedido updateStatus(Long id, Pedido.StatusPedido status) {
         Pedido pedido = findById(id);
         Pedido.StatusPedido statusAnterior = pedido.getStatus();
-
         pedido.setStatus(status);
         Pedido saved = repository.save(pedido);
-
-        eventPublisher.publishEvent(new PedidoStatusAlteradoEvent(this, id,
+        
+        eventPublisher.publishEvent(new PedidoStatusAlteradoEvent(this, saved.getId(),
             statusAnterior, status,
             saved.getCliente().getId(), saved.getCliente().getNome(), saved.getValorTotal()));
-
+        
         return saved;
     }
 

@@ -3,3 +3,179 @@
 2026-03-30 00:00:08.008 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
 2026-03-30 00:00:08.011 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 2026-03-30 00:00:08.015 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-03-30 03:06:23.818 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.3.Final
+2026-03-30 03:06:23.869 [main] INFO  c.s.core.AgendamentoCoreApplication - Starting AgendamentoCoreApplication using Java 21.0.10 with PID 21908 (C:\Users\Bill Hebert\Desktop\Studio-Many-Web-Back-end\target\classes started by Bill Hebert in C:\Users\Bill Hebert\Desktop\Studio-Many-Web-Back-end)
+2026-03-30 03:06:23.870 [main] DEBUG c.s.core.AgendamentoCoreApplication - Running with Spring Boot v3.5.13, Spring v6.2.17
+2026-03-30 03:06:23.870 [main] INFO  c.s.core.AgendamentoCoreApplication - The following 1 profile is active: "dev"
+2026-03-30 03:06:25.309 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-30 03:06:25.508 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 187 ms. Found 18 JPA repository interfaces.
+2026-03-30 03:06:26.721 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
+2026-03-30 03:06:26.753 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
+2026-03-30 03:06:26.759 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-03-30 03:06:26.760 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.53]
+2026-03-30 03:06:26.934 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-03-30 03:06:26.935 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3000 ms
+2026-03-30 03:06:27.686 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-03-30 03:06:28.064 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6d2db15b
+2026-03-30 03:06:28.068 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-03-30 03:06:28.182 [main] INFO  org.flywaydb.core.FlywayExecutor - Database: jdbc:mysql://localhost:3307/core_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true (MySQL 8.4)
+2026-03-30 03:06:28.214 [main] WARN  o.f.c.i.database.base.Database - Flyway upgrade recommended: MySQL 8.4 is newer than this version of Flyway and support has not been tested. The latest supported version of MySQL is 8.1.
+2026-03-30 03:06:28.337 [main] INFO  o.f.core.internal.command.DbValidate - Successfully validated 2 migrations (execution time 00:00.097s)
+2026-03-30 03:06:28.393 [main] INFO  o.f.core.internal.command.DbMigrate - Current version of schema `core_db`: 002
+2026-03-30 03:06:28.403 [main] INFO  o.f.core.internal.command.DbMigrate - Schema `core_db` is up to date. No migration necessary.
+2026-03-30 03:06:28.701 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-03-30 03:06:28.812 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.45.Final
+2026-03-30 03:06:28.885 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-03-30 03:06:29.527 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-30 03:06:29.657 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-30 03:06:29.688 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.4.8
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-30 03:06:33.109 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-30 03:06:33.572 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-30 03:06:34.310 [main] DEBUG c.s.c.c.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-03-30 03:06:34.532 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-30 03:06:38.376 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-30 03:06:39.314 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 4 endpoints beneath base path '/actuator'
+2026-03-30 03:06:39.403 [main] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 0be1b0e8-d9ec-4429-93ac-c6738cc70db7
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-03-30 03:06:39.423 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-03-30 03:06:39.784 [main] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JwtAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2026-03-30 03:06:40.788 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8081"]
+2026-03-30 03:06:40.803 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2026-03-30 03:06:40.816 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-30 03:06:40.823 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-03-30 03:06:40.841 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-03-30 03:06:40.882 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-03-30 03:06:40.921 [main] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8081 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8081 or configure this application to listen on another port.
+
+2026-03-30 03:55:12.684 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.3.Final
+2026-03-30 03:55:12.739 [main] INFO  c.s.core.AgendamentoCoreApplication - Starting AgendamentoCoreApplication using Java 21.0.10 with PID 2848 (C:\Users\Bill Hebert\Desktop\Studio-Many-Web-Back-end\target\classes started by Bill Hebert in C:\Users\Bill Hebert\Desktop\Studio-Many-Web-Back-end)
+2026-03-30 03:55:12.739 [main] DEBUG c.s.core.AgendamentoCoreApplication - Running with Spring Boot v3.5.13, Spring v6.2.17
+2026-03-30 03:55:12.740 [main] INFO  c.s.core.AgendamentoCoreApplication - The following 1 profile is active: "dev"
+2026-03-30 03:55:13.950 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-30 03:55:14.074 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 115 ms. Found 18 JPA repository interfaces.
+2026-03-30 03:55:14.591 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
+2026-03-30 03:55:14.601 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
+2026-03-30 03:55:14.603 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-03-30 03:55:14.603 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.53]
+2026-03-30 03:55:14.678 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-03-30 03:55:14.678 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1891 ms
+2026-03-30 03:55:14.962 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-03-30 03:55:15.144 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@949d347
+2026-03-30 03:55:15.145 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-03-30 03:55:15.194 [main] INFO  org.flywaydb.core.FlywayExecutor - Database: jdbc:mysql://localhost:3306/core_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true (MySQL 9.6)
+2026-03-30 03:55:15.215 [main] WARN  o.f.c.i.database.base.Database - Flyway upgrade recommended: MySQL 9.6 is newer than this version of Flyway and support has not been tested. The latest supported version of MySQL is 8.1.
+2026-03-30 03:55:15.247 [main] INFO  o.f.c.i.s.JdbcTableSchemaHistory - Schema history table `core_db`.`flyway_schema_history` does not exist yet
+2026-03-30 03:55:15.250 [main] INFO  o.f.core.internal.command.DbValidate - Successfully validated 2 migrations (execution time 00:00.022s)
+2026-03-30 03:55:15.273 [main] INFO  org.flywaydb.core.Flyway - All configured schemas are empty; baseline operation skipped. A baseline or migration script with a lower version than the baseline version may execute if available. Check the Schemas parameter if this is not intended.
+2026-03-30 03:55:15.278 [main] INFO  o.f.c.i.s.JdbcTableSchemaHistory - Creating Schema History table `core_db`.`flyway_schema_history` ...
+2026-03-30 03:55:15.356 [main] INFO  o.f.core.internal.command.DbMigrate - Current version of schema `core_db`: << Empty Schema >>
+2026-03-30 03:55:15.374 [main] INFO  o.f.core.internal.command.DbMigrate - Migrating schema `core_db` to version "001 - criar tabelas"
+2026-03-30 03:55:15.870 [main] INFO  o.f.core.internal.command.DbMigrate - Migrating schema `core_db` to version "002 - regras negocio"
+2026-03-30 03:55:17.405 [main] INFO  o.f.core.internal.command.DbMigrate - Successfully applied 2 migrations to schema `core_db`, now at version v002 (execution time 00:01.977s)
+2026-03-30 03:55:17.517 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-03-30 03:55:17.581 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.45.Final
+2026-03-30 03:55:17.641 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-03-30 03:55:17.924 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-30 03:55:17.979 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-30 03:55:17.990 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 9.6
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-30 03:55:19.064 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-30 03:55:19.109 [main] DEBUG org.hibernate.SQL - alter table agendamentos add column agendamento_original_id bigint
+2026-03-30 03:55:19.163 [main] DEBUG org.hibernate.SQL - alter table agendamentos add column comprovante_sinal varchar(255)
+2026-03-30 03:55:19.227 [main] DEBUG org.hibernate.SQL - alter table agendamentos add column data_chegada datetime(6)
+2026-03-30 03:55:19.285 [main] DEBUG org.hibernate.SQL - alter table agendamentos add column data_criacao datetime(6)
+2026-03-30 03:55:19.346 [main] DEBUG org.hibernate.SQL - alter table agendamentos add column data_finalizacao datetime(6)
+2026-03-30 03:55:19.405 [main] DEBUG org.hibernate.SQL - alter table agendamentos add column frequencia_recorrencia varchar(255)
+2026-03-30 03:55:19.461 [main] DEBUG org.hibernate.SQL - alter table agendamentos modify column observacoes varchar(255)
+2026-03-30 03:55:19.535 [main] DEBUG org.hibernate.SQL - alter table agendamentos add column quantidade_parcelas integer
+2026-03-30 03:55:19.596 [main] DEBUG org.hibernate.SQL - alter table agendamentos add column quantidade_reagendamentos integer
+2026-03-30 03:55:19.654 [main] DEBUG org.hibernate.SQL - alter table agendamentos add column recorrente bit
+2026-03-30 03:55:19.720 [main] DEBUG org.hibernate.SQL - alter table agendamentos add column taxa_cancelamento decimal(10,2)
+2026-03-30 03:55:19.778 [main] DEBUG org.hibernate.SQL - alter table agendamentos add column valor_sinal decimal(10,2)
+2026-03-30 03:55:19.842 [main] DEBUG org.hibernate.SQL - alter table auditoria modify column operacao varchar(255) not null
+2026-03-30 03:55:19.885 [main] DEBUG org.hibernate.SQL - alter table bloqueios modify column motivo varchar(255)
+2026-03-30 03:55:19.936 [main] DEBUG org.hibernate.SQL - alter table cliente_pacotes add column data_compra datetime(6)
+2026-03-30 03:55:19.980 [main] DEBUG org.hibernate.SQL - alter table clientes modify column cpf varchar(255)
+2026-03-30 03:55:20.045 [main] DEBUG org.hibernate.SQL - alter table clientes add column data_cadastro datetime(6)
+2026-03-30 03:55:20.100 [main] DEBUG org.hibernate.SQL - alter table clientes add column endereco varchar(255)
+2026-03-30 03:55:20.156 [main] DEBUG org.hibernate.SQL - alter table clientes add column estagio_funil varchar(255)
+2026-03-30 03:55:20.212 [main] DEBUG org.hibernate.SQL - alter table clientes modify column observacoes varchar(255)
+2026-03-30 03:55:20.274 [main] DEBUG org.hibernate.SQL - alter table clientes modify column telefone varchar(255) not null
+2026-03-30 03:55:20.339 [main] DEBUG org.hibernate.SQL - alter table comissoes add column data_pagamento date
+2026-03-30 03:55:20.387 [main] DEBUG org.hibernate.SQL - alter table funcionarios add column cpf varchar(255)
+2026-03-30 03:55:20.439 [main] DEBUG org.hibernate.SQL - alter table funcionarios add column data_cadastro datetime(6)
+2026-03-30 03:55:20.543 [main] DEBUG org.hibernate.SQL - alter table funcionarios modify column telefone varchar(255) not null
+2026-03-30 03:55:20.608 [main] DEBUG org.hibernate.SQL - alter table lista_espera add column data_cadastro datetime(6)
+2026-03-30 03:55:20.651 [main] DEBUG org.hibernate.SQL - alter table lista_espera add column data_desejada date
+2026-03-30 03:55:20.695 [main] DEBUG org.hibernate.SQL - alter table lista_espera add column horario_desejado time(6)
+2026-03-30 03:55:20.738 [main] DEBUG org.hibernate.SQL - alter table lista_espera modify column observacoes varchar(255)
+2026-03-30 03:55:20.791 [main] DEBUG org.hibernate.SQL - alter table lista_espera add column funcionario_id bigint
+2026-03-30 03:55:20.837 [main] DEBUG org.hibernate.SQL - alter table movimentos add column data_cadastro datetime(6)
+2026-03-30 03:55:20.885 [main] DEBUG org.hibernate.SQL - alter table movimentos add column usuario_id bigint
+2026-03-30 03:55:20.929 [main] DEBUG org.hibernate.SQL - alter table pacotes add column data_cadastro datetime(6)
+2026-03-30 03:55:20.973 [main] DEBUG org.hibernate.SQL - alter table produtos add column data_cadastro datetime(6)
+2026-03-30 03:55:21.019 [main] DEBUG org.hibernate.SQL - alter table produtos modify column descricao varchar(255)
+2026-03-30 03:55:21.068 [main] DEBUG org.hibernate.SQL - alter table servicos add column confirmacao_automatica bit
+2026-03-30 03:55:21.116 [main] DEBUG org.hibernate.SQL - alter table usuarios add column data_cadastro datetime(6)
+2026-03-30 03:55:21.172 [main] DEBUG org.hibernate.SQL - alter table cliente_pacotes drop index UKii6w16m8iugebhi6p29kb0yms
+2026-03-30 03:55:21.250 [main] DEBUG org.hibernate.SQL - alter table cliente_pacotes add constraint UKii6w16m8iugebhi6p29kb0yms unique (cliente_id, pacote_id)
+2026-03-30 03:55:21.275 [main] DEBUG org.hibernate.SQL - alter table horario_trabalho drop index UKksqy1g4qtogcgicmn345m2nnm
+2026-03-30 03:55:21.277 [main] DEBUG org.hibernate.SQL - alter table horario_trabalho add constraint UKksqy1g4qtogcgicmn345m2nnm unique (funcionario_id, dia_semana, hora_inicio)
+2026-03-30 03:55:21.315 [main] DEBUG org.hibernate.SQL - alter table auditoria add constraint FKj0mvp43e8kl8ec92f9u0q46g9 foreign key (usuario_id) references usuarios (id)
+2026-03-30 03:55:21.409 [main] DEBUG org.hibernate.SQL - alter table lista_espera add constraint FKi9023u7lkkv722koaq3dtck5p foreign key (funcionario_id) references funcionarios (id)
+2026-03-30 03:55:21.475 [main] DEBUG org.hibernate.SQL - alter table movimentos add constraint FKbn95730tr35yhxoe9paal23x2 foreign key (usuario_id) references usuarios (id)
+2026-03-30 03:55:21.603 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-30 03:55:21.904 [main] DEBUG c.s.c.c.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-03-30 03:55:21.983 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-30 03:55:23.260 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-30 03:55:23.593 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 4 endpoints beneath base path '/actuator'
+2026-03-30 03:55:23.623 [main] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: ab87aebe-4d80-4b4e-acab-0ad28f6c49cc
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-03-30 03:55:23.630 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-03-30 03:55:23.765 [main] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JwtAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2026-03-30 03:55:24.111 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8081"]
+2026-03-30 03:55:24.126 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8081 (http) with context path '/'
+2026-03-30 03:55:24.138 [main] INFO  c.s.core.AgendamentoCoreApplication - Started AgendamentoCoreApplication in 12.069 seconds (process running for 12.557)
+2026-03-30 03:55:24.254 [main] DEBUG org.hibernate.SQL - select count(*) from funcionarios f1_0
+2026-03-30 03:55:24.285 [main] DEBUG org.hibernate.SQL - insert into funcionarios (ativo,cpf,data_cadastro,email,especialidade,nome,telefone) values (?,?,?,?,?,?,?)
+2026-03-30 03:55:24.397 [main] DEBUG org.hibernate.SQL - insert into usuarios (ativo,data_cadastro,email,funcionario_id,role,senha) values (?,?,?,?,?,?)
+2026-03-30 03:56:43.672 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-30 03:56:43.680 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-03-30 03:56:43.691 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-30 03:56:43.692 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-03-30 03:56:43.695 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

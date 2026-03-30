@@ -29,7 +29,7 @@ public class PedidoItem {
     @Column(nullable = false) // Coluna obrigatória (NOT NULL)
     private Integer quantidade;
 
-    @Column(precision = 10, scale = 2, nullable = false) // Número decimal obrigatório (DECIMAL(10,2))
+    @Column(name = "preco_unitario", precision = 10, scale = 2, nullable = false) // Número decimal obrigatório (DECIMAL(10,2))
     private BigDecimal preco;
 
     @Transient // Campo não persistido no banco (só existe em memória)

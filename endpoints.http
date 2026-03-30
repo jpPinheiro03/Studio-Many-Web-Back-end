@@ -1,0 +1,844 @@
+# Studio Many API - Endpoints para Teste
+# Base URL: http://localhost:8081
+#
+@token = eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmdW5jaW9uYXJpb0BzdHVkaW8uY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzc0ODQzODE4LCJleHAiOjE3NzQ5MzAyMTh9.5cy2YcRu4I_ISDWHaRg6Tf6ifzWsVhMMrpqcYWpw4g0
+
+
+### Login - Execute primeiro para obter o token
+# @name login
+POST http://localhost:8081/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@studio.com",
+  "senha": "Admin@2026!"
+}
+
+### Pegar token da resposta do login (para VS Code REST Client)
+# @token = {{login.response.body.token}}
+
+### Cadastrar usuário (apenas ADMIN)
+POST http://localhost:8081/api/auth/cadastro
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "email": "funcionario@studio.com",
+  "senha": "Func@2026!",
+  "role": "FUNCIONARIO",
+  "funcionarioId": 1
+}
+
+### Obter usuário atual
+GET http://localhost:8081/api/auth/me
+Authorization: Bearer {{token}}
+
+### Listar usuários
+GET http://localhost:8081/api/auth/usuarios
+Authorization: Bearer {{token}}
+
+### Buscar usuário por ID
+GET http://localhost:8081/api/auth/usuarios/1
+Authorization: Bearer {{token}}
+
+### Atualizar usuário
+PUT http://localhost:8081/api/auth/usuarios/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "email": "admin@studio.com",
+  "role": "ADMIN"
+}
+
+### Trocar senha
+PUT http://localhost:8081/api/auth/usuarios/1/trocar-senha
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "senhaAtual": "Admin@2026!",
+  "novaSenha": "NovaSenha@2026!"
+}
+
+### Excluir usuário
+DELETE http://localhost:8081/api/auth/usuarios/2
+Authorization: Bearer {{token}}
+
+### Listar clientes
+GET http://localhost:8081/api/clientes
+Authorization: Bearer {{token}}
+
+### Listar clientes com paginação
+GET http://localhost:8081/api/clientes?page=0&size=10
+Authorization: Bearer {{token}}
+
+### Buscar cliente por ID
+GET http://localhost:8081/api/clientes/1
+Authorization: Bearer {{token}}
+
+### Criar cliente
+POST http://localhost:8081/api/clientes
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "nome": "João Silva",
+  "email": "joao@email.com",
+  "telefone": "11999998888",
+  "cpf": "12345678901",
+  "endereco": "Rua Teste, 123",
+  "ativo": true
+}
+
+### Atualizar cliente
+PUT http://localhost:8081/api/clientes/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "nome": "João Silva Atualizado",
+  "email": "joao.atualizado@email.com",
+  "telefone": "11999998888"
+}
+
+### Buscar cliente por telefone
+GET http://localhost:8081/api/clientes/telefone/11999998888
+Authorization: Bearer {{token}}
+
+### Buscar clientes por nome
+GET http://localhost:8081/api/clientes/busca?q=João
+Authorization: Bearer {{token}}
+
+### Listar clientes inativos
+GET http://localhost:8081/api/clientes/inativos?dias=90
+Authorization: Bearer {{token}}
+
+### Excluir cliente
+DELETE http://localhost:8081/api/clientes/1
+Authorization: Bearer {{token}}
+
+
+### Listar funcionários
+GET http://localhost:8081/api/funcionarios
+Authorization: Bearer {{token}}
+
+### Buscar funcionário por ID
+GET http://localhost:8081/api/funcionarios/1
+Authorization: Bearer {{token}}
+
+### Criar funcionário
+POST http://localhost:8081/api/funcionarios
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "nome": "Maria Santos",
+  "email": "maria@studio.com",
+  "telefone": "11999997777",
+  "cpf": "98765432100",
+  "especialidade": "Cabeleireira",
+  "ativo": true
+}
+
+### Atualizar funcionário
+PUT http://localhost:8081/api/funcionarios/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "nome": "Maria Santos Atualizada",
+  "email": "maria@studio.com",
+  "telefone": "11999997777",
+  "cpf": "98765432100",
+  "especialidade": "Cabeleireira",
+  "ativo": true
+}
+
+### Excluir funcionário
+DELETE http://localhost:8081/api/funcionarios/2
+Authorization: Bearer {{token}}
+
+
+### Listar serviços
+GET http://localhost:8081/api/servicos
+Authorization: Bearer {{token}}
+
+### Buscar serviço por ID
+GET http://localhost:8081/api/servicos/1
+Authorization: Bearer {{token}}
+
+### Criar serviço
+POST http://localhost:8081/api/servicos
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "nome": "Corte de Cabelo",
+  "descricao": "Corte moderno",
+  "duracaoMinutos": 60,
+  "preco": 80.00,
+  "ativo": true
+}
+
+### Atualizar serviço
+PUT http://localhost:8081/api/servicos/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "nome": "Corte de Cabelo Premium",
+  "descricao": "Corte moderno com finalização",
+  "duracaoMinutos": 90,
+  "preco": 120.00,
+  "ativo": true
+}
+
+### Excluir serviço
+DELETE http://localhost:8081/api/servicos/2
+Authorization: Bearer {{token}}
+
+
+### Listar agendamentos
+GET http://localhost:8081/api/agendamentos
+Authorization: Bearer {{token}}
+
+### Listar agendamentos com paginação
+GET http://localhost:8081/api/agendamentos?page=0&size=10
+Authorization: Bearer {{token}}
+
+### Buscar agendamento por ID
+GET http://localhost:8081/api/agendamentos/1
+Authorization: Bearer {{token}}
+
+### Criar agendamento
+POST http://localhost:8081/api/agendamentos
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "clienteId": 1,
+  "servicoId": 1,
+  "funcionarioId": 1,
+  "dataHoraInicio": "2026-04-01T10:00:00",
+  "dataHoraFim": "2026-04-01T11:00:00",
+  "valorTotal": 150.00,
+  "valorSinal": 50.00,
+  "quantidadeParcelas": 2,
+  "observacoes": "Cliente preference shampoo sem sal"
+}
+
+### Atualizar status do agendamento
+PUT http://localhost:8081/api/agendamentos/1/status?status=CONFIRMADO
+Authorization: Bearer {{token}}
+
+### Enviar comprovante de sinal (texto)
+PUT http://localhost:8081/api/agendamentos/1/enviar-comprovante
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "comprovanteSinal": "https://link.comprovante.com/img.jpg"
+}
+
+### Upload de comprovante de sinal (arquivo)
+POST http://localhost:8081/api/agendamentos/1/upload-comprovante
+Authorization: Bearer {{token}}
+Content-Type: multipart/form-data
+
+### Confirmar sinal
+PUT http://localhost:8081/api/agendamentos/1/confirmar-sinal
+Authorization: Bearer {{token}}
+
+### Registrar chegada do cliente
+PUT http://localhost:8081/api/agendamentos/1/registrar-chegada
+Authorization: Bearer {{token}}
+
+### Finalizar atendimento
+PUT http://localhost:8081/api/agendamentos/1/finalizar
+Authorization: Bearer {{token}}
+
+### Cancelar agendamento (básico)
+PUT http://localhost:8081/api/agendamentos/1/cancelar
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "motivo": "Cliente solicitou cancelamento"
+}
+
+### Atualizar agendamento
+PUT http://localhost:8081/api/agendamentos/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "dataHoraInicio": "2026-04-01T14:00:00",
+  "dataHoraFim": "2026-04-01T15:00:00",
+  "valorTotal": 150.00,
+  "valorSinal": 50.00,
+  "quantidadeParcelas": 2
+}
+
+### Excluir agendamento
+DELETE http://localhost:8081/api/agendamentos/1
+Authorization: Bearer {{token}}
+
+### Agendamentos de hoje
+GET http://localhost:8081/api/agendamentos/hoje
+Authorization: Bearer {{token}}
+
+### Agendamentos por período
+GET http://localhost:8081/api/agendamentos/periodo?inicio=2026-03-01&fim=2026-03-31
+Authorization: Bearer {{token}}
+
+### Agendamentos por status
+GET http://localhost:8081/api/agendamentos/status?status=PENDENTE
+Authorization: Bearer {{token}}
+
+### Agendamentos por funcionário
+GET http://localhost:8081/api/agendamentos/funcionario/1
+Authorization: Bearer {{token}}
+
+### Agendamentos por cliente
+GET http://localhost:8081/api/agendamentos/cliente/1
+Authorization: Bearer {{token}}
+
+### Próximos agendamentos
+GET http://localhost:8081/api/agendamentos/proximos?dias=7
+Authorization: Bearer {{token}}
+
+### Resumo do dia
+GET http://localhost:8081/api/agendamentos/hoje/resumo
+Authorization: Bearer {{token}}
+
+### Marcar como não compareceu
+PUT http://localhost:8081/api/agendamentos/1/nao-compareceu
+Authorization: Bearer {{token}}
+
+### Reagendar agendamento
+PUT http://localhost:8081/api/agendamentos/1/reagendar
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "novaDataHoraInicio": "2026-04-05T10:00:00",
+  "novaDataHoraFim": "2026-04-05T11:00:00",
+  "motivo": "Mudança de horário"
+}
+
+### Calcular taxa de cancelamento
+GET http://localhost:8081/api/agendamentos/1/taxa-cancelamento
+Authorization: Bearer {{token}}
+
+### Cancelar com política de taxa
+PUT http://localhost:8081/api/agendamentos/1/cancelar-premium
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "motivo": "Cliente cancelou com menos de 24h"
+}
+
+### Histórico de no-shows do cliente
+GET http://localhost:8081/api/agendamentos/no-shows/1
+Authorization: Bearer {{token}}
+
+### Verificar se cliente está bloqueado por no-shows
+GET http://localhost:8081/api/agendamentos/no-shows/1/bloqueado
+Authorization: Bearer {{token}}
+
+### Sugerir horários alternativos
+GET http://localhost:8081/api/agendamentos/sugestoes?servicoId=1&funcionarioId=1&dataDesejada=2026-04-01T10:00:00&diasRange=7
+Authorization: Bearer {{token}}
+
+### Criar agendamentos recorrentes
+POST http://localhost:8081/api/agendamentos/recorrente
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "clienteId": 1,
+  "servicoId": 1,
+  "funcionarioId": 1,
+  "dataInicio": "2026-04-01",
+  "dataFim": "2026-06-30",
+  "horaInicio": "10:00:00",
+  "horaFim": "11:00:00",
+  "frequencia": "SEMANAL",
+  "diaSemana": 3,
+  "valorTotal": 400.00
+}
+
+
+### Listar movimentos
+GET http://localhost:8081/api/financeiro
+Authorization: Bearer {{token}}
+
+### Movimentos por data
+GET http://localhost:8081/api/financeiro/data/2026-03-30
+Authorization: Bearer {{token}}
+
+### Movimentos por período
+GET http://localhost:8081/api/financeiro/periodo?inicio=2026-03-01&fim=2026-03-31
+Authorization: Bearer {{token}}
+
+### Resumo mensal
+GET http://localhost:8081/api/financeiro/resumo-mensal?ano=2026&mes=3
+Authorization: Bearer {{token}}
+
+### Buscar movimento por ID
+GET http://localhost:8081/api/financeiro/1
+Authorization: Bearer {{token}}
+
+### Criar movimento
+POST http://localhost:8081/api/financeiro
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "tipo": "RECEITA",
+  "valor": 150.00,
+  "dataMovimento": "2026-03-30",
+  "descricao": "Corte de cabelo"
+}
+
+### Excluir movimento
+DELETE http://localhost:8081/api/financeiro/1
+Authorization: Bearer {{token}}
+
+### Listar contas a receber
+GET http://localhost:8081/api/financeiro/contas-receber
+Authorization: Bearer {{token}}
+
+### Listar contas a pagar
+GET http://localhost:8081/api/financeiro/contas-pagar
+Authorization: Bearer {{token}}
+
+### Resumo do dia
+GET http://localhost:8081/api/financeiro/dia/2026-03-30/resumo
+Authorization: Bearer {{token}}
+
+### Detalhamento do dia
+GET http://localhost:8081/api/financeiro/dia/2026-03-30/detalhado
+Authorization: Bearer {{token}}
+
+
+### Listar pedidos
+GET http://localhost:8081/api/pedidos
+Authorization: Bearer {{token}}
+
+### Listar pedidos com paginação
+GET http://localhost:8081/api/pedidos?page=0&size=10
+Authorization: Bearer {{token}}
+
+### Pedidos por cliente
+GET http://localhost:8081/api/pedidos/cliente/1
+Authorization: Bearer {{token}}
+
+### Buscar pedido por ID
+GET http://localhost:8081/api/pedidos/1
+Authorization: Bearer {{token}}
+
+### Criar pedido
+POST http://localhost:8081/api/pedidos
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "clienteId": 1,
+  "itens": [
+    {
+      "produtoId": 1,
+      "quantidade": 2
+    }
+  ]
+}
+
+### Atualizar status do pedido
+PUT http://localhost:8081/api/pedidos/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "status": "PAGO"
+}
+
+### Excluir pedido
+DELETE http://localhost:8081/api/pedidos/1
+Authorization: Bearer {{token}}
+
+
+### Listar pacotes
+GET http://localhost:8081/api/pacotes
+Authorization: Bearer {{token}}
+
+### Buscar pacote por ID
+GET http://localhost:8081/api/pacotes/1
+Authorization: Bearer {{token}}
+
+### Criar pacote
+POST http://localhost:8081/api/pacotes
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "nome": "Pacote Corte10",
+  "descricao": "10 cortes de cabelo",
+  "quantidadeSessoes": 10,
+  "preco": 700.00,
+  "servicoId": 1,
+  "validadeDias": 180,
+  "ativo": true
+}
+
+### Atualizar pacote
+PUT http://localhost:8081/api/pacotes/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "nome": "Pacote Corte10 Premium",
+  "descricao": "10 cortes com finalização",
+  "quantidadeSessoes": 10,
+  "preco": 900.00,
+  "servicoId": 1,
+  "validadeDias": 180,
+  "ativo": true
+}
+
+### Excluir pacote
+DELETE http://localhost:8081/api/pacotes/1
+Authorization: Bearer {{token}}
+
+
+### Listar produtos
+GET http://localhost:8081/api/produtos
+Authorization: Bearer {{token}}
+
+### Listar produtos ativos
+GET http://localhost:8081/api/produtos/ativos
+Authorization: Bearer {{token}}
+
+### Listar produtos com estoque baixo
+GET http://localhost:8081/api/produtos/estoque-baixo?limite=10
+Authorization: Bearer {{token}}
+
+### Buscar produto por ID
+GET http://localhost:8081/api/produtos/1
+Authorization: Bearer {{token}}
+
+### Criar produto
+POST http://localhost:8081/api/produtos
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "nome": "Shampoo",
+  "descricao": "Shampoo sem sal",
+  "preco": 60,
+  "estoque": 50,
+  "ativo": true
+}
+
+### Atualizar produto
+PUT http://localhost:8081/api/produtos/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "nome": "Shampoo Premium",
+  "descricao": "Shampoo sem sal premium",
+  "preco": 70,
+  "estoque": 45,
+  "ativo": true
+}
+
+### Excluir produto
+DELETE http://localhost:8081/api/produtos/1
+Authorization: Bearer {{token}}
+
+
+### Calcular slots disponíveis
+GET http://localhost:8081/api/disponibilidade/slots?servicoId=1&funcionarioId=1&data=2026-04-01
+Authorization: Bearer {{token}}
+
+### Validar horário
+GET http://localhost:8081/api/disponibilidade/validar?servicoId=1&funcionarioId=1&dataHora=2026-04-01T10:00:00
+Authorization: Bearer {{token}}
+
+### Listar horários vagos
+GET http://localhost:8081/api/disponibilidade/horarios-vagos?funcionarioId=1&data=2026-04-01
+Authorization: Bearer {{token}}
+
+### Listar profissionais disponíveis
+GET http://localhost:8081/api/disponibilidade/profissionais?servicoId=1&data=2026-04-01
+Authorization: Bearer {{token}}
+
+
+### Relatório de agendamentos
+GET http://localhost:8081/api/relatorios/agendamentos?inicio=2026-03-01&fim=2026-03-31
+Authorization: Bearer {{token}}
+
+### Relatório de serviços
+GET http://localhost:8081/api/relatorios/servicos
+Authorization: Bearer {{token}}
+
+### Relatório de receita
+GET http://localhost:8081/api/relatorios/receita?inicio=2026-03-01&fim=2026-03-31
+Authorization: Bearer {{token}}
+
+
+### Resumo do dia
+GET http://localhost:8081/api/dashboard/resumo-dia
+Authorization: Bearer {{token}}
+
+### Métricas
+GET http://localhost:8081/api/dashboard/metricas?dias=30
+Authorization: Bearer {{token}}
+
+### Agenda da semana
+GET http://localhost:8081/api/dashboard/agenda-semana
+Authorization: Bearer {{token}}
+
+
+### Auditoria por entidade e ID
+GET http://localhost:8081/api/auditoria/Agendamento/1
+Authorization: Bearer {{token}}
+
+### Auditoria por tipo de entidade
+GET http://localhost:8081/api/auditoria/entidade/Agendamento
+Authorization: Bearer {{token}}
+
+### Auditoria por período
+GET http://localhost:8081/api/auditoria/periodo?inicio=2026-03-01T00:00:00&fim=2026-03-31T23:59:59
+Authorization: Bearer {{token}}
+
+
+### Listar todos os pacotes do cliente
+GET http://localhost:8081/api/cliente-pacotes
+Authorization: Bearer {{token}}
+
+### Pacotes por cliente
+GET http://localhost:8081/api/cliente-pacotes/cliente/1
+Authorization: Bearer {{token}}
+
+### Buscar pacote do cliente por ID
+GET http://localhost:8081/api/cliente-pacotes/1
+Authorization: Bearer {{token}}
+
+### Criar/vender pacote para cliente
+POST http://localhost:8081/api/cliente-pacotes
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "clienteId": 1,
+  "pacoteId": 1
+}
+
+### Usar sessão do pacote
+POST http://localhost:8081/api/cliente-pacotes/1/usar-sessao
+Authorization: Bearer {{token}}
+
+### Atualizar status do pacote
+PUT http://localhost:8081/api/cliente-pacotes/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "status": "EXPIRADO"
+}
+
+### Excluir pacote do cliente
+DELETE http://localhost:8081/api/cliente-pacotes/1
+Authorization: Bearer {{token}}
+
+
+### Listar todas as parcelas
+GET http://localhost:8081/api/parcelas
+Authorization: Bearer {{token}}
+
+### Parcelas por agendamento
+GET http://localhost:8081/api/parcelas/agendamento/1
+Authorization: Bearer {{token}}
+
+### Listar parcelas pendentes
+GET http://localhost:8081/api/parcelas/pendentes
+Authorization: Bearer {{token}}
+
+### Listar parcelas vencidas
+GET http://localhost:8081/api/parcelas/vencidas
+Authorization: Bearer {{token}}
+
+### Parcelas a vencer
+GET http://localhost:8081/api/parcelas/vencer-proximo?dias=30
+Authorization: Bearer {{token}}
+
+### Gerar parcelas
+POST http://localhost:8081/api/parcelas/gerar/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "quantidade": 3,
+  "dataPrimeira": "2026-04-01"
+}
+
+### Quitar parcela
+PUT http://localhost:8081/api/parcelas/1/quitar
+Authorization: Bearer {{token}}
+
+### Quitar todas as parcelas de um agendamento
+PUT http://localhost:8081/api/parcelas/agendamento/1/quitar-todas
+Authorization: Bearer {{token}}
+
+
+### Listar todas as comissões
+GET http://localhost:8081/api/comissoes
+Authorization: Bearer {{token}}
+
+### Comissões por profissional
+GET http://localhost:8081/api/comissoes/profissional/1
+Authorization: Bearer {{token}}
+
+### Comissões pendentes por profissional
+GET http://localhost:8081/api/comissoes/profissional/1/pendentes
+Authorization: Bearer {{token}}
+
+### Total pendente por profissional
+GET http://localhost:8081/api/comissoes/profissional/1/total-pendente
+Authorization: Bearer {{token}}
+
+### Listar comissões pendentes
+GET http://localhost:8081/api/comissoes/pendentes
+Authorization: Bearer {{token}}
+
+### Comissões por período
+GET http://localhost:8081/api/comissoes/periodo?inicio=2026-03-01&fim=2026-03-31
+Authorization: Bearer {{token}}
+
+### Gerar comissão
+POST http://localhost:8081/api/comissoes/gerar/1?percentual=40
+Authorization: Bearer {{token}}
+
+### Pagar comissão
+PUT http://localhost:8081/api/comissoes/1/pagar
+Authorization: Bearer {{token}}
+
+### Pagar todas as comissões de um profissional
+PUT http://localhost:8081/api/comissoes/profissional/1/pagar-todas
+Authorization: Bearer {{token}}
+
+### Listar todas as associações
+GET http://localhost:8081/api/funcionario-servicos
+Authorization: Bearer {{token}}
+
+### Serviços por funcionário
+GET http://localhost:8081/api/funcionario-servicos/funcionario/1
+Authorization: Bearer {{token}}
+
+### Associar serviço a funcionário
+POST http://localhost:8081/api/funcionario-servicos
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "funcionarioId": 1,
+  "servicoId": 1
+}
+
+### Remover associação
+DELETE http://localhost:8081/api/funcionario-servicos/1
+Authorization: Bearer {{token}}
+
+### Listar todos os horários
+GET http://localhost:8081/api/horario-trabalho
+Authorization: Bearer {{token}}
+
+### Horários por funcionário
+GET http://localhost:8081/api/horario-trabalho/funcionario/1
+Authorization: Bearer {{token}}
+
+### Criar horário de trabalho
+POST http://localhost:8081/api/horario-trabalho
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "funcionarioId": 1,
+  "diaSemana": 1,
+  "horaInicio": "09:00:00",
+  "horaFim": "18:00:00"
+}
+
+### Excluir horário de trabalho
+DELETE http://localhost:8081/api/horario-trabalho/1
+Authorization: Bearer {{token}}
+
+
+### Listar todos os bloqueios
+GET http://localhost:8081/api/bloqueios
+Authorization: Bearer {{token}}
+
+### Bloqueios por funcionário
+GET http://localhost:8081/api/bloqueios/funcionario/1
+Authorization: Bearer {{token}}
+
+### Criar bloqueio
+POST http://localhost:8081/api/bloqueios
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "funcionarioId": 1,
+  "dataInicio": "2026-04-10T00:00:00",
+  "dataFim": "2026-04-15T23:59:59",
+  "motivo": "Férias"
+}
+
+### Remover bloqueio
+DELETE http://localhost:8081/api/bloqueios/1
+Authorization: Bearer {{token}}
+
+
+### Listar toda a lista de espera
+GET http://localhost:8081/api/lista-espera
+Authorization: Bearer {{token}}
+
+### Filtrar por status
+GET http://localhost:8081/api/lista-espera/status/AGUARDANDO
+Authorization: Bearer {{token}}
+
+### Listar apenas aguardando
+GET http://localhost:8081/api/lista-espera/aguardando
+Authorization: Bearer {{token}}
+
+### Buscar item por ID
+GET http://localhost:8081/api/lista-espera/1
+Authorization: Bearer {{token}}
+
+### Adicionar à lista de espera
+POST http://localhost:8081/api/lista-espera
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "clienteId": 1,
+  "servicoId": 1,
+  "funcionarioId": 1,
+  "dataDesejada": "2026-04-05",
+  "horarioDesejado": "14:00:00"
+}
+
+### Marcar como atendido
+PUT http://localhost:8081/api/lista-espera/1/atendido
+Authorization: Bearer {{token}}
+
+### Cancelar item da lista
+PUT http://localhost:8081/api/lista-espera/1/cancelar
+Authorization: Bearer {{token}}
+
+### Remover da lista de espera
+DELETE http://localhost:8081/api/lista-espera/1
+Authorization: Bearer {{token}}
