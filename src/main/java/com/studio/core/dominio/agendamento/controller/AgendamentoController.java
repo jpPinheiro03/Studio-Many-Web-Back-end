@@ -38,7 +38,7 @@ public class AgendamentoController {
     @Autowired // Injeta dependência automaticamente (injeção de dependência)
     private AgendamentoService service;
 
-    @Autowired
+    @Autowired // Injeta dependência automaticamente (injeção de dependência)
     private AgendamentoPremiumService premiumService;
 
     @Autowired // Injeta dependência automaticamente (injeção de dependência)
@@ -236,14 +236,14 @@ public class AgendamentoController {
     }
 
     @PutMapping("/{id}/reagendar")
-    @Operation(summary = "Reagendar agendamento (cria novo, marca antigo como reagendado)")
+    @Operation(summary = "Reagendar agendamento")
     public ResponseEntity<AgendamentoResponseDTO> reagendar(
             @PathVariable Long id, @RequestBody ReagendamentoRequestDTO dto) {
         return ResponseEntity.ok(agendamentoMapper.toResponse(premiumService.reagendar(id, dto)));
     }
 
     @GetMapping("/{id}/taxa-cancelamento")
-    @Operation(summary = "Calcular taxa de cancelamento baseada no horário")
+    @Operation(summary = "Calcular taxa de cancelamento")
     public ResponseEntity<Map<String, Object>> calcularTaxa(@PathVariable Long id) {
         BigDecimal taxa = premiumService.calcularTaxaCancelamento(id);
         Agendamento a = service.findById(id);
@@ -262,7 +262,7 @@ public class AgendamentoController {
     }
 
     @PutMapping("/{id}/cancelar-premium")
-    @Operation(summary = "Cancelar com aplicação de taxa de cancelamento")
+    @Operation(summary = "Cancelar com política de taxa")
     public ResponseEntity<AgendamentoResponseDTO> cancelarPremium(
             @PathVariable Long id, @RequestBody CancelamentoPremiumRequestDTO dto) {
         return ResponseEntity.ok(agendamentoMapper.toResponse(premiumService.cancelarComTaxa(id, dto)));
@@ -275,7 +275,7 @@ public class AgendamentoController {
     }
 
     @GetMapping("/no-shows/{clienteId}/bloqueado")
-    @Operation(summary = "Verificar se cliente está bloqueado por no-shows")
+    @Operation(summary = "Verifica se cliente está bloqueado por no-shows")
     public ResponseEntity<Map<String, Boolean>> clienteBloqueado(@PathVariable Long clienteId) {
         return ResponseEntity.ok(Map.of("bloqueado", premiumService.clienteBloqueadoPorNoShows(clienteId)));
     }
