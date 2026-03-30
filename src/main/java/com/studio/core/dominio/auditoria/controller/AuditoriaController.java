@@ -1,7 +1,7 @@
 package com.studio.core.dominio.auditoria.controller;
 
 import com.studio.core.dominio.auditoria.entity.Auditoria;
-import com.studio.core.dominio.auditoria.repository.AuditoriaRepository;
+import com.studio.core.service.AuditoriaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,20 +17,20 @@ import java.util.List;
 public class AuditoriaController {
     
     @Autowired
-    private AuditoriaRepository repository;
+    private AuditoriaService service;
     
     @GetMapping("/{entidade}/{id}")
     @Operation(summary = "Auditoria por entidade e ID")
     public ResponseEntity<List<Auditoria>> porEntidadeEId(
             @PathVariable String entidade,
             @PathVariable Long id) {
-        return ResponseEntity.ok(repository.findByEntidadeAndEntidadeIdOrderByDataAcaoDesc(entidade, id));
+        return ResponseEntity.ok(service.findByEntidadeAndId(entidade, id));
     }
     
     @GetMapping("/entidade/{entidade}")
     @Operation(summary = "Auditoria por tipo de entidade")
     public ResponseEntity<List<Auditoria>> porEntidade(@PathVariable String entidade) {
-        return ResponseEntity.ok(repository.findByEntidadeOrderByDataAcaoDesc(entidade));
+        return ResponseEntity.ok(service.findByEntidade(entidade));
     }
     
     @GetMapping("/periodo")
@@ -38,6 +38,6 @@ public class AuditoriaController {
     public ResponseEntity<List<Auditoria>> periodo(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime inicio,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fim) {
-        return ResponseEntity.ok(repository.findByDataAcaoBetweenOrderByDataAcaoDesc(inicio, fim));
+        return ResponseEntity.ok(service.findByPeriodo(inicio, fim));
     }
 }

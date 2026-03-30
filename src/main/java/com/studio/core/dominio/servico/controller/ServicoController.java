@@ -3,6 +3,7 @@ package com.studio.core.dominio.servico.controller;
 import com.studio.core.dominio.servico.dto.ServicoRequestDTO;
 import com.studio.core.dominio.servico.dto.ServicoResponseDTO;
 import com.studio.core.dominio.servico.entity.Servico;
+import com.studio.core.dominio.servico.mapper.ServicoMapper;
 import com.studio.core.service.ServicoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -22,11 +23,14 @@ public class ServicoController {
     @Autowired
     private ServicoService service;
     
+    @Autowired
+    private ServicoMapper servicoMapper;
+    
     @GetMapping
     @Operation(summary = "Listar serviços")
     public ResponseEntity<List<ServicoResponseDTO>> listar() {
         List<ServicoResponseDTO> dtos = service.findAll().stream()
-            .map(ServicoResponseDTO::fromEntity)
+            .map(servicoMapper::toResponse)
             .toList();
         return ResponseEntity.ok(dtos);
     }
@@ -34,34 +38,24 @@ public class ServicoController {
     @GetMapping("/{id}")
     public ResponseEntity<ServicoResponseDTO> buscarPorId(@PathVariable Long id) {
         Servico entity = service.findById(id);
-        return ResponseEntity.ok(ServicoResponseDTO.fromEntity(entity));
+        return ResponseEntity.ok(servicoMapper.toResponse(entity));
     }
     
     @PostMapping
     @Operation(summary = "Criar serviço")
     public ResponseEntity<ServicoResponseDTO> criar(@Valid @RequestBody ServicoRequestDTO dto) {
-        Servico entity = new Servico();
-        entity.setNome(dto.getNome());
-        entity.setDescricao(dto.getDescricao());
-        entity.setPreco(dto.getPreco());
-        entity.setDuracaoMinutos(dto.getDuracaoMinutos());
-        entity.setAtivo(dto.getAtivo());
+        Servico entity = servicoMapper.toEntity(dto);
         
         Servico created = service.create(entity);
-        return ResponseEntity.status(HttpStatus.CREATED).body(ServicoResponseDTO.fromEntity(created));
+        return ResponseEntity.status(HttpStatus.CREATED).body(servicoMapper.toResponse(created));
     }
     
     @PutMapping("/{id}")
     public ResponseEntity<ServicoResponseDTO> atualizar(@PathVariable Long id, @Valid @RequestBody ServicoRequestDTO dto) {
-        Servico entity = service.findById(id);
-        entity.setNome(dto.getNome());
-        entity.setDescricao(dto.getDescricao());
-        entity.setPreco(dto.getPreco());
-        entity.setDuracaoMinutos(dto.getDuracaoMinutos());
-        entity.setAtivo(dto.getAtivo());
+        Servico entity = servicoMapper.toEntity(dto);
         
         Servico updated = service.update(id, entity);
-        return ResponseEntity.ok(ServicoResponseDTO.fromEntity(updated));
+        return ResponseEntity.ok(servicoMapper.toResponse(updated));
     }
     
     @DeleteMapping("/{id}")

@@ -3,6 +3,7 @@ package com.studio.core.dominio.pacote.controller;
 import com.studio.core.dominio.pacote.dto.PacoteRequestDTO;
 import com.studio.core.dominio.pacote.dto.PacoteResponseDTO;
 import com.studio.core.dominio.pacote.entity.Pacote;
+import com.studio.core.dominio.pacote.mapper.PacoteMapper;
 import com.studio.core.service.PacoteService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -21,44 +22,37 @@ public class PacoteController {
     @Autowired
     private PacoteService service;
     
+    @Autowired
+    private PacoteMapper pacoteMapper;
+    
     @GetMapping
     public ResponseEntity<List<PacoteResponseDTO>> listar() {
         List<PacoteResponseDTO> dtos = service.findAll().stream()
-            .map(PacoteResponseDTO::fromEntity)
+            .map(pacoteMapper::toResponse)
             .toList();
         return ResponseEntity.ok(dtos);
     }
     
     @GetMapping("/{id}")
     public ResponseEntity<PacoteResponseDTO> buscarPorId(@PathVariable Long id) {
-        return ResponseEntity.ok(PacoteResponseDTO.fromEntity(service.findById(id)));
+        return ResponseEntity.ok(pacoteMapper.toResponse(service.findById(id)));
     }
     
     @PostMapping
     @Operation(summary = "Criar pacote")
     public ResponseEntity<PacoteResponseDTO> criar(@Valid @RequestBody PacoteRequestDTO dto) {
-        Pacote entity = new Pacote();
-        entity.setNome(dto.getNome());
-        entity.setQuantidadeSessoes(dto.getQuantidadeSessoes());
-        entity.setPreco(dto.getPreco());
-        entity.setValidadeDias(dto.getValidadeDias());
-        entity.setAtivo(dto.getAtivo());
+        Pacote entity = pacoteMapper.toEntity(dto);
         
         Pacote created = service.create(dto.getServicoId(), entity);
-        return ResponseEntity.status(HttpStatus.CREATED).body(PacoteResponseDTO.fromEntity(created));
+        return ResponseEntity.status(HttpStatus.CREATED).body(pacoteMapper.toResponse(created));
     }
     
     @PutMapping("/{id}")
     public ResponseEntity<PacoteResponseDTO> atualizar(@PathVariable Long id, @Valid @RequestBody PacoteRequestDTO dto) {
-        Pacote entity = service.findById(id);
-        entity.setNome(dto.getNome());
-        entity.setQuantidadeSessoes(dto.getQuantidadeSessoes());
-        entity.setPreco(dto.getPreco());
-        entity.setValidadeDias(dto.getValidadeDias());
-        entity.setAtivo(dto.getAtivo());
+        Pacote entity = pacoteMapper.toEntity(dto);
         
         Pacote updated = service.update(id, entity);
-        return ResponseEntity.ok(PacoteResponseDTO.fromEntity(updated));
+        return ResponseEntity.ok(pacoteMapper.toResponse(updated));
     }
     
     @DeleteMapping("/{id}")

@@ -10,11 +10,12 @@ import java.util.List;
 
 @Repository
 public interface BloqueioRepository extends JpaRepository<Bloqueio, Long> {
-    List<Bloqueio> findByFunc_Id(Long funcId);
+    List<Bloqueio> findByFuncionario_Id(Long funcId);
+    boolean existsByFuncionario_Id(Long funcId);
     
-    @Query("SELECT b FROM Bloqueio b WHERE b.func.id = :funcId AND " +
+    @Query("SELECT b FROM Bloqueio b WHERE b.funcionario.id = :funcionarioId AND " +
            "((b.dataInicio <= :dataFim AND b.dataFim >= :dataInicio))")
-    List<Bloqueio> findByFunc_IdAndDataBetween(@Param("funcId") Long funcId, 
+    List<Bloqueio> findByFuncionario_IdAndDataBetween(@Param("funcionarioId") Long funcId, 
                                                       @Param("dataInicio") LocalDateTime dataInicio, 
                                                       @Param("dataFim") LocalDateTime dataFim);
 }

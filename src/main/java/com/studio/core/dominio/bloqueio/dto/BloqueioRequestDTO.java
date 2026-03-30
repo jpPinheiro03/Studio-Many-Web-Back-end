@@ -1,12 +1,14 @@
 package com.studio.core.dominio.bloqueio.dto;
 
 import jakarta.validation.constraints.NotNull;
+import lombok.Data;
 import java.time.LocalDateTime;
 
+@Data
 public class BloqueioRequestDTO {
 
     @NotNull(message = "Funcionário ID é obrigatório")
-    private Long funcId;
+    private Long funcionarioId;
 
     @NotNull(message = "Data de início é obrigatória")
     private LocalDateTime dataInicio;
@@ -16,12 +18,7 @@ public class BloqueioRequestDTO {
 
     private String motivo;
 
-    public Long getFuncionarioId() { return funcId; }
-    public void setFuncionarioId(Long funcId) { this.funcId = funcId; }
-    public LocalDateTime getDataInicio() { return dataInicio; }
-    public void setDataInicio(LocalDateTime dataInicio) { this.dataInicio = dataInicio; }
-    public LocalDateTime getDataFim() { return dataFim; }
-    public void setDataFim(LocalDateTime dataFim) { this.dataFim = dataFim; }
-    public String getMotivo() { return motivo; }
-    public void setMotivo(String motivo) { this.motivo = motivo; }
+    public Long getFuncionarioId() {
+        return funcionarioId;
+    }
 }

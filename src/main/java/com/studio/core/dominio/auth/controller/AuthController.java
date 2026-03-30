@@ -16,51 +16,69 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
-@RestController
-@RequestMapping("/api/auth")
-@Tag(name = "Autenticação", description = "Endpoints para autenticação e gerenciamento de usuários")
+@RestController // Esta classe aceita requisições HTTP e retorna JSON
+@RequestMapping("/api/auth") // URL base para todos os endpoints desta classe
+@Tag(name = "Autenticação", description = "Endpoints para autenticação e gerenciamento de usuários") // Swagger: agrupa endpoints por categoria
 public class AuthController {
-    
-    @Autowired
+
+    @Autowired // Injeta dependência automaticamente (injeção de dependência)
     private UsuarioService service;
-    
-    @PostMapping("/cadastro")
-    @Operation(summary = "Cadastrar usuário", description = "Cria um novo usuário no sistema")
-    public ResponseEntity<UsuarioResponseDTO> cadastrar(@Valid @RequestBody UsuarioRequestDTO dto) {
+
+    @PostMapping("/cadastro") // Endpoint que aceita requisições POST (criar) no caminho /cadastro
+    @Operation(summary = "Cadastrar usuário (apenas ADMIN)") // Swagger: descreve o endpoint na documentação
+    public ResponseEntity<UsuarioResponseDTO> cadastrar(@Valid @RequestBody UsuarioRequestDTO dto) { // Valida os campos e recebe os dados do corpo da requisição HTTP (JSON)
         UsuarioResponseDTO created = service.create(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
     
-    @PostMapping("/login")
-    @Operation(summary = "Login", description = "Autentica o usuário e retorna token JWT")
-    public ResponseEntity<LoginResponseDTO> login(@Valid @RequestBody LoginRequestDTO dto) {
+    @PostMapping("/login") // Endpoint que aceita requisições POST (criar) no caminho /login
+    @Operation(summary = "Login") // Swagger: descreve o endpoint na documentação
+    public ResponseEntity<LoginResponseDTO> login(@Valid @RequestBody LoginRequestDTO dto) { // Valida os campos e recebe os dados do corpo da requisição HTTP (JSON)
         LoginResponseDTO loginResponse = service.login(dto);
         return ResponseEntity.ok(loginResponse);
     }
     
-    @GetMapping("/me")
-    @Operation(summary = "Usuário atual", description = "Retorna os dados do usuário logado")
-    public ResponseEntity<UsuarioResponseDTO> getCurrentUser(Authentication authentication) {
-        Usuario usuario = (Usuario) authentication.getPrincipal();
-        return ResponseEntity.ok(service.getCurrentUser(usuario.getEmail()));
+    @GetMapping("/me") // Endpoint que aceita requisições GET no caminho /me
+    @Operation(summary = "Usuário atual") // Swagger: descreve o endpoint na documentação
+    public ResponseEntity<UsuarioResponseDTO> getCurrentUser(Authentication authentication) { // Recebe o objeto de autenticação do Spring Security
+        return ResponseEntity.ok(service.getCurrentUser(authentication.getName()));
     }
     
-    @GetMapping("/usuarios")
-    @Operation(summary = "Listar usuários", description = "Retorna todos os usuários")
+    @GetMapping("/usuarios") // Endpoint que aceita requisições GET no caminho /usuarios
+    @Operation(summary = "Listar usuários") // Swagger: descreve o endpoint na documentação
     public ResponseEntity<List<UsuarioResponseDTO>> listar() {
         return ResponseEntity.ok(service.findAll());
     }
     
-    @GetMapping("/usuarios/{id}")
-    @Operation(summary = "Buscar usuário por ID")
-    public ResponseEntity<UsuarioResponseDTO> buscarPorId(@PathVariable Long id) {
+    @GetMapping("/usuarios/{id}") // Endpoint que aceita requisições GET com parâmetro na URL
+    @Operation(summary = "Buscar usuário por ID") // Swagger: descreve o endpoint na documentação
+    public ResponseEntity<UsuarioResponseDTO> buscarPorId(@PathVariable Long id) { // Recebe o valor da URL (ex: /usuarios/{id})
         return ResponseEntity.ok(service.findById(id));
     }
     
-    @DeleteMapping("/usuarios/{id}")
-    @Operation(summary = "Excluir usuário")
-    public ResponseEntity<Void> excluir(@PathVariable Long id) {
+    @PutMapping("/usuarios/{id}") // Endpoint que aceita requisições PUT (atualizar) com parâmetro na URL
+    @Operation(summary = "Atualizar usuário") // Swagger: descreve o endpoint na documentação
+    public ResponseEntity<UsuarioResponseDTO> atualizar(@PathVariable Long id, @RequestBody UsuarioRequestDTO dto) { // Recebe o valor da URL e os dados do corpo da requisição HTTP (JSON)
+        return ResponseEntity.ok(service.update(id, dto));
+    }
+    
+    @PutMapping("/usuarios/{id}/trocar-senha") // Endpoint que aceita requisições PUT (atualizar) com parâmetro na URL
+    @Operation(summary = "Trocar senha do usuário") // Swagger: descreve o endpoint na documentação
+    public ResponseEntity<Void> trocarSenha(@PathVariable Long id, @RequestBody Map<String, String> body) { // Recebe o valor da URL e os dados do corpo da requisição HTTP (JSON)
+        String senhaAtual = body.get("senhaAtual");
+        String novaSenha = body.get("novaSenha");
+        if (novaSenha == null || novaSenha.length() < 6) {
+            throw new com.studio.core.exception.BadRequestException("Nova senha deve ter no mínimo 6 caracteres");
+        }
+        service.changePassword(id, senhaAtual, novaSenha);
+        return ResponseEntity.ok().build();
+    }
+    
+    @DeleteMapping("/usuarios/{id}") // Endpoint que aceita requisições DELETE (excluir) com parâmetro na URL
+    @Operation(summary = "Excluir usuário") // Swagger: descreve o endpoint na documentação
+    public ResponseEntity<Void> excluir(@PathVariable Long id) { // Recebe o valor da URL (ex: /usuarios/{id})
         service.delete(id);
         return ResponseEntity.noContent().build();
     }

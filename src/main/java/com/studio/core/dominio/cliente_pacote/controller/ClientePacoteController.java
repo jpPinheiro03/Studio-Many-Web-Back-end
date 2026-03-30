@@ -52,7 +52,12 @@ public class ClientePacoteController {
     
     @PutMapping("/{id}")
     public ResponseEntity<ClientePacoteResponseDTO> atualizar(@PathVariable Long id, @RequestBody Map<String, String> params) {
-        ClientePacote.StatusClientePacote status = ClientePacote.StatusClientePacote.valueOf(params.get("status"));
+        ClientePacote.StatusClientePacote status;
+        try {
+            status = ClientePacote.StatusClientePacote.valueOf(params.get("status"));
+        } catch (IllegalArgumentException e) {
+            throw new com.studio.core.exception.BadRequestException("Status inválido: " + params.get("status"));
+        }
         return ResponseEntity.ok(service.updateStatus(id, status));
     }
     

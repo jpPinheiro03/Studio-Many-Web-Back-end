@@ -16,13 +16,13 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.util.Collections;
 
-@Component
+@Component // Componente gerenciado pelo Spring
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-    
-    @Autowired
+
+    @Autowired // Injeta dependência automaticamente (injeção de dependência)
     private JwtUtil jwtUtil;
-    
-    @Autowired
+
+    @Autowired // Injeta dependência automaticamente (injeção de dependência)
     private UsuarioRepository usuarioRepository;
     
     @Override
@@ -46,7 +46,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     );
                     
                     var authentication = new UsernamePasswordAuthenticationToken(
-                            usuario, null, authorities
+                            email, null, authorities
                     );
                     
                     SecurityContextHolder.getContext().setAuthentication(authentication);

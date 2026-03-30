@@ -9,4 +9,7 @@ import java.util.List;
 public interface ListaEsperaRepository extends JpaRepository<ListaEspera, Long> {
     List<ListaEspera> findByStatus(ListaEspera.StatusListaEspera status);
     List<ListaEspera> findByStatusOrderByDataCadastroAsc(ListaEspera.StatusListaEspera status);
+    boolean existsByCliente_IdAndServico_IdAndStatus(Long clienteId, Long servicoId, ListaEspera.StatusListaEspera status);
+    boolean existsByCliente_Id(Long clienteId);
+    boolean existsByServico_Id(Long servicoId);
 }

@@ -3,6 +3,7 @@ package com.studio.core.dominio.cliente.controller;
 import com.studio.core.dominio.cliente.dto.ClienteRequestDTO;
 import com.studio.core.dominio.cliente.dto.ClienteResponseDTO;
 import com.studio.core.dominio.cliente.entity.Cliente;
+import com.studio.core.dominio.cliente.mapper.ClienteMapper;
 import com.studio.core.service.ClienteService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -14,92 +15,87 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/clientes")
-@Tag(name = "Clientes", description = "Endpoints para gestão de clientes")
+@RestController // Esta classe aceita requisições HTTP e retorna JSON
+@RequestMapping("/api/clientes") // URL base para todos os endpoints desta classe
+@Tag(name = "Clientes", description = "Endpoints para gestão de clientes") // Swagger: agrupa endpoints por categoria
 public class ClienteController {
-    
-    @Autowired
+
+    @Autowired // Injeta dependência automaticamente (injeção de dependência)
     private ClienteService service;
-    
-    @GetMapping
-    @Operation(summary = "Listar clientes", description = "Retorna todos os clientes")
-    public ResponseEntity<List<ClienteResponseDTO>> listar() {
-        List<ClienteResponseDTO> dtos = service.findAll().stream()
-            .map(ClienteResponseDTO::fromEntity)
+
+    @Autowired // Injeta dependência automaticamente (injeção de dependência)
+    private ClienteMapper clienteMapper;
+
+    @GetMapping // Endpoint que aceita requisições GET
+    @Operation(summary = "Listar clientes", description = "Retorna todos os clientes") // Swagger: descreve o endpoint na documentação
+    public ResponseEntity<List<ClienteResponseDTO>> listar(
+            @RequestParam(required = false) Integer page, // Recebe o valor do parâmetro da URL (?param=valor)
+            @RequestParam(required = false, defaultValue = "20") Integer size) { // Recebe o valor do parâmetro com valor padrão
+        List<Cliente> clientes;
+        if (page != null) {
+            clientes = service.findPaginated(page, size);
+        } else {
+            clientes = service.findAll();
+        }
+        List<ClienteResponseDTO> dtos = clientes.stream()
+            .map(clienteMapper::toResponse)
             .toList();
         return ResponseEntity.ok(dtos);
     }
     
-    @GetMapping("/{id}")
-    @Operation(summary = "Buscar cliente por ID")
-    public ResponseEntity<ClienteResponseDTO> buscarPorId(@PathVariable Long id) {
+    @GetMapping("/{id}") // Endpoint que aceita requisições GET com parâmetro na URL
+    @Operation(summary = "Buscar cliente por ID") // Swagger: descreve o endpoint na documentação
+    public ResponseEntity<ClienteResponseDTO> buscarPorId(@PathVariable Long id) { // Recebe o valor da URL (ex: /clientes/{id})
         Cliente entity = service.findById(id);
-        return ResponseEntity.ok(ClienteResponseDTO.fromEntity(entity));
+        return ResponseEntity.ok(clienteMapper.toResponse(entity));
     }
     
-    @PostMapping
-    @Operation(summary = "Criar cliente", description = "Cadastra um novo cliente")
-    public ResponseEntity<ClienteResponseDTO> criar(@Valid @RequestBody ClienteRequestDTO dto) {
-        Cliente entity = new Cliente();
-        entity.setNome(dto.getNome());
-        entity.setEmail(dto.getEmail());
-        entity.setTelefone(dto.getTelefone());
-        entity.setCpf(dto.getCpf());
-        entity.setEndereco(dto.getEndereco());
-        entity.setObservacoes(dto.getObservacoes());
-        entity.setAtivo(dto.getAtivo());
-        
+    @PostMapping // Endpoint que aceita requisições POST (criar)
+    @Operation(summary = "Criar cliente", description = "Cadastra um novo cliente") // Swagger: descreve o endpoint na documentação
+    public ResponseEntity<ClienteResponseDTO> criar(@Valid @RequestBody ClienteRequestDTO dto) { // Valida os campos e recebe os dados do corpo da requisição HTTP (JSON)
+        Cliente entity = clienteMapper.toEntity(dto);
         Cliente created = service.create(entity);
-        return ResponseEntity.status(HttpStatus.CREATED).body(ClienteResponseDTO.fromEntity(created));
+        return ResponseEntity.status(HttpStatus.CREATED).body(clienteMapper.toResponse(created));
     }
     
-    @PutMapping("/{id}")
-    @Operation(summary = "Atualizar cliente")
-    public ResponseEntity<ClienteResponseDTO> atualizar(@PathVariable Long id, @Valid @RequestBody ClienteRequestDTO dto) {
-        Cliente entity = service.findById(id);
-        entity.setNome(dto.getNome());
-        entity.setEmail(dto.getEmail());
-        entity.setTelefone(dto.getTelefone());
-        entity.setCpf(dto.getCpf());
-        entity.setEndereco(dto.getEndereco());
-        entity.setObservacoes(dto.getObservacoes());
-        entity.setAtivo(dto.getAtivo());
-        
+    @PutMapping("/{id}") // Endpoint que aceita requisições PUT (atualizar) com parâmetro na URL
+    @Operation(summary = "Atualizar cliente") // Swagger: descreve o endpoint na documentação
+    public ResponseEntity<ClienteResponseDTO> atualizar(@PathVariable Long id, @Valid @RequestBody ClienteRequestDTO dto) { // Recebe o valor da URL e valida os dados do corpo da requisição HTTP (JSON)
+        Cliente entity = clienteMapper.toEntity(dto);
         Cliente updated = service.update(id, entity);
-        return ResponseEntity.ok(ClienteResponseDTO.fromEntity(updated));
+        return ResponseEntity.ok(clienteMapper.toResponse(updated));
     }
     
-    @GetMapping("/telefone/{telefone}")
-    @Operation(summary = "Buscar cliente por telefone")
-    public ResponseEntity<List<ClienteResponseDTO>> buscarPorTelefone(@PathVariable String telefone) {
+    @GetMapping("/telefone/{telefone}") // Endpoint que aceita requisições GET com parâmetro na URL
+    @Operation(summary = "Buscar cliente por telefone") // Swagger: descreve o endpoint na documentação
+    public ResponseEntity<List<ClienteResponseDTO>> buscarPorTelefone(@PathVariable String telefone) { // Recebe o valor da URL (ex: /clientes/telefone/{telefone})
         List<ClienteResponseDTO> dtos = service.findByTelefone(telefone).stream()
-            .map(ClienteResponseDTO::fromEntity)
+            .map(clienteMapper::toResponse)
             .toList();
         return ResponseEntity.ok(dtos);
     }
     
-    @GetMapping("/busca")
-    @Operation(summary = "Buscar clientes por nome")
-    public ResponseEntity<List<ClienteResponseDTO>> buscarPorNome(@RequestParam String q) {
+    @GetMapping("/busca") // Endpoint que aceita requisições GET
+    @Operation(summary = "Buscar clientes por nome") // Swagger: descreve o endpoint na documentação
+    public ResponseEntity<List<ClienteResponseDTO>> buscarPorNome(@RequestParam String q) { // Recebe o valor do parâmetro da URL (?param=valor)
         List<ClienteResponseDTO> dtos = service.findByNomeContaining(q).stream()
-            .map(ClienteResponseDTO::fromEntity)
+            .map(clienteMapper::toResponse)
             .toList();
         return ResponseEntity.ok(dtos);
     }
     
-    @GetMapping("/inativos")
-    @Operation(summary = "Listar clientes inativos")
-    public ResponseEntity<List<ClienteResponseDTO>> inativos(@RequestParam(defaultValue = "90") int dias) {
+    @GetMapping("/inativos") // Endpoint que aceita requisições GET
+    @Operation(summary = "Listar clientes inativos") // Swagger: descreve o endpoint na documentação
+    public ResponseEntity<List<ClienteResponseDTO>> inativos(@RequestParam(defaultValue = "90") int dias) { // Recebe o valor do parâmetro da URL com valor padrão
         List<ClienteResponseDTO> dtos = service.findInativos(dias).stream()
-            .map(ClienteResponseDTO::fromEntity)
+            .map(clienteMapper::toResponse)
             .toList();
         return ResponseEntity.ok(dtos);
     }
     
-    @DeleteMapping("/{id}")
-    @Operation(summary = "Excluir cliente")
-    public ResponseEntity<Void> excluir(@PathVariable Long id) {
+    @DeleteMapping("/{id}") // Endpoint que aceita requisições DELETE (excluir) com parâmetro na URL
+    @Operation(summary = "Excluir cliente") // Swagger: descreve o endpoint na documentação
+    public ResponseEntity<Void> excluir(@PathVariable Long id) { // Recebe o valor da URL (ex: /clientes/{id})
         service.delete(id);
         return ResponseEntity.noContent().build();
     }

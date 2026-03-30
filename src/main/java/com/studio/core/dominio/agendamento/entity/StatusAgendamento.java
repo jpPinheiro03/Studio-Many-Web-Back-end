@@ -2,9 +2,11 @@ package com.studio.core.dominio.agendamento.entity;
 
 public enum StatusAgendamento {
     PENDENTE,
+    AGUARDANDO_CONFIRMACAO,
     CONFIRMADO,
-    CANCELADO,
-    REALIZADO,
+    EM_ATENDIMENTO,
     CONCLUIDO,
-    NAO_COMPARECEU
+    CANCELADO,
+    NAO_COMPARECEU,
+    REAGENDADO
 }

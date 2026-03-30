@@ -4,53 +4,43 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.studio.core.dominio.cliente.entity.Cliente;
 import com.studio.core.dominio.pacote.entity.Pacote;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "cliente_pacotes")
+@Entity // Esta classe vira uma tabela no banco de dados
+@Table(name = "cliente_pacotes", uniqueConstraints = { // Nome da tabela no banco com restrição de unicidade
+    @UniqueConstraint(columnNames = {"cliente_id", "pacote_id"}) // Impede combinação duplicada de cliente e pacote
+})
+@Getter @Setter // Lombok: gera getters e setters automaticamente
 public class ClientePacote {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cliente_id", nullable = false)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private Cliente cliente;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "pacote_id", nullable = false)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private Pacote pacote;
-    
-    @Column(name = "sessoes_usadas", nullable = false)
-    private Integer sessoesUsadas = 0;
-    
-    @Column(name = "data_validade")
-    private LocalDate dataValidade;
-    
-    @Column(name = "data_compra")
-    private LocalDateTime dataCompra = LocalDateTime.now();
-    
-    @Enumerated(EnumType.STRING)
-    private StatusClientePacote status = StatusClientePacote.ATIVO;
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public Cliente getCliente() { return cliente; }
-    public void setCliente(Cliente cliente) { this.cliente = cliente; }
-    public Pacote getPacote() { return pacote; }
-    public void setPacote(Pacote pacote) { this.pacote = pacote; }
-    public Integer getSessoesUsadas() { return sessoesUsadas; }
-    public void setSessoesUsadas(Integer sessoesUsadas) { this.sessoesUsadas = sessoesUsadas; }
-    public LocalDate getDataValidade() { return dataValidade; }
-    public void setDataValidade(LocalDate dataValidade) { this.dataValidade = dataValidade; }
-    public LocalDateTime getDataCompra() { return dataCompra; }
-    public void setDataCompra(LocalDateTime dataCompra) { this.dataCompra = dataCompra; }
-    public StatusClientePacote getStatus() { return status; }
-    public void setStatus(StatusClientePacote status) { this.status = status; }
+    @Id // Chave primária da tabela
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-incremento pelo banco
+    private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY) // Muitos registros apontam para 1 cliente (carregamento sob demanda)
+    @JoinColumn(name = "cliente_id", nullable = false) // Nome da coluna FK obrigatória
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // Evita erro de serialização JSON no lazy loading
+    private Cliente cliente;
+
+    @ManyToOne(fetch = FetchType.LAZY) // Muitos registros apontam para 1 pacote (carregamento sob demanda)
+    @JoinColumn(name = "pacote_id", nullable = false) // Nome da coluna FK obrigatória
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // Evita erro de serialização JSON no lazy loading
+    private Pacote pacote;
+
+    @Column(name = "sessoes_usadas", nullable = false) // Coluna obrigatória com nome customizado
+    private Integer sessoesUsadas = 0;
+
+    @Column(name = "data_validade") // Nome da coluna no banco (snake_case)
+    private LocalDate dataValidade;
+
+    @Column(name = "data_compra") // Nome da coluna no banco (snake_case)
+    private LocalDateTime dataCompra = LocalDateTime.now();
+
+    @Enumerated(EnumType.STRING) // Armazena o enum como texto no banco
+    private StatusClientePacote status = StatusClientePacote.ATIVO;
 
     public enum StatusClientePacote {
         ATIVO,

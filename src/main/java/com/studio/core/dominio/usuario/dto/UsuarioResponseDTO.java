@@ -1,8 +1,10 @@
 package com.studio.core.dominio.usuario.dto;
 
 import com.studio.core.dominio.usuario.entity.Usuario;
+import lombok.Data;
 import java.time.LocalDateTime;
 
+@Data
 public class UsuarioResponseDTO {
     
     private Long id;
@@ -12,33 +14,4 @@ public class UsuarioResponseDTO {
     private String nomeFuncionario;
     private LocalDateTime dataCadastro;
     private Boolean ativo;
-
-    public static UsuarioResponseDTO fromEntity(Usuario usuario) {
-        UsuarioResponseDTO dto = new UsuarioResponseDTO();
-        dto.setId(usuario.getId());
-        dto.setEmail(usuario.getEmail());
-        dto.setRole(usuario.getRole());
-        dto.setDataCadastro(usuario.getDataCadastro());
-        dto.setAtivo(usuario.getAtivo());
-        if (usuario.getFuncionario() != null) {
-            dto.setFuncionarioId(usuario.getFuncionario().getId());
-            dto.setNomeFuncionario(usuario.getFuncionario().getNome());
-        }
-        return dto;
-    }
-
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
-    public Usuario.Role getRole() { return role; }
-    public void setRole(Usuario.Role role) { this.role = role; }
-    public Long getFuncionarioId() { return funcionarioId; }
-    public void setFuncionarioId(Long funcionarioId) { this.funcionarioId = funcionarioId; }
-    public String getNomeFuncionario() { return nomeFuncionario; }
-    public void setNomeFuncionario(String nomeFuncionario) { this.nomeFuncionario = nomeFuncionario; }
-    public LocalDateTime getDataCadastro() { return dataCadastro; }
-    public void setDataCadastro(LocalDateTime dataCadastro) { this.dataCadastro = dataCadastro; }
-    public Boolean getAtivo() { return ativo; }
-    public void setAtivo(Boolean ativo) { this.ativo = ativo; }
 }

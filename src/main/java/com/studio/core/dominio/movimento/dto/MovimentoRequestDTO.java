@@ -3,37 +3,25 @@ package com.studio.core.dominio.movimento.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import lombok.Data;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+@Data // Lombok: gera getters, setters, toString, equals, hashCode
 public class MovimentoRequestDTO {
 
-    @NotBlank(message = "Tipo é obrigatório")
+    @NotBlank(message = "Tipo é obrigatório") // Não pode ser vazio nem nulo
     private String tipo;
 
-    @NotBlank(message = "Referência tipo é obrigatória")
-    private String referenciaTipo;
+    private Long agendamentoId;
 
-    private Long referenciaId;
+    private Long usuarioId;
 
-    @NotNull(message = "Valor é obrigatório")
-    @Positive(message = "Valor deve ser positivo")
+    @NotNull(message = "Valor é obrigatório") // Não pode ser nulo
+    @Positive(message = "Valor deve ser positivo") // Deve ser maior que zero
     private BigDecimal valor;
 
     private LocalDate dataMovimento;
 
     private String descricao;
-
-    public String getTipo() { return tipo; }
-    public void setTipo(String tipo) { this.tipo = tipo; }
-    public String getReferenciaTipo() { return referenciaTipo; }
-    public void setReferenciaTipo(String referenciaTipo) { this.referenciaTipo = referenciaTipo; }
-    public Long getReferenciaId() { return referenciaId; }
-    public void setReferenciaId(Long referenciaId) { this.referenciaId = referenciaId; }
-    public BigDecimal getValor() { return valor; }
-    public void setValor(BigDecimal valor) { this.valor = valor; }
-    public LocalDate getDataMovimento() { return dataMovimento; }
-    public void setDataMovimento(LocalDate dataMovimento) { this.dataMovimento = dataMovimento; }
-    public String getDescricao() { return descricao; }
-    public void setDescricao(String descricao) { this.descricao = descricao; }
 }

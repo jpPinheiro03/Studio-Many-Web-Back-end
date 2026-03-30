@@ -8,8 +8,10 @@ import java.util.Optional;
 
 @Repository
 public interface FuncionarioServicoRepository extends JpaRepository<FuncionarioServico, Long> {
-    List<FuncionarioServico> findByFunc_Id(Long funcId);
+    List<FuncionarioServico> findByFuncionario_Id(Long funcId);
     List<FuncionarioServico> findByServico_Id(Long servicoId);
-    Optional<FuncionarioServico> findByFunc_IdAndServico_Id(Long funcId, Long servicoId);
-    boolean existsByFunc_IdAndServico_Id(Long funcId, Long servicoId);
+    Optional<FuncionarioServico> findByFuncionario_IdAndServico_Id(Long funcId, Long servicoId);
+    boolean existsByFuncionario_IdAndServico_Id(Long funcId, Long servicoId);
+    boolean existsByServico_Id(Long servicoId);
+    boolean existsByFuncionario_Id(Long funcId);
 }
