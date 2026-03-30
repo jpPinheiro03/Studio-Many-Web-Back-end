@@ -29,8 +29,6 @@ public class AgendamentoController {
     @Autowired
     private AgendamentoService service;
 
-
-
     @GetMapping
     @Operation(summary = "Listar todos os agendamentos")
     @ApiResponses({
