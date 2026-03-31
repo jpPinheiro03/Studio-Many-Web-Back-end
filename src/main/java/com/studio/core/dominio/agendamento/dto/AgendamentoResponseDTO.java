@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
-public class AgendamentoResponseDTO {
+public class    AgendamentoResponseDTO {
 
     private Long id;
     private ClienteResponseDTO cliente;
