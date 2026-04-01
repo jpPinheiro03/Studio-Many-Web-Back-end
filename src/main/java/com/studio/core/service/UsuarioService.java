@@ -10,6 +10,7 @@ import com.studio.core.dominio.usuario.dto.UsuarioResponseDTO;
 import com.studio.core.dominio.usuario.entity.Usuario;
 import com.studio.core.dominio.usuario.mapper.UsuarioMapper;
 import com.studio.core.dominio.usuario.repository.UsuarioRepository;
+import com.studio.core.exception.ConflictRequestException;
 import org.springframework.context.annotation.Lazy;
 import com.studio.core.exception.BadRequestException;
 import com.studio.core.exception.ResourceNotFoundException;
@@ -54,7 +55,7 @@ public class UsuarioService {
     
     public UsuarioResponseDTO create(UsuarioRequestDTO dto) {
         if (repository.existsByEmail(dto.getEmail())) {
-            throw new BadRequestException("Email já cadastrado");
+            throw new ConflictRequestException("Email já cadastrado");
         }
         
         Usuario usuario = usuarioMapper.toEntity(dto);
