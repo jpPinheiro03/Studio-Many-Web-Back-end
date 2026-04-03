@@ -233,7 +233,7 @@ public class AuthController {
             ),
             @ApiResponse(
                     responseCode = "404",
-                    description = "Recurso não encontrado inválida",
+                    description = "Recurso não encontrado",
                     content = @Content(
                             mediaType = "application/json",
                             examples = @ExampleObject(value = """
