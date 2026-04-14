@@ -1,8 +1,7 @@
 # Studio Many API - Endpoints para Teste
 # Base URL: http://localhost:8081
 #
-@token = eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmdW5jaW9uYXJpb0BzdHVkaW8uY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzc0ODQzODE4LCJleHAiOjE3NzQ5MzAyMTh9.5cy2YcRu4I_ISDWHaRg6Tf6ifzWsVhMMrpqcYWpw4g0
-
+@token = eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBzdHVkaW8uY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzc1MDEwODkxLCJleHAiOjE3NzUwOTcyOTF9.JxM-KJr5zzCg_s_rbOaaxIzJ0ihkAMYcRsQvb7D5EWY
 
 ### Login - Execute primeiro para obter o token
 # @name login
@@ -38,7 +37,7 @@ GET http://localhost:8081/api/auth/usuarios
 Authorization: Bearer {{token}}
 
 ### Buscar usuário por ID
-GET http://localhost:8081/api/auth/usuarios/1
+GET http://localhost:8081/api/auth/usuarios/4
 Authorization: Bearer {{token}}
 
 ### Atualizar usuário
@@ -47,8 +46,8 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "email": "admin@studio.com",
-  "role": "ADMIN"
+  "email": "",
+  "role": ""
 }
 
 ### Trocar senha
@@ -62,7 +61,7 @@ Authorization: Bearer {{token}}
 }
 
 ### Excluir usuário
-DELETE http://localhost:8081/api/auth/usuarios/2
+DELETE http://localhost:8081/api/auth/usuarios/1
 Authorization: Bearer {{token}}
 
 ### Listar clientes

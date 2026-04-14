@@ -174,6 +174,7 @@ public class BloqueioController {
             """)
                     )
             ),
+
             @ApiResponse(
                     responseCode = "404",
                     description = "Recurso não encontrado",
@@ -183,7 +184,7 @@ public class BloqueioController {
                             {
             "status": 404,
             "error": "NOT FOUND",
-            "message": "Bloqueio não encontrado"
+            "message": "Usuário não encontrado com ID: 4""
             }
             """)
                     )
