@@ -3,6 +3,7 @@ package com.studio.core.service;
 import com.studio.core.dominio.cliente.entity.Cliente;
 import com.studio.core.dominio.cliente.repository.ClienteRepository;
 import com.studio.core.exception.BadRequestException;
+import com.studio.core.exception.EntityConflictException;
 import com.studio.core.exception.ResourceNotFoundException;
 import com.studio.core.validator.CpfValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class ClienteService {
     public Cliente create(Cliente cliente) {
         if (cliente.getEmail() != null && !cliente.getEmail().isEmpty()) {
             if (repository.existsByEmail(cliente.getEmail())) {
-                throw new BadRequestException("Email já cadastrado");
+                throw new EntityConflictException("Email já cadastrado");
             }
         }
         if (cliente.getCpf() != null && !cliente.getCpf().isEmpty()) {
